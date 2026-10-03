@@ -45,10 +45,10 @@ impl TransactionAmountParser {
             alignment,
             invert_alignment,
             x_tol,
-            x1_range: vec![0, 10000],
-            x2_range: vec![0, 10000],
-            invert_x1_range: vec![0, 10000],
-            invert_x2_range: vec![0, 10000],
+            x1_range: config.transaction_amount_x1_range.to_vec(),
+            x2_range: config.transaction_amount_x2_range.to_vec(),
+            invert_x1_range: config.transaction_amount_invert_x1_range.to_vec(),
+            invert_x2_range: config.transaction_amount_invert_x2_range.to_vec(),
             has_inverted_column: !invert_primer_terms.is_empty(),
             invert: config.transaction_amount_invert,
         }
@@ -206,5 +206,27 @@ impl TransactionAmountParser {
         // Must be in the invert range, since the filter above only allowed that as an alternative
         self.amount_parser.invert();
         consumed
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn configured_amount_ranges_are_used() {
+        let config = StatementConfig {
+            transaction_amount_x1_range: [10, 20],
+            transaction_amount_x2_range: [30, 40],
+            transaction_amount_invert_x1_range: [50, 60],
+            transaction_amount_invert_x2_range: [70, 80],
+            ..Default::default()
+        };
+        let parser = TransactionAmountParser::new(&config);
+
+        assert_eq!(parser.x1_range, vec![10, 20]);
+        assert_eq!(parser.x2_range, vec![30, 40]);
+        assert_eq!(parser.invert_x1_range, vec![50, 60]);
+        assert_eq!(parser.invert_x2_range, vec![70, 80]);
     }
 }

@@ -97,12 +97,20 @@ pub struct StatementConfig {
     pub transaction_date_headers: Vec<String>,
     /// Alignment of the transaction date column ("x1, "x2")
     pub transaction_date_alignment: String,
+    /// Inclusive x1 coordinate range for transaction dates
+    pub transaction_date_x1_range: [i32; 2],
+    /// Inclusive x2 coordinate range for transaction dates
+    pub transaction_date_x2_range: [i32; 2],
 
     // TRANSACTION DESCRIPTION READ PARAMS
     /// Headers that identify the transaction description column
     pub transaction_description_headers: Vec<String>,
     /// Alignment of the transaction description column ("x1, "x2")
     pub transaction_description_alignment: String,
+    /// Inclusive x1 coordinate range for transaction descriptions
+    pub transaction_description_x1_range: [i32; 2],
+    /// Inclusive x2 coordinate range for transaction descriptions
+    pub transaction_description_x2_range: [i32; 2],
     /// Regex patterns to exclude from being considered as part of the description.
     /// E.g., [/\.\./g] to exclude "......." patterns.
     pub transaction_description_exclude: Vec<Regex>,
@@ -114,10 +122,18 @@ pub struct StatementConfig {
     pub transaction_amount_headers: Vec<String>,
     /// Alignment of the transaction amount column ("x1, "x2")
     pub transaction_amount_alignment: String,
+    /// Inclusive x1 coordinate range for transaction amounts
+    pub transaction_amount_x1_range: [i32; 2],
+    /// Inclusive x2 coordinate range for transaction amounts
+    pub transaction_amount_x2_range: [i32; 2],
     /// Headers that identify when to invert the transaction amount sign
     pub transaction_amount_invert_headers: Vec<String>,
     /// Alignment of the transaction amount invert column ("x1, "x2")
     pub transaction_amount_invert_alignment: String,
+    /// Inclusive x1 coordinate range for amounts in the inverted column
+    pub transaction_amount_invert_x1_range: [i32; 2],
+    /// Inclusive x2 coordinate range for amounts in the inverted column
+    pub transaction_amount_invert_x2_range: [i32; 2],
     /// Invert the sign of all transaction amounts. Often needed for credit card statements.
     pub transaction_amount_invert: bool,
 
@@ -128,6 +144,10 @@ pub struct StatementConfig {
     pub transaction_balance_headers: Vec<String>,
     /// Alignment of the transaction balance column ("x1, "x2")
     pub transaction_balance_alignment: String,
+    /// Inclusive x1 coordinate range for transaction balances
+    pub transaction_balance_x1_range: [i32; 2],
+    /// Inclusive x2 coordinate range for transaction balances
+    pub transaction_balance_x2_range: [i32; 2],
     /// Invert the sign of all transaction balance amounts.
     pub transaction_balance_invert: bool,
     /// Ignore statement balance column if present. Balances will be filled from transaction amounts.
@@ -180,21 +200,31 @@ impl Default for StatementConfig {
             transaction_date_formats: vec![],
             transaction_date_headers: vec![],
             transaction_date_alignment: "x1".to_string(),
+            transaction_date_x1_range: [0, 10000],
+            transaction_date_x2_range: [0, 10000],
 
             transaction_description_headers: vec![],
             transaction_description_alignment: "x1".to_string(),
+            transaction_description_x1_range: [0, 10000],
+            transaction_description_x2_range: [0, 10000],
             transaction_description_exclude: vec![],
 
             transaction_amount_formats: vec![],
             transaction_amount_headers: vec![],
             transaction_amount_alignment: "x1".to_string(),
+            transaction_amount_x1_range: [0, 10000],
+            transaction_amount_x2_range: [0, 10000],
             transaction_amount_invert_headers: vec![],
             transaction_amount_invert_alignment: "x1".to_string(),
+            transaction_amount_invert_x1_range: [0, 10000],
+            transaction_amount_invert_x2_range: [0, 10000],
             transaction_amount_invert: false,
 
             transaction_balance_formats: vec![],
             transaction_balance_headers: vec![],
             transaction_balance_alignment: "x1".to_string(),
+            transaction_balance_x1_range: [0, 10000],
+            transaction_balance_x2_range: [0, 10000],
             transaction_balance_invert: false,
             transaction_balance_ignore: false,
         }

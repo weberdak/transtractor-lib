@@ -70,21 +70,31 @@ struct StatementConfigPartial {
     transaction_date_formats: Option<Vec<String>>,
     transaction_date_headers: Option<Vec<String>>,
     transaction_date_alignment: Option<String>,
+    transaction_date_x1_range: Option<[i32; 2]>,
+    transaction_date_x2_range: Option<[i32; 2]>,
 
     transaction_description_headers: Option<Vec<String>>,
     transaction_description_alignment: Option<String>,
+    transaction_description_x1_range: Option<[i32; 2]>,
+    transaction_description_x2_range: Option<[i32; 2]>,
     transaction_description_exclude: Option<Vec<String>>,
 
     transaction_amount_formats: Option<Vec<String>>,
     transaction_amount_headers: Option<Vec<String>>,
     transaction_amount_alignment: Option<String>,
+    transaction_amount_x1_range: Option<[i32; 2]>,
+    transaction_amount_x2_range: Option<[i32; 2]>,
     transaction_amount_invert_headers: Option<Vec<String>>,
     transaction_amount_invert_alignment: Option<String>,
+    transaction_amount_invert_x1_range: Option<[i32; 2]>,
+    transaction_amount_invert_x2_range: Option<[i32; 2]>,
     transaction_amount_invert: Option<bool>,
 
     transaction_balance_formats: Option<Vec<String>>,
     transaction_balance_headers: Option<Vec<String>>,
     transaction_balance_alignment: Option<String>,
+    transaction_balance_x1_range: Option<[i32; 2]>,
+    transaction_balance_x2_range: Option<[i32; 2]>,
     transaction_balance_invert: Option<bool>,
     transaction_balance_ignore: Option<bool>,
 
@@ -173,9 +183,13 @@ pub fn from_json_str_with_deprecations(src: &str) -> Result<ConfigParseResult, S
     overlay!(transaction_date_formats);
     overlay!(transaction_date_headers);
     overlay!(transaction_date_alignment);
+    overlay!(transaction_date_x1_range);
+    overlay!(transaction_date_x2_range);
 
     overlay!(transaction_description_headers);
     overlay!(transaction_description_alignment);
+    overlay!(transaction_description_x1_range);
+    overlay!(transaction_description_x2_range);
 
     if let Some(ex_patterns) = partial.transaction_description_exclude {
         cfg.transaction_description_exclude = compile_regex_vec(ex_patterns)?;
@@ -184,13 +198,19 @@ pub fn from_json_str_with_deprecations(src: &str) -> Result<ConfigParseResult, S
     overlay!(transaction_amount_formats);
     overlay!(transaction_amount_headers);
     overlay!(transaction_amount_alignment);
+    overlay!(transaction_amount_x1_range);
+    overlay!(transaction_amount_x2_range);
     overlay!(transaction_amount_invert_headers);
     overlay!(transaction_amount_invert_alignment);
+    overlay!(transaction_amount_invert_x1_range);
+    overlay!(transaction_amount_invert_x2_range);
     overlay!(transaction_amount_invert);
 
     overlay!(transaction_balance_formats);
     overlay!(transaction_balance_headers);
     overlay!(transaction_balance_alignment);
+    overlay!(transaction_balance_x1_range);
+    overlay!(transaction_balance_x2_range);
     overlay!(transaction_balance_invert);
     overlay!(transaction_balance_ignore);
 
@@ -204,4 +224,75 @@ pub fn from_json_str_with_deprecations(src: &str) -> Result<ConfigParseResult, S
 pub fn from_json_str(src: &str) -> Result<StatementConfig, String> {
     let result = from_json_str_with_deprecations(src)?;
     Ok(result.config)
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn transaction_x_ranges_are_loaded_and_defaulted() {
+        let mut config_json: serde_json::Value =
+            serde_json::from_str(include_str!("../../../tests/fixtures/test1_config.json"))
+                .unwrap();
+        let fields = [
+            ("transaction_date_x1_range", serde_json::json!([1, 2])),
+            ("transaction_date_x2_range", serde_json::json!([3, 4])),
+            (
+                "transaction_description_x1_range",
+                serde_json::json!([5, 6]),
+            ),
+            (
+                "transaction_description_x2_range",
+                serde_json::json!([7, 8]),
+            ),
+            ("transaction_amount_x1_range", serde_json::json!([9, 10])),
+            ("transaction_amount_x2_range", serde_json::json!([11, 12])),
+            (
+                "transaction_amount_invert_x1_range",
+                serde_json::json!([13, 14]),
+            ),
+            (
+                "transaction_amount_invert_x2_range",
+                serde_json::json!([15, 16]),
+            ),
+            ("transaction_balance_x1_range", serde_json::json!([17, 18])),
+            ("transaction_balance_x2_range", serde_json::json!([19, 20])),
+        ];
+        let object = config_json.as_object_mut().unwrap();
+        for (key, value) in fields {
+            object.insert(key.to_string(), value);
+        }
+        let config = from_json_str(&config_json.to_string()).unwrap();
+
+        assert_eq!(config.transaction_date_x1_range, [1, 2]);
+        assert_eq!(config.transaction_date_x2_range, [3, 4]);
+        assert_eq!(config.transaction_description_x1_range, [5, 6]);
+        assert_eq!(config.transaction_description_x2_range, [7, 8]);
+        assert_eq!(config.transaction_amount_x1_range, [9, 10]);
+        assert_eq!(config.transaction_amount_x2_range, [11, 12]);
+        assert_eq!(config.transaction_amount_invert_x1_range, [13, 14]);
+        assert_eq!(config.transaction_amount_invert_x2_range, [15, 16]);
+        assert_eq!(config.transaction_balance_x1_range, [17, 18]);
+        assert_eq!(config.transaction_balance_x2_range, [19, 20]);
+
+        let default_config =
+            from_json_str(include_str!("../../../tests/fixtures/test1_config.json")).unwrap();
+        assert_eq!(default_config.transaction_date_x1_range, [0, 10000]);
+        assert_eq!(default_config.transaction_date_x2_range, [0, 10000]);
+        assert_eq!(default_config.transaction_description_x1_range, [0, 10000]);
+        assert_eq!(default_config.transaction_description_x2_range, [0, 10000]);
+        assert_eq!(default_config.transaction_amount_x1_range, [0, 10000]);
+        assert_eq!(default_config.transaction_amount_x2_range, [0, 10000]);
+        assert_eq!(
+            default_config.transaction_amount_invert_x1_range,
+            [0, 10000]
+        );
+        assert_eq!(
+            default_config.transaction_amount_invert_x2_range,
+            [0, 10000]
+        );
+        assert_eq!(default_config.transaction_balance_x1_range, [0, 10000]);
+        assert_eq!(default_config.transaction_balance_x2_range, [0, 10000]);
+    }
 }

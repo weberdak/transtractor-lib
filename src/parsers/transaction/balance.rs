@@ -33,8 +33,8 @@ impl TransactionBalanceParser {
             header_primer: ParserPrimer::new(primer_terms.as_slice(), 1),
             alignment,
             x_tol,
-            x1_range: vec![0, 10000],
-            x2_range: vec![0, 10000],
+            x1_range: config.transaction_balance_x1_range.to_vec(),
+            x2_range: config.transaction_balance_x2_range.to_vec(),
             invert,
         }
     }
@@ -130,5 +130,23 @@ impl TransactionBalanceParser {
                 && item.x2 >= x2_range.0
                 && item.x2 <= x2_range.1
         })
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn configured_ranges_are_used() {
+        let config = StatementConfig {
+            transaction_balance_x1_range: [10, 20],
+            transaction_balance_x2_range: [30, 40],
+            ..Default::default()
+        };
+        let parser = TransactionBalanceParser::new(&config);
+
+        assert_eq!(parser.x1_range, vec![10, 20]);
+        assert_eq!(parser.x2_range, vec![30, 40]);
     }
 }

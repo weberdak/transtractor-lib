@@ -69,12 +69,16 @@ pub fn get_config() -> StatementConfig {
         transaction_date_formats: vec!["format2".to_string()],
         transaction_date_headers: vec!["Date".to_string(), "Da t e".to_string()],
         transaction_date_alignment: "x1".to_string(),
+        transaction_date_x1_range: [0, 10000],
+        transaction_date_x2_range: [0, 10000],
 
         transaction_description_headers: vec![
             "Particulars".to_string(),
             "Pa rt i c u lars".to_string(),
         ],
         transaction_description_alignment: "x1".to_string(),
+        transaction_description_x1_range: [0, 10000],
+        transaction_description_x2_range: [0, 10000],
         transaction_description_exclude: vec![
             // Remove dot leaders separating description from amount
             Regex::new(r"\ \.\ ").unwrap(),
@@ -95,13 +99,19 @@ pub fn get_config() -> StatementConfig {
         transaction_amount_formats: vec!["format1".to_string()],
         transaction_amount_headers: vec!["Credits".to_string(), "C redi ts".to_string()],
         transaction_amount_alignment: "x2".to_string(),
+        transaction_amount_x1_range: [0, 10000],
+        transaction_amount_x2_range: [0, 10000],
         transaction_amount_invert_headers: vec!["Debits".to_string(), "De b i t s".to_string()],
         transaction_amount_invert_alignment: "x2".to_string(),
+        transaction_amount_invert_x1_range: [0, 10000],
+        transaction_amount_invert_x2_range: [0, 10000],
         transaction_amount_invert: false,
 
         transaction_balance_formats: vec!["format1".to_string(), "format4".to_string()],
         transaction_balance_headers: vec!["Balance".to_string()],
         transaction_balance_alignment: "x2".to_string(),
+        transaction_balance_x1_range: [0, 10000],
+        transaction_balance_x2_range: [0, 10000],
         transaction_balance_invert: false,
         transaction_balance_ignore: false,
     }

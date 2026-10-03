@@ -32,8 +32,8 @@ impl TransactionDateParser {
             header_primer: ParserPrimer::new(primer_terms.as_slice(), 1),
             alignment,
             x_tol,
-            x1_range: vec![0, 10000],
-            x2_range: vec![0, 10000],
+            x1_range: config.transaction_date_x1_range.to_vec(),
+            x2_range: config.transaction_date_x2_range.to_vec(),
             start_date_year_str: "".to_string(),
         }
     }
@@ -136,5 +136,36 @@ impl TransactionDateParser {
                     && item.x2 >= x2_range.0
                     && item.x2 <= x2_range.1
             })
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn configured_ranges_are_used_and_header_overrides_aligned_range() {
+        let config = StatementConfig {
+            transaction_date_x1_range: [10, 20],
+            transaction_date_x2_range: [30, 40],
+            transaction_date_headers: vec!["Date".to_string()],
+            transaction_date_alignment: "x1".to_string(),
+            ..Default::default()
+        };
+        let mut parser = TransactionDateParser::new(&config);
+
+        assert_eq!(parser.x1_range, vec![10, 20]);
+        assert_eq!(parser.x2_range, vec![30, 40]);
+
+        let header = [TextItem::new("Date".to_string(), 50, 60, 70, 80, 1)];
+        assert_eq!(parser.try_parse_header(&header), 1);
+        assert_eq!(
+            parser.x1_range,
+            vec![
+                50 - config.transaction_alignment_tol,
+                50 + config.transaction_alignment_tol
+            ]
+        );
+        assert_eq!(parser.x2_range, vec![30, 40]);
     }
 }

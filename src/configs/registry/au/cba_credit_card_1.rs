@@ -58,9 +58,13 @@ pub fn get_config() -> StatementConfig {
         transaction_date_formats: vec!["format1".to_string()],
         transaction_date_headers: vec!["Date".to_string()],
         transaction_date_alignment: "x1".to_string(),
+        transaction_date_x1_range: [0, 10000],
+        transaction_date_x2_range: [0, 10000],
 
         transaction_description_headers: vec!["Transaction Details".to_string()],
         transaction_description_alignment: "x1".to_string(),
+        transaction_description_x1_range: [0, 10000],
+        transaction_description_x2_range: [0, 10000],
         transaction_description_exclude: vec![
             Regex::new(r"NetBank Visit.*Transaction Details").unwrap(),
         ],
@@ -68,13 +72,19 @@ pub fn get_config() -> StatementConfig {
         transaction_amount_formats: vec!["format1".to_string()],
         transaction_amount_headers: vec!["Amount (A$)".to_string()],
         transaction_amount_alignment: "x2".to_string(),
+        transaction_amount_x1_range: [0, 10000],
+        transaction_amount_x2_range: [0, 10000],
         transaction_amount_invert_headers: vec![],
         transaction_amount_invert_alignment: "x1".to_string(),
+        transaction_amount_invert_x1_range: [0, 10000],
+        transaction_amount_invert_x2_range: [0, 10000],
         transaction_amount_invert: true,
 
         transaction_balance_formats: vec![],
         transaction_balance_headers: vec![],
         transaction_balance_alignment: "x2".to_string(),
+        transaction_balance_x1_range: [0, 10000],
+        transaction_balance_x2_range: [0, 10000],
         transaction_balance_invert: false,
         transaction_balance_ignore: false,
     }
