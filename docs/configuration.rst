@@ -55,7 +55,6 @@ example file included in the source code is:
         "start_date_formats": ["format2"],
         "start_date_alignment": "y1",
         "start_date_alignment_tol": 5,
-        "start_date_first_match": false,
 
         "transaction_terms": ["Transaction Details"],
         "transaction_terms_stop": ["Transactions stop here."],
