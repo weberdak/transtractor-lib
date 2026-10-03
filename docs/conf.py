@@ -14,7 +14,7 @@ sys.path.insert(0, os.path.abspath("../python"))
 project = "Transtractor"
 copyright = "2026, Daniel Weber"
 author = "Daniel Weber"
-release = "0.14.1"
+release = "0.14.2"
 
 # -- General configuration ---------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#general-configuration
