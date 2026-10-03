@@ -70,9 +70,13 @@ example file included in the source code is:
         "transaction_date_formats": ["format1"],
         "transaction_date_headers": ["Date"],
         "transaction_date_alignment": "x1",
+        "transaction_date_x1_range": [0, 10000],
+        "transaction_date_x2_range": [0, 10000],
 
         "transaction_description_headers": ["Description"],
         "transaction_description_alignment": "x1",
+        "transaction_description_x1_range": [0, 10000],
+        "transaction_description_x2_range": [0, 10000],
         "transaction_description_exclude": [
             " Annoying text",
             " to filter out"
@@ -81,13 +85,19 @@ example file included in the source code is:
         "transaction_amount_formats": ["format1", "format2"],
         "transaction_amount_headers": ["Credit"],
         "transaction_amount_alignment": "x2",
+        "transaction_amount_x1_range": [0, 10000],
+        "transaction_amount_x2_range": [0, 10000],
         "transaction_amount_invert_headers": ["Debit"],
         "transaction_amount_invert_alignment": "x2",
+        "transaction_amount_invert_x1_range": [0, 10000],
+        "transaction_amount_invert_x2_range": [0, 10000],
         "transaction_amount_invert": false,
 
         "transaction_balance_formats": ["format4"],
         "transaction_balance_headers": ["Balance"],
         "transaction_balance_alignment": "x2",
+        "transaction_balance_x1_range": [0, 10000],
+        "transaction_balance_x2_range": [0, 10000],
         "transaction_balance_invert": false
     }
 
@@ -214,6 +224,8 @@ formats are supported:
       - "03/24/2023*" → 2023-03-24, "3/24/2023*" → 2023-03-24, "03/24/23*" → 2023-03-24, "3/24/23*" → 2023-03-24
     * - ``format15``
       - "Jul 1 - Jul 31, 2026" → 2026-07-01
+    * - ``format16``
+      - "1 Jul 26" → 2026-07-01, "01 July 26" → 2026-07-01
 
 Formats with a "XXXX" year will infer the year based on the statement start date.
 
@@ -518,6 +530,13 @@ to identify the horizontal position of the date field in the transaction table.
 Specifies the alignment of the transaction date field relative to the *transaction_date_headers*.
 Must be one of "x1" (left-aligned) or "x2" (right-aligned).
 
+*transaction_date_x1_range* and *transaction_date_x2_range*
+****************************************
+Two-element inclusive ranges for the transaction date's x1 and x2 coordinates, respectively.
+Both default to ``[0, 10000]``. When a date header is configured and found, its position
+overrides the range selected by *transaction_date_alignment*. Without date headers, alignment
+does not affect matching; these coordinate ranges are used directly.
+
 *transaction_description_headers*
 ****************************************
 List of text headers that identify the transaction description column. The parser will use these
@@ -527,6 +546,13 @@ to identify the horizontal position of the description field in the transaction 
 ****************************************
 Specifies the alignment of the transaction description field relative to the *transaction_description_headers*.
 Must be one of "x1" (left-aligned) or "x2" (right-aligned).
+
+*transaction_description_x1_range* and *transaction_description_x2_range*
+****************************************
+Two-element inclusive ranges for the transaction description's x1 and x2 coordinates, respectively.
+Both default to ``[0, 10000]``. When a description header is configured and found, its position
+overrides the range selected by *transaction_description_alignment*. Without description headers,
+alignment does not affect matching; these coordinate ranges are used directly.
 
 *transaction_description_exclude*
 ****************************************
@@ -550,6 +576,13 @@ separate debit and credit columns, then set this to the credit column header.
 Specifies the alignment of the transaction amount field relative to the *transaction_amount_headers*.
 Must be one of "x1" (left-aligned) or "x2" (right-aligned).
 
+*transaction_amount_x1_range* and *transaction_amount_x2_range*
+****************************************
+Two-element inclusive ranges for the transaction amount's x1 and x2 coordinates, respectively.
+Both default to ``[0, 10000]``. When an amount header is configured and found, its position
+overrides the range selected by *transaction_amount_alignment*. Without amount headers, alignment
+does not affect matching; these coordinate ranges are used directly.
+
 *transaction_amount_invert_headers*
 ****************************************
 List of text headers that identify transaction amount columns where the sign needs to be inverted.
@@ -559,6 +592,13 @@ For example, if there are separate debit and credit columns, then set this to th
 ****************************************
 Specifies the alignment of the transaction amount field relative to the *transaction_amount_invert_headers*.
 Must be one of "x1" (left-aligned) or "x2" (right-aligned).
+
+*transaction_amount_invert_x1_range* and *transaction_amount_invert_x2_range*
+****************************************
+Two-element inclusive ranges for x1 and x2 coordinates of amounts in the inverted column,
+respectively. Both default to ``[0, 10000]``. When an invert header is configured and found, its
+position overrides the range selected by *transaction_amount_invert_alignment*. Without invert
+headers, alignment does not affect matching.
 
 *transaction_amount_invert*
 *************************************
@@ -582,6 +622,13 @@ if transaction balances are not present in the statement.
 ****************************************
 Specifies the alignment of the transaction balance field relative to the *transaction_balance_headers*.
 Must be one of "x1" (left-aligned) or "x2" (right-aligned). Cannot be left empty.
+
+*transaction_balance_x1_range* and *transaction_balance_x2_range*
+****************************************
+Two-element inclusive ranges for the transaction balance's x1 and x2 coordinates, respectively.
+Both default to ``[0, 10000]``. When a balance header is configured and found, its position
+overrides the range selected by *transaction_balance_alignment*. Without balance headers,
+alignment does not affect matching; these coordinate ranges are used directly.
 
 *transaction_balance_invert*
 *************************************
