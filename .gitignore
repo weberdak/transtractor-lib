@@ -242,3 +242,7 @@ wasm/pkg/
 wasm/pkg-web/
 wasm/node_modules/
 wasm/*.tgz
+
+# Working folders for project
+examples/
+notes/
