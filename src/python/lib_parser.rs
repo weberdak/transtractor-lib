@@ -93,7 +93,7 @@ impl LibParser {
     }
 
     /// Process a layout string and return statement data as a Python object of type
-    /// StatementData.
+    /// AccountData.
     pub fn py_layout_path_to_py_statement_data(
         &self,
         py_layout_path: &Bound<'_, PyAny>,
@@ -154,7 +154,7 @@ impl LibParser {
         str_to_file(debug_str, py_debug_path)
     }
 
-    /// Process a PDF file path from Python caller and return a Python StatementData object.
+    /// Process a PDF file path from Python caller and return a Python AccountData object.
     pub fn py_pdf_path_to_py_statement_data(
         &self,
         py_pdf_path: &Bound<'_, PyAny>,

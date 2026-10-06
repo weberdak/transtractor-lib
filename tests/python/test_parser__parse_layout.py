@@ -45,14 +45,9 @@ def test_parse_layout_generates_correct_csv():
         )
     )
 
-    assert statement_data.key == "au__gtb__fake_account__1"
-    assert statement_data.account_number == "1234 5678 9123 4567"
     assert {
         transaction.account_number for transaction in statement_data.transactions
-    } == {statement_data.account_number}
-    assert statement_data.start_date == 1735689600000
-    assert statement_data.opening_balance == 50000.0
-    assert statement_data.closing_balance == 11663.82
+    } == {"1234 5678 9123 4567"}
 
     # Generate CSV in a temporary file
     with tempfile.NamedTemporaryFile(

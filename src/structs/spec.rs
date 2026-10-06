@@ -1,6 +1,6 @@
 use crate::configs::db::ConfigDB;
-use crate::parsers::flows::text_items_to_statement_data::text_items_to_statement_data;
-use crate::structs::StatementData;
+use crate::parsers::flows::text_items_to_statement_data::text_items_to_account_data;
+use crate::structs::AccountData;
 use crate::structs::text_item::TextItem;
 use serde::{Deserialize, Serialize};
 use serde_json;
@@ -55,7 +55,7 @@ fn push_option_f64_field_diff(
     }
 }
 
-pub fn diff(generated: &StatementData, expected: &StatementData) -> Vec<String> {
+pub fn diff(generated: &AccountData, expected: &AccountData) -> Vec<String> {
     let mut diffs = Vec::new();
 
     push_option_field_diff(
@@ -151,7 +151,7 @@ pub fn diff(generated: &StatementData, expected: &StatementData) -> Vec<String> 
     diffs
 }
 
-pub fn matches(generated: &StatementData, expected: &StatementData) -> Result<(), String> {
+pub fn matches(generated: &AccountData, expected: &AccountData) -> Result<(), String> {
     let diffs = diff(generated, expected);
     if diffs.is_empty() {
         Ok(())
@@ -162,13 +162,13 @@ pub fn matches(generated: &StatementData, expected: &StatementData) -> Result<()
 
 #[derive(Serialize, Deserialize)]
 pub struct Spec {
-    pub statement_data: StatementData,
+    pub statement_data: AccountData,
     pub text_items: Vec<TextItem>,
 }
 
 impl Spec {
     pub fn new(config_db: &ConfigDB, text_items: Vec<TextItem>) -> Result<Self, String> {
-        let sd = text_items_to_statement_data(config_db, &text_items)?;
+        let sd = text_items_to_account_data(config_db, &text_items)?;
         Ok(Spec {
             statement_data: sd,
             text_items,
@@ -201,7 +201,7 @@ mod tests {
 
     #[test]
     fn compares_statement_data_objects() {
-        let mut first = StatementData::new();
+        let mut first = AccountData::new();
         first.set_key("statement-1".to_string());
         first.set_account_number("ACC-123".to_string());
         first.add_proto_transaction(ProtoTransaction {
@@ -212,7 +212,7 @@ mod tests {
             balance: Some(104.0),
         });
 
-        let mut second = StatementData::new();
+        let mut second = AccountData::new();
         second.set_key("statement-1".to_string());
         second.set_account_number("ACC-123".to_string());
         second.add_proto_transaction(ProtoTransaction {
@@ -223,7 +223,7 @@ mod tests {
             balance: Some(104.0),
         });
 
-        let mut third = StatementData::new();
+        let mut third = AccountData::new();
         third.set_key("statement-2".to_string());
 
         assert!(matches(&first, &second).is_ok());
@@ -232,7 +232,7 @@ mod tests {
 
     #[test]
     fn compares_statement_data_with_float_tolerance() {
-        let mut first = StatementData::new();
+        let mut first = AccountData::new();
         first.set_opening_balance(100.0);
         first.set_closing_balance(120.0);
         first.add_proto_transaction(ProtoTransaction {
@@ -243,7 +243,7 @@ mod tests {
             balance: Some(104.0),
         });
 
-        let mut within_tolerance = StatementData::new();
+        let mut within_tolerance = AccountData::new();
         within_tolerance.set_opening_balance(100.009);
         within_tolerance.set_closing_balance(119.991);
         within_tolerance.add_proto_transaction(ProtoTransaction {
@@ -254,7 +254,7 @@ mod tests {
             balance: Some(104.009),
         });
 
-        let mut at_tolerance = StatementData::new();
+        let mut at_tolerance = AccountData::new();
         at_tolerance.set_opening_balance(100.01);
         at_tolerance.set_closing_balance(120.01);
         at_tolerance.add_proto_transaction(ProtoTransaction {
@@ -271,11 +271,11 @@ mod tests {
 
     #[test]
     fn returns_diff_summary_for_mismatch() {
-        let mut first = StatementData::new();
+        let mut first = AccountData::new();
         first.set_key("statement-1".to_string());
         first.set_opening_balance(100.0);
 
-        let mut second = StatementData::new();
+        let mut second = AccountData::new();
         second.set_key("statement-2".to_string());
         second.set_opening_balance(100.02);
 

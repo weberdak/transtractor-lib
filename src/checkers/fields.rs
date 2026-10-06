@@ -1,4 +1,4 @@
-use crate::structs::StatementData;
+use crate::structs::AccountData;
 
 /// Check if required fields are set in the statement data and log errors for missing fields.
 ///
@@ -12,7 +12,7 @@ use crate::structs::StatementData;
 ///
 /// The function adds error messages to the statement data's error collection for any
 /// missing required fields.
-pub fn check_fields(sd: &mut StatementData) {
+pub fn check_fields(sd: &mut AccountData) {
     let mut missing_fields = Vec::new();
 
     // Check for account number
@@ -43,7 +43,7 @@ mod tests {
 
     #[test]
     fn test_check_fields_all_missing() {
-        let mut sd = StatementData::new();
+        let mut sd = AccountData::new();
 
         check_fields(&mut sd);
         assert_eq!(sd.errors.len(), 1);
@@ -56,7 +56,7 @@ mod tests {
 
     #[test]
     fn test_check_fields_missing_opening_balance() {
-        let mut sd = StatementData::new();
+        let mut sd = AccountData::new();
         sd.set_closing_balance(1000.0);
 
         check_fields(&mut sd);
@@ -66,7 +66,7 @@ mod tests {
 
     #[test]
     fn test_check_fields_missing_closing_balance() {
-        let mut sd = StatementData::new();
+        let mut sd = AccountData::new();
         sd.set_opening_balance(1000.0);
 
         check_fields(&mut sd);
@@ -76,7 +76,7 @@ mod tests {
 
     #[test]
     fn test_check_fields_all_present() {
-        let mut sd = StatementData::new();
+        let mut sd = AccountData::new();
         sd.set_account_number("1234 5678 9012".to_string());
         sd.set_opening_balance(1000.0);
         sd.set_closing_balance(900.0);
@@ -87,7 +87,7 @@ mod tests {
 
     #[test]
     fn test_check_fields_with_zero_balances() {
-        let mut sd = StatementData::new();
+        let mut sd = AccountData::new();
         sd.set_account_number("1234 5678 9012".to_string());
         sd.set_opening_balance(0.0);
         sd.set_closing_balance(0.0);
@@ -98,7 +98,7 @@ mod tests {
 
     #[test]
     fn test_check_fields_with_negative_balances() {
-        let mut sd = StatementData::new();
+        let mut sd = AccountData::new();
         sd.set_account_number("1234 5678 9012".to_string());
         sd.set_opening_balance(-500.0);
         sd.set_closing_balance(-200.0);
@@ -109,7 +109,7 @@ mod tests {
 
     #[test]
     fn test_check_fields_does_not_duplicate_errors() {
-        let mut sd = StatementData::new();
+        let mut sd = AccountData::new();
 
         // Call check_fields twice
         check_fields(&mut sd);

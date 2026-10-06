@@ -2,12 +2,12 @@ use crate::parsers::statement::{
     AccountNumberParser, ClosingBalanceParser, OpeningBalanceParser, StartDateParser,
     TransactionParser,
 };
-use crate::structs::StatementData;
+use crate::structs::AccountData;
 use crate::structs::TextItem;
 use crate::structs::{Benchmark, StatementConfig};
 
-/// Top-level function that converts a list of TextItems into structured StatementData
-pub fn parse_text_items(config: &StatementConfig, text_items: &[TextItem]) -> StatementData {
+/// Top-level function that converts a list of TextItems into structured AccountData
+pub fn parse_text_items(config: &StatementConfig, text_items: &[TextItem]) -> AccountData {
     let mut benchmark = Benchmark::new();
     benchmark.total.start();
     let data = parse_text_items_with_benchmark(config, text_items, &mut benchmark);
@@ -21,8 +21,8 @@ pub fn parse_text_items_with_benchmark(
     config: &StatementConfig,
     text_items: &[TextItem],
     benchmark: &mut Benchmark,
-) -> StatementData {
-    let mut statement_data = StatementData::new();
+) -> AccountData {
+    let mut statement_data = AccountData::new();
 
     // Initialize parsers
     let mut account_number_parser = AccountNumberParser::new(config);

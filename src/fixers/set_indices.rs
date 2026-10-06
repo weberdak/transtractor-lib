@@ -1,4 +1,4 @@
-use crate::structs::StatementData;
+use crate::structs::AccountData;
 use std::collections::HashMap;
 
 /// Reset prototransaction indices based on their order within each day.
@@ -7,7 +7,7 @@ use std::collections::HashMap;
 ///
 /// # Panics
 /// Panics if dates are found out of order - the transtractor isn't set up to deal with this.
-pub fn fix_set_indices(sd: &mut StatementData) {
+pub fn fix_set_indices(sd: &mut AccountData) {
     if sd.proto_transactions.is_empty() {
         return;
     }
@@ -37,7 +37,7 @@ pub fn fix_set_indices(sd: &mut StatementData) {
 #[cfg(test)]
 mod tests {
     use super::*;
-    use crate::structs::{ProtoTransaction, StatementData};
+    use crate::structs::{AccountData, ProtoTransaction};
 
     fn create_proto_transaction(date: i64, index: usize) -> ProtoTransaction {
         ProtoTransaction {
@@ -51,7 +51,7 @@ mod tests {
 
     #[test]
     fn test_fix_set_indices_empty_transactions() {
-        let mut sd = StatementData {
+        let mut sd = AccountData {
             proto_transactions: vec![],
             account_number: None,
             opening_balance: None,
@@ -69,7 +69,7 @@ mod tests {
 
     #[test]
     fn test_fix_set_indices_single_transaction() {
-        let mut sd = StatementData {
+        let mut sd = AccountData {
             proto_transactions: vec![create_proto_transaction(1000, 5)],
             account_number: None,
             opening_balance: None,
@@ -87,7 +87,7 @@ mod tests {
 
     #[test]
     fn test_fix_set_indices_all_none() {
-        let mut sd = StatementData {
+        let mut sd = AccountData {
             proto_transactions: vec![
                 create_proto_transaction(1000, 5),
                 create_proto_transaction(1000, 10),
@@ -113,7 +113,7 @@ mod tests {
 
     #[test]
     fn test_fix_set_indices_different_days() {
-        let mut sd = StatementData {
+        let mut sd = AccountData {
             proto_transactions: vec![
                 create_proto_transaction(1000, 10), // Day 1, transaction 0
                 create_proto_transaction(1000, 20), // Day 1, transaction 1
@@ -148,7 +148,7 @@ mod tests {
     #[test]
     #[should_panic(expected = "Transaction at position 1 does not have a date")]
     fn test_fix_set_indices_panics_on_missing_date() {
-        let mut sd = StatementData {
+        let mut sd = AccountData {
             proto_transactions: vec![
                 create_proto_transaction(1000, 0),
                 ProtoTransaction {

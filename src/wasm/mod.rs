@@ -4,7 +4,7 @@ use crate::parsers::flows::pdf_to_text_items::pdf_to_text_items;
 use crate::parsers::flows::text_items_to_debug::text_items_to_debug_with_benchmark;
 use crate::parsers::flows::text_items_to_layout::text_items_to_layout;
 use crate::parsers::flows::text_items_to_statement_data::text_items_to_statement_data_with_benchmark;
-use crate::structs::{Benchmark, BenchmarkMicros, ProtoTransaction, Spec, StatementData, TextItem};
+use crate::structs::{Benchmark, BenchmarkMicros, Spec, StatementData, TextItem, Transaction};
 use pdfsink_rs::PdfDocument;
 use serde::Serialize;
 use serde_wasm_bindgen::to_value;
@@ -17,15 +17,11 @@ struct JsTransaction {
     description: String,
     amount: f64,
     balance: f64,
+    account_number: String,
 }
 
 #[derive(Serialize)]
 struct JsStatementData {
-    key: String,
-    account_number: String,
-    start_date: i64,
-    opening_balance: f64,
-    closing_balance: f64,
     transactions: Vec<JsTransaction>,
     benchmark: BenchmarkMicros,
 }
@@ -311,7 +307,7 @@ fn write_str_to_file(content: &str, output_file: &str) -> Result<(), JsValue> {
 }
 
 fn statement_data_to_js(data: &StatementData) -> Result<JsValue, JsValue> {
-    let js_data = JsStatementData::try_from(data)?;
+    let js_data = JsStatementData::from(data);
     to_value(&js_data).map_err(|e| {
         JsValue::from_str(&format!(
             "Failed to serialize statement data to JavaScript value: {}",
@@ -320,65 +316,25 @@ fn statement_data_to_js(data: &StatementData) -> Result<JsValue, JsValue> {
     })
 }
 
-impl TryFrom<&ProtoTransaction> for JsTransaction {
-    type Error = JsValue;
-
-    fn try_from(value: &ProtoTransaction) -> Result<Self, Self::Error> {
-        Ok(Self {
-            date: value.date.ok_or_else(|| {
-                JsValue::from_str("Parsed transaction is missing required field: date")
-            })?,
+impl From<&Transaction> for JsTransaction {
+    fn from(value: &Transaction) -> Self {
+        Self {
+            date: value.date,
             index: value.index,
             description: value.description.clone(),
-            amount: value.amount.ok_or_else(|| {
-                JsValue::from_str("Parsed transaction is missing required field: amount")
-            })?,
-            balance: value.balance.ok_or_else(|| {
-                JsValue::from_str("Parsed transaction is missing required field: balance")
-            })?,
-        })
+            amount: value.amount,
+            balance: value.balance,
+            account_number: value.account_number.clone(),
+        }
     }
 }
 
-impl TryFrom<&StatementData> for JsStatementData {
-    type Error = JsValue;
-
-    fn try_from(value: &StatementData) -> Result<Self, Self::Error> {
-        if !value.errors.is_empty() {
-            return Err(JsValue::from_str(
-                "Parsed statement data must be error-free before export to JavaScript",
-            ));
-        }
-
-        let transactions = value
-            .proto_transactions
-            .iter()
-            .map(JsTransaction::try_from)
-            .collect::<Result<Vec<_>, _>>()?;
-
-        Ok(Self {
-            key: value.key.clone().ok_or_else(|| {
-                JsValue::from_str("Parsed statement data is missing required field: key")
-            })?,
-            account_number: value.account_number.clone().ok_or_else(|| {
-                JsValue::from_str("Parsed statement data is missing required field: account_number")
-            })?,
-            start_date: value.start_date.ok_or_else(|| {
-                JsValue::from_str("Parsed statement data is missing required field: start_date")
-            })?,
-            opening_balance: value.opening_balance.ok_or_else(|| {
-                JsValue::from_str(
-                    "Parsed statement data is missing required field: opening_balance",
-                )
-            })?,
-            closing_balance: value.closing_balance.ok_or_else(|| {
-                JsValue::from_str(
-                    "Parsed statement data is missing required field: closing_balance",
-                )
-            })?,
-            transactions,
+impl From<&StatementData> for JsStatementData {
+    fn from(value: &StatementData) -> Self {
+        Self {
+            transactions: value.transactions.iter().map(JsTransaction::from).collect(),
             benchmark: value.benchmark.as_micros(),
-        })
+        }
     }
 }
 

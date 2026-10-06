@@ -90,7 +90,6 @@ const parser = await Parser.create();
 parser.load("tests/fixtures/test1_config.json");
 
 const statementData = parser.parse("/absolute/path/to/statement.pdf");
-console.log(statementData.key);
 console.log(statementData.transactions.length);
 ```
 

@@ -21,7 +21,7 @@ def normalize_csv_for_comparison(csv_path: str, fixtures_dir: Path) -> list[list
     project_root = tests_dir.parent
 
     # Zero out timing columns (indices 4, 5, 6, 7 based on header:
-    # "PDF File", "Pages", "Transactions", "Config Keys",
+    # "PDF File", "Pages", "Transactions",
     # "Total Time (ms)",
     # "Status", "Reason Failed"
     for i, row in enumerate(rows):
@@ -39,7 +39,7 @@ def normalize_csv_for_comparison(csv_path: str, fixtures_dir: Path) -> list[list
                 pass
 
         # Zero out timing columns if they contain non-zero values
-        row[3] = "0"
+        row[2] = "0"
 
     return rows
 

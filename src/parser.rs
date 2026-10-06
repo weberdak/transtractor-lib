@@ -266,18 +266,7 @@ mod tests {
             .parse(&fixture("test1.pdf"))
             .expect("Expected parse to succeed");
 
-        assert_eq!(
-            statement_data.key.as_deref(),
-            Some("au__gtb__fake_account__1")
-        );
-        assert_eq!(
-            statement_data.account_number.as_deref(),
-            Some("1234 5678 9123 4567")
-        );
-        assert_eq!(statement_data.start_date, Some(1735689600000));
-        assert_eq!(statement_data.opening_balance, Some(50000.0));
-        assert_eq!(statement_data.closing_balance, Some(11663.82));
-        assert_eq!(statement_data.proto_transactions.len(), 62);
+        assert_eq!(statement_data.transactions.len(), 62);
         let timings = statement_data.benchmark.as_micros();
         assert!(timings.total > 0, "total benchmark time was not recorded");
         for (stage, elapsed) in [
@@ -363,18 +352,7 @@ mod tests {
             .parse(&fixture("test1a.pdf"))
             .expect("Expected parse to succeed");
 
-        assert_eq!(
-            statement_data.key.as_deref(),
-            Some("au__gtb__fake_account__2")
-        );
-        assert_eq!(
-            statement_data.account_number.as_deref(),
-            Some("1234 5678 9123 4567")
-        );
-        assert_eq!(statement_data.start_date, Some(1735689600000));
-        assert_eq!(statement_data.opening_balance, Some(50000.0));
-        assert_eq!(statement_data.closing_balance, Some(11663.82));
-        assert_eq!(statement_data.proto_transactions.len(), 62);
+        assert_eq!(statement_data.transactions.len(), 62);
     }
 
     #[test]
@@ -391,18 +369,7 @@ mod tests {
             .parse(&fixture("test1a.pdf"))
             .expect("Expected parse to succeed");
 
-        assert_eq!(
-            statement_data.key.as_deref(),
-            Some("au__gtb__fake_account__2")
-        );
-        assert_eq!(
-            statement_data.account_number.as_deref(),
-            Some("1234 5678 9123 4567")
-        );
-        assert_eq!(statement_data.start_date, Some(1735689600000));
-        assert_eq!(statement_data.opening_balance, Some(50000.0));
-        assert_eq!(statement_data.closing_balance, Some(11663.82));
-        assert_eq!(statement_data.proto_transactions.len(), 62);
+        assert_eq!(statement_data.transactions.len(), 62);
     }
 
     #[test]
@@ -437,17 +404,7 @@ mod tests {
             .parse_layout(&fixture("test1_layout.txt"))
             .expect("Expected parse_layout to succeed");
 
-        assert_eq!(
-            statement_data.key.as_deref(),
-            Some("au__gtb__fake_account__1")
-        );
-        assert_eq!(
-            statement_data.account_number.as_deref(),
-            Some("1234 5678 9123 4567")
-        );
-        assert_eq!(statement_data.start_date, Some(1735689600000));
-        assert_eq!(statement_data.opening_balance, Some(50000.0));
-        assert_eq!(statement_data.closing_balance, Some(11663.82));
+        assert_eq!(statement_data.transactions.len(), 62);
     }
 
     #[test]

@@ -1,6 +1,6 @@
 use crate::parsers::primed::PrimedDateParser;
 use crate::structs::benchmark::Timer;
-use crate::structs::{StatementConfig, StatementData, TextItem};
+use crate::structs::{AccountData, StatementConfig, TextItem};
 
 pub struct StartDateParser {
     pub(crate) parser: PrimedDateParser,
@@ -25,7 +25,7 @@ impl StartDateParser {
         }
     }
 
-    pub fn parse_items(&mut self, items: &[TextItem], data: &mut StatementData) -> usize {
+    pub fn parse_items(&mut self, items: &[TextItem], data: &mut AccountData) -> usize {
         let consumed = self.parser.parse_items(items);
         self.update_data(consumed, data);
         consumed
@@ -34,7 +34,7 @@ impl StartDateParser {
     pub fn parse_items_timed(
         &mut self,
         items: &[TextItem],
-        data: &mut StatementData,
+        data: &mut AccountData,
         prime_timer: &mut Timer,
     ) -> usize {
         let consumed = self.parser.parse_items_timed(items, prime_timer);
@@ -42,7 +42,7 @@ impl StartDateParser {
         consumed
     }
 
-    fn update_data(&self, consumed: usize, data: &mut StatementData) {
+    fn update_data(&self, consumed: usize, data: &mut AccountData) {
         if consumed > 0
             && let Some(value) = self.parser.value()
             && data.start_date().is_none()
@@ -59,7 +59,7 @@ impl StartDateParser {
 #[cfg(test)]
 mod tests {
     use super::*;
-    use crate::structs::{StatementConfig, StatementData, TextItem};
+    use crate::structs::{AccountData, StatementConfig, TextItem};
 
     fn make_text_item(text: &str, x1: i32, y1: i32, page: i32) -> TextItem {
         TextItem {
@@ -86,7 +86,7 @@ mod tests {
     #[test]
     fn test_start_date_success() {
         let config = default_config();
-        let mut data = StatementData::new();
+        let mut data = AccountData::new();
         let mut parser = StartDateParser::new(&config);
 
         let items = vec![
@@ -110,7 +110,7 @@ mod tests {
     #[test]
     fn test_start_date_fail_no_match() {
         let config = default_config();
-        let mut data = StatementData::new();
+        let mut data = AccountData::new();
         let mut parser = StartDateParser::new(&config);
 
         let items = vec![
@@ -127,7 +127,7 @@ mod tests {
     #[test]
     fn test_start_date_page_mismatch() {
         let config = default_config();
-        let mut data = StatementData::new();
+        let mut data = AccountData::new();
         let mut parser = StartDateParser::new(&config);
 
         let items = vec![

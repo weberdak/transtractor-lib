@@ -1,6 +1,6 @@
 use crate::parsers::primed::PrimedValueParser;
 use crate::structs::benchmark::Timer;
-use crate::structs::{StatementConfig, StatementData, TextItem};
+use crate::structs::{AccountData, StatementConfig, TextItem};
 
 pub struct AccountNumberParser {
     pub(crate) parser: PrimedValueParser,
@@ -29,7 +29,7 @@ impl AccountNumberParser {
         }
     }
 
-    pub fn parse_items(&mut self, items: &[TextItem], data: &mut StatementData) -> usize {
+    pub fn parse_items(&mut self, items: &[TextItem], data: &mut AccountData) -> usize {
         let consumed = self.parser.parse_items(items);
         self.update_data(consumed, data);
         consumed
@@ -38,7 +38,7 @@ impl AccountNumberParser {
     pub fn parse_items_timed(
         &mut self,
         items: &[TextItem],
-        data: &mut StatementData,
+        data: &mut AccountData,
         prime_timer: &mut Timer,
     ) -> usize {
         let consumed = self.parser.parse_items_timed(items, prime_timer);
@@ -46,7 +46,7 @@ impl AccountNumberParser {
         consumed
     }
 
-    fn update_data(&self, consumed: usize, data: &mut StatementData) {
+    fn update_data(&self, consumed: usize, data: &mut AccountData) {
         if consumed > 0
             && data.account_number().is_none()
             && let Some(value) = self.parser.value()
@@ -63,7 +63,7 @@ impl AccountNumberParser {
 #[cfg(test)]
 mod tests {
     use super::*;
-    use crate::structs::{StatementConfig, StatementData, TextItem};
+    use crate::structs::{AccountData, StatementConfig, TextItem};
 
     fn make_text_item(text: &str, x1: i32, y1: i32, page: i32) -> TextItem {
         TextItem {
@@ -90,7 +90,7 @@ mod tests {
     #[test]
     fn test_account_number_success() {
         let config = default_config();
-        let mut data = StatementData::new();
+        let mut data = AccountData::new();
         let mut parser = AccountNumberParser::new(&config);
 
         let items = vec![
@@ -116,7 +116,7 @@ mod tests {
     #[test]
     fn test_account_number_without_primer() {
         let config = default_config();
-        let mut data = StatementData::new();
+        let mut data = AccountData::new();
         let mut parser = AccountNumberParser::new(&config);
 
         let items = vec![
@@ -133,7 +133,7 @@ mod tests {
     #[test]
     fn test_account_number_no_match() {
         let config = default_config();
-        let mut data = StatementData::new();
+        let mut data = AccountData::new();
         let mut parser = AccountNumberParser::new(&config);
 
         let items = vec![
@@ -150,7 +150,7 @@ mod tests {
     #[test]
     fn test_account_number_x1_constraint_fail() {
         let config = default_config();
-        let mut data = StatementData::new();
+        let mut data = AccountData::new();
         let mut parser = AccountNumberParser::new(&config);
 
         let items = vec![
@@ -170,7 +170,7 @@ mod tests {
     fn test_account_number_y1_constraint_fail() {
         let mut config = default_config();
         config.account_number_alignment = "y1".to_string();
-        let mut data = StatementData::new();
+        let mut data = AccountData::new();
         let mut parser = AccountNumberParser::new(&config);
 
         let items = vec![
@@ -189,7 +189,7 @@ mod tests {
     #[test]
     fn test_account_number_page_constraint_fail() {
         let config = default_config();
-        let mut data = StatementData::new();
+        let mut data = AccountData::new();
         let mut parser = AccountNumberParser::new(&config);
 
         let items = vec![
@@ -208,7 +208,7 @@ mod tests {
     #[test]
     fn test_account_number_already_set() {
         let config = default_config();
-        let mut data = StatementData::new();
+        let mut data = AccountData::new();
         data.set_account_number("9999 8888 7777".to_string());
         let mut parser = AccountNumberParser::new(&config);
 
@@ -229,7 +229,7 @@ mod tests {
     #[test]
     fn test_account_number_parser_already_parsed() {
         let config = default_config();
-        let mut data = StatementData::new();
+        let mut data = AccountData::new();
         let mut parser = AccountNumberParser::new(&config);
 
         let items1 = vec![
@@ -270,7 +270,7 @@ mod tests {
         let mut config = default_config();
         config.account_number_patterns = vec![regex::Regex::new(r"\b\d{4}\b").unwrap()];
 
-        let mut data = StatementData::new();
+        let mut data = AccountData::new();
         let mut parser = AccountNumberParser::new(&config);
 
         let items = vec![
@@ -293,7 +293,7 @@ mod tests {
             regex::Regex::new(r"\b\d+\s+\d+\s+\d+\b").unwrap(),
         ];
 
-        let mut data = StatementData::new();
+        let mut data = AccountData::new();
         let mut parser = AccountNumberParser::new(&config);
 
         // Test hyphen-separated pattern
@@ -314,7 +314,7 @@ mod tests {
         let mut config = default_config();
         config.account_number_alignment = "".to_string();
 
-        let mut data = StatementData::new();
+        let mut data = AccountData::new();
         let mut parser = AccountNumberParser::new(&config);
 
         let items = vec![
@@ -336,7 +336,7 @@ mod tests {
         let mut config = default_config();
         config.account_number_alignment = "".to_string();
 
-        let mut data = StatementData::new();
+        let mut data = AccountData::new();
         let mut parser = AccountNumberParser::new(&config);
 
         let items = vec![

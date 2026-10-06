@@ -1,212 +1,140 @@
-use crate::structs::{Benchmark, ProtoTransaction};
-use chrono::{DateTime, Datelike, TimeZone, Utc};
-use serde::{Deserialize, Serialize};
+use crate::structs::account_data::benchmark_report;
+use crate::structs::{AccountData, Benchmark, Transaction};
+use chrono::DateTime;
+use chrono::Utc;
+use std::collections::HashSet;
 use std::fmt;
 
-#[derive(Clone, Debug, Serialize, Deserialize)]
+/// Flattened, validated transactions pooled from one or more accounts.
+#[derive(Clone, Debug, Default)]
 pub struct StatementData {
-    pub key: Option<String>,
-    pub account_number: Option<String>,
-    pub start_date: Option<i64>,
-    pub start_date_year: Option<i32>,
-    pub opening_balance: Option<f64>,
-    pub closing_balance: Option<f64>,
-    pub proto_transactions: Vec<ProtoTransaction>,
-    pub errors: Vec<String>,
-    #[serde(skip)]
+    pub transactions: Vec<Transaction>,
     pub benchmark: Benchmark,
 }
 
 impl StatementData {
     pub fn new() -> Self {
-        Self {
-            key: None,
-            account_number: None,
-            start_date: None,
-            start_date_year: None,
-            opening_balance: None,
-            closing_balance: None,
-            proto_transactions: Vec::new(),
-            errors: Vec::new(),
-            benchmark: Benchmark::new(),
+        Self::default()
+    }
+
+    /// Import the transactions of a complete, valid AccountData.
+    /// Transactions already present (same date, index, amount, balance and
+    /// account number) are skipped. Returns the number of transactions added.
+    /// Nothing is imported if the AccountData is incomplete.
+    pub fn import(&mut self, account_data: &AccountData) -> Result<usize, String> {
+        let account_number = account_data
+            .account_number
+            .as_ref()
+            .ok_or("Cannot import AccountData: missing account number")?;
+        if !account_data.errors.is_empty() {
+            return Err("Cannot import AccountData: it contains errors".to_string());
         }
-    }
 
-    pub fn account_number(&self) -> Option<&String> {
-        self.account_number.as_ref()
-    }
-    pub fn opening_balance(&self) -> Option<f64> {
-        self.opening_balance
-    }
-    pub fn closing_balance(&self) -> Option<f64> {
-        self.closing_balance
-    }
-    pub fn start_date(&self) -> Option<i64> {
-        self.start_date
-    }
-    pub fn start_date_year(&self) -> Option<i32> {
-        self.start_date_year
-    }
+        let mut incoming = Vec::with_capacity(account_data.proto_transactions.len());
+        for proto_tx in &account_data.proto_transactions {
+            if !proto_tx.is_ready() {
+                return Err(format!(
+                    "Incomplete transaction found: date={:?}, index={}, description='{}', amount={:?}, balance={:?}",
+                    proto_tx.date,
+                    proto_tx.index,
+                    proto_tx.description,
+                    proto_tx.amount,
+                    proto_tx.balance
+                ));
+            }
+            incoming.push(proto_tx.to_transaction(account_number)?);
+        }
 
-    // Setters for the fields
-    pub fn set_key(&mut self, key: String) {
-        self.key = Some(key);
-    }
-
-    pub fn set_account_number(&mut self, account_number: String) {
-        self.account_number = Some(account_number);
-    }
-
-    pub fn set_start_date(&mut self, date: i64) {
-        self.start_date = Some(date);
-        self.start_date_year = Utc.timestamp_millis_opt(date).single().map(|dt| dt.year());
-    }
-
-    pub fn set_opening_balance(&mut self, balance: f64) {
-        self.opening_balance = Some(balance);
-    }
-
-    pub fn set_closing_balance(&mut self, balance: f64) {
-        self.closing_balance = Some(balance);
-    }
-
-    pub fn add_proto_transaction(&mut self, proto_tx: ProtoTransaction) {
-        self.proto_transactions.push(proto_tx);
-    }
-
-    pub fn add_error(&mut self, error: String) {
-        self.errors.push(error);
-    }
-
-    pub fn print(&self) {
-        println!("{}", self);
+        let mut seen: HashSet<(i64, usize, i64, i64, String)> = self
+            .transactions
+            .iter()
+            .map(|t| {
+                let id = t.identity();
+                (id.0, id.1, id.2, id.3, id.4.to_string())
+            })
+            .collect();
+        let mut added = 0;
+        for tx in incoming {
+            let id = tx.identity();
+            if seen.insert((id.0, id.1, id.2, id.3, id.4.to_string())) {
+                self.transactions.push(tx);
+                added += 1;
+            }
+        }
+        Ok(added)
     }
 }
 
 impl fmt::Display for StatementData {
     fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
-        let mut result = String::new();
-        result.push_str("Statement Data:\n");
-        match &self.key {
-            Some(k) => result.push_str(&format!("  Key: {}\n", k)),
-            None => result.push_str("  Key: Not set\n"),
-        }
-        match &self.account_number {
-            Some(an) => result.push_str(&format!("  Account Number: {}\n", an)),
-            None => result.push_str("  Account Number: Not set\n"),
-        }
-        if let Some(ms) = self.start_date {
-            if let Some(dt) = DateTime::<Utc>::from_timestamp_millis(ms) {
-                result.push_str(&format!("  Start Date: {}\n", dt.format("%d %b %Y")));
-            } else {
-                result.push_str(&format!("  Start Date: {}\n", ms));
-            }
-        } else {
-            result.push_str("  Start Date: Not set\n");
-        }
-        if let Some(balance) = self.opening_balance {
-            result.push_str(&format!("  Opening Balance: {:.2}\n", balance));
-        } else {
-            result.push_str("  Opening Balance: Not set\n");
-        }
-        if let Some(balance) = self.closing_balance {
-            result.push_str(&format!("  Closing Balance: {:.2}\n", balance));
-        } else {
-            result.push_str("  Closing Balance: Not set\n");
-        }
-        result.push_str("  Proto Transactions:\n");
-        for (i, tx) in self.proto_transactions.iter().enumerate() {
-            let date_str = match tx.date {
-                Some(ms) => match DateTime::<Utc>::from_timestamp_millis(ms) {
-                    Some(dt) => dt.format("%d %b %Y").to_string(),
-                    None => ms.to_string(),
-                },
-                None => "Not set".to_string(),
-            };
-            let amount_str = match tx.amount {
-                Some(a) => format!("{:.2}", a),
-                None => "Not set".to_string(),
-            };
-            let balance_str = match tx.balance {
-                Some(b) => format!("{:.2}", b),
-                None => "Not set".to_string(),
-            };
+        let mut result = String::from("Statement Data:\n  Transactions:\n");
+        for (i, tx) in self.transactions.iter().enumerate() {
+            let date_str = DateTime::<Utc>::from_timestamp_millis(tx.date)
+                .map(|dt| dt.format("%d %b %Y").to_string())
+                .unwrap_or_else(|| tx.date.to_string());
             result.push_str(&format!(
-                "    {}: {}, \"{}\", {}, {}\n",
+                "    {}: {}, {}, \"{}\", {:.2}, {:.2}, {}\n",
                 i + 1,
+                tx.account_number,
                 date_str,
                 tx.description,
-                amount_str,
-                balance_str
+                tx.amount,
+                tx.balance,
+                tx.index
             ));
         }
-        if !self.errors.is_empty() {
-            result.push_str("  Errors:\n");
-            for error in &self.errors {
-                result.push_str(&format!("    - {}\n", error));
-            }
-        } else {
-            result.push_str("  Errors: None\n");
-        }
-        let benchmark = self.benchmark.as_micros();
-        result.push_str("  Benchmark (microseconds):\n");
-        result.push_str(&format!("    Total time: {}\n", benchmark.total));
-        result.push_str(&format!("    PDF extractor: {}\n", benchmark.pdf_extractor));
-        result.push_str(&format!("    Tokeniser: {}\n", benchmark.tokeniser));
-        result.push_str(&format!("    Typer: {}\n", benchmark.typer));
-        result.push_str(&format!("    Parsers: {}\n", benchmark.parsers));
-        result.push_str(&format!(
-            "        Account number (prime): {}\n",
-            benchmark.parsers_account_number_parser_prime
-        ));
-        result.push_str(&format!(
-            "        Account number (parse): {}\n",
-            benchmark.parsers_account_number_parser_parse
-        ));
-        result.push_str(&format!(
-            "        Start date (prime): {}\n",
-            benchmark.parsers_start_date_parser_prime
-        ));
-        result.push_str(&format!(
-            "        Start date (parse): {}\n",
-            benchmark.parsers_start_date_parser_parse
-        ));
-        result.push_str(&format!(
-            "        Opening balance (prime): {}\n",
-            benchmark.parsers_opening_balance_parser_prime
-        ));
-        result.push_str(&format!(
-            "        Opening balance (parse): {}\n",
-            benchmark.parsers_opening_balance_parser_parse
-        ));
-        result.push_str(&format!(
-            "        Closing balance (prime): {}\n",
-            benchmark.parsers_closing_balance_parser_prime
-        ));
-        result.push_str(&format!(
-            "        Closing balance (parse): {}\n",
-            benchmark.parsers_closing_balance_parser_parse
-        ));
-        result.push_str(&format!(
-            "        Transaction (prime start): {}\n",
-            benchmark.parsers_transaction_parser_start_prime
-        ));
-        result.push_str(&format!(
-            "        Transaction (parse): {}\n",
-            benchmark.parsers_transaction_parser_parse
-        ));
-        result.push_str(&format!(
-            "        Transaction (prime stop): {}\n",
-            benchmark.parsers_transaction_parser_stop_prime
-        ));
-        result.push_str(&format!("    Fixers: {}\n", benchmark.fixers));
-        result.push_str(&format!("    Checkers: {}\n", benchmark.checkers));
+        result.push_str(&benchmark_report(&self.benchmark));
         write!(f, "{}", result)
     }
 }
 
-impl Default for StatementData {
-    fn default() -> Self {
-        Self::new()
+#[cfg(test)]
+mod tests {
+    use super::*;
+    use crate::structs::ProtoTransaction;
+
+    fn proto(date: i64, index: usize, amount: f64, balance: f64, desc: &str) -> ProtoTransaction {
+        ProtoTransaction {
+            date: Some(date),
+            index,
+            description: desc.to_string(),
+            amount: Some(amount),
+            balance: Some(balance),
+        }
+    }
+
+    fn account(number: &str, txs: Vec<ProtoTransaction>) -> AccountData {
+        let mut ad = AccountData::new();
+        ad.set_account_number(number.to_string());
+        ad.proto_transactions = txs;
+        ad
+    }
+
+    #[test]
+    fn import_pools_accounts_and_skips_duplicates() {
+        let mut sd = StatementData::new();
+        let a = account("A", vec![proto(1, 0, 10.0, 110.0, "x")]);
+        let a_again = account(
+            "A",
+            vec![proto(1, 0, 10.0, 110.0, "different"), proto(1, 1, 5.0, 115.0, "y")],
+        );
+        let b = account("B", vec![proto(1, 0, 10.0, 110.0, "x")]);
+        assert_eq!(sd.import(&a).unwrap(), 1);
+        assert_eq!(sd.import(&a_again).unwrap(), 1);
+        assert_eq!(sd.import(&b).unwrap(), 1);
+        assert_eq!(sd.transactions.len(), 3);
+    }
+
+    #[test]
+    fn import_rejects_incomplete_data_without_partial_import() {
+        let mut sd = StatementData::new();
+        let mut bad = proto(1, 1, 5.0, 115.0, "y");
+        bad.balance = None;
+        let ad = account("A", vec![proto(1, 0, 10.0, 110.0, "x"), bad]);
+        assert!(sd.import(&ad).is_err());
+        assert!(sd.transactions.is_empty());
+        let mut no_number = AccountData::new();
+        no_number.proto_transactions = vec![proto(1, 0, 10.0, 110.0, "x")];
+        assert!(sd.import(&no_number).is_err());
     }
 }

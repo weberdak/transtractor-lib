@@ -98,7 +98,7 @@ pub struct Benchmark {
     pub tokeniser: Timer,
     /// Time for determining statement type from tokenised TextItems
     pub typer: Timer,
-    /// Time for parsing tokenised TextItems into StatementData
+    /// Time for parsing tokenised TextItems into AccountData
     pub parsers: Timer,
     /// Time for priming AccountNumberParser
     pub parsers_account_number_parser_prime: Timer,
@@ -123,9 +123,9 @@ pub struct Benchmark {
     /// Time for terminating TransactionParser
     pub parsers_transaction_parser_stop_prime: Timer,
 
-    /// Time for filling and repairing StatementData
+    /// Time for filling and repairing AccountData
     pub fixers: Timer,
-    /// Time for checking the final StatementData for internal consistency
+    /// Time for checking the final AccountData for internal consistency
     pub checkers: Timer,
 }
 

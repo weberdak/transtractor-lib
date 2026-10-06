@@ -1,4 +1,4 @@
-use crate::structs::StatementData;
+use crate::structs::AccountData;
 
 /// Fix opening balance if it does not match the first transaction. This
 /// usually occurs when the opening balance is unsigned or the first
@@ -8,7 +8,7 @@ use crate::structs::StatementData;
 /// equals the first transaction balance. If not, it tries:
 /// 1. Reversing the sign of the opening balance
 /// 2. Reversing the sign of the first transaction amount (treating it as a debit)
-pub fn fix_opening_balance(sd: &mut StatementData) {
+pub fn fix_opening_balance(sd: &mut AccountData) {
     // Return early if no transactions
     if sd.proto_transactions.is_empty() {
         return;
@@ -57,7 +57,7 @@ mod tests {
 
     #[test]
     fn test_fix_opening_balance_no_transactions() {
-        let mut sd = StatementData::new();
+        let mut sd = AccountData::new();
         sd.set_opening_balance(100.0);
 
         // Should not panic with no transactions
@@ -69,7 +69,7 @@ mod tests {
 
     #[test]
     fn test_fix_opening_balance_no_opening_balance() {
-        let mut sd = StatementData::new();
+        let mut sd = AccountData::new();
 
         // Add transaction with amount and balance
         let mut tx1 = ProtoTransaction::new();
@@ -87,7 +87,7 @@ mod tests {
 
     #[test]
     fn test_fix_opening_balance_first_transaction_no_amount() {
-        let mut sd = StatementData::new();
+        let mut sd = AccountData::new();
         sd.set_opening_balance(100.0);
 
         // Add transaction without amount
@@ -104,7 +104,7 @@ mod tests {
 
     #[test]
     fn test_fix_opening_balance_first_transaction_no_balance() {
-        let mut sd = StatementData::new();
+        let mut sd = AccountData::new();
         sd.set_opening_balance(100.0);
 
         // Add transaction without balance
@@ -121,7 +121,7 @@ mod tests {
 
     #[test]
     fn test_fix_opening_balance_already_correct() {
-        let mut sd = StatementData::new();
+        let mut sd = AccountData::new();
         let opening_balance = 100.0;
         let first_amount = 50.0;
         let first_balance = opening_balance + first_amount; // 150.0
@@ -143,7 +143,7 @@ mod tests {
 
     #[test]
     fn test_fix_opening_balance_reverse_opening_balance_sign() {
-        let mut sd = StatementData::new();
+        let mut sd = AccountData::new();
         let incorrect_opening_balance = 100.0; // Should be -100.0
         let first_amount = 50.0;
         let first_balance = 50.0 - 100.0; // -50.0 (correct calculation with -100.0 opening)
@@ -165,7 +165,7 @@ mod tests {
 
     #[test]
     fn test_fix_opening_balance_reverse_first_amount_sign() {
-        let mut sd = StatementData::new();
+        let mut sd = AccountData::new();
         let opening_balance = 100.0;
         let incorrect_first_amount = 50.0; // Should be -50.0 (debit)
         let first_balance = 50.0; // 100.0 - 50.0 = 50.0 (correct with -50.0 amount)
@@ -190,7 +190,7 @@ mod tests {
 
     #[test]
     fn test_fix_opening_balance_within_tolerance() {
-        let mut sd = StatementData::new();
+        let mut sd = AccountData::new();
         let opening_balance = 100.0;
         let first_amount = 50.0;
         let first_balance = 150.005; // Very close to correct value (150.0)
@@ -212,7 +212,7 @@ mod tests {
 
     #[test]
     fn test_fix_opening_balance_no_solution_found() {
-        let mut sd = StatementData::new();
+        let mut sd = AccountData::new();
         let opening_balance = 100.0;
         let first_amount = 50.0;
         let first_balance = 200.0; // No correction can make this work
@@ -234,7 +234,7 @@ mod tests {
 
     #[test]
     fn test_fix_opening_balance_negative_amounts() {
-        let mut sd = StatementData::new();
+        let mut sd = AccountData::new();
         let opening_balance = -100.0;
         let first_amount = -50.0;
         let first_balance = -150.0; // -100.0 + (-50.0) = -150.0
@@ -256,7 +256,7 @@ mod tests {
 
     #[test]
     fn test_fix_opening_balance_multiple_transactions_only_checks_first() {
-        let mut sd = StatementData::new();
+        let mut sd = AccountData::new();
         let opening_balance = 100.0; // Should be -100.0
         let first_amount = 50.0;
         let first_balance = -50.0; // Correct with -100.0 opening balance

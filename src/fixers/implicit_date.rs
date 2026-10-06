@@ -1,4 +1,4 @@
-use crate::structs::StatementData;
+use crate::structs::AccountData;
 
 /// Fix transactions with implicit dates. Occurs when the date is implied
 /// by the previous transaction's date.
@@ -6,7 +6,7 @@ use crate::structs::StatementData;
 /// This function fills in missing transaction dates by maintaining a running
 /// date starting from the statement start date. For transactions that already
 /// have a date, it uses that date to continue the sequence for subsequent transactions.
-pub fn fix_implicit_dates(sd: &mut StatementData) {
+pub fn fix_implicit_dates(sd: &mut AccountData) {
     // Start with the start date, return early if not set
     let mut date = match sd.start_date {
         Some(start_date) => start_date,
@@ -31,7 +31,7 @@ mod tests {
 
     #[test]
     fn test_fix_implicit_dates_no_start_date() {
-        let mut sd = StatementData::new();
+        let mut sd = AccountData::new();
 
         // Add a transaction without date
         let mut tx1 = ProtoTransaction::new();
@@ -47,7 +47,7 @@ mod tests {
 
     #[test]
     fn test_fix_implicit_dates_no_transactions() {
-        let mut sd = StatementData::new();
+        let mut sd = AccountData::new();
         sd.set_start_date(1609459200000); // 2021-01-01 timestamp
 
         // Should not panic with no transactions
@@ -59,7 +59,7 @@ mod tests {
 
     #[test]
     fn test_fix_implicit_dates_single_transaction() {
-        let mut sd = StatementData::new();
+        let mut sd = AccountData::new();
         let start_date = 1609459200000; // 2021-01-01 timestamp
         sd.set_start_date(start_date);
 
@@ -76,7 +76,7 @@ mod tests {
 
     #[test]
     fn test_fix_implicit_dates_multiple_transactions_all_missing() {
-        let mut sd = StatementData::new();
+        let mut sd = AccountData::new();
         let start_date = 1609459200000; // 2021-01-01 timestamp
         sd.set_start_date(start_date);
 
@@ -103,7 +103,7 @@ mod tests {
 
     #[test]
     fn test_fix_implicit_dates_mixed_existing_and_missing() {
-        let mut sd = StatementData::new();
+        let mut sd = AccountData::new();
         let start_date = 1609459200000; // 2021-01-01 timestamp
         let tx2_date = 1609545600000; // 2021-01-02 timestamp
         let tx4_date = 1609632000000; // 2021-01-03 timestamp
@@ -149,7 +149,7 @@ mod tests {
 
     #[test]
     fn test_fix_implicit_dates_preserves_existing_dates() {
-        let mut sd = StatementData::new();
+        let mut sd = AccountData::new();
         let start_date = 1609459200000; // 2021-01-01 timestamp
         let existing_date = 1609545600000; // 2021-01-02 timestamp
 
@@ -169,7 +169,7 @@ mod tests {
 
     #[test]
     fn test_fix_implicit_dates_all_transactions_have_dates() {
-        let mut sd = StatementData::new();
+        let mut sd = AccountData::new();
         let start_date = 1609459200000; // 2021-01-01 timestamp
         let tx1_date = 1609545600000; // 2021-01-02 timestamp
         let tx2_date = 1609632000000; // 2021-01-03 timestamp
@@ -196,7 +196,7 @@ mod tests {
 
     #[test]
     fn test_fix_implicit_dates_first_transaction_has_date() {
-        let mut sd = StatementData::new();
+        let mut sd = AccountData::new();
         let start_date = 1609459200000; // 2021-01-01 timestamp
         let tx1_date = 1609545600000; // 2021-01-02 timestamp (different from start)
 

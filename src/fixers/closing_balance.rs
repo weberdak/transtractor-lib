@@ -1,4 +1,4 @@
-use crate::structs::StatementData;
+use crate::structs::AccountData;
 
 /// Reverse the sign of the closing balance only if it is inconsistent with
 /// the sum of the opening balance and all transaction amounts.
@@ -6,7 +6,7 @@ use crate::structs::StatementData;
 /// This function calculates the expected closing balance by summing the opening
 /// balance with all transaction amounts. If the actual closing balance is closer
 /// to the negative of this expected value, it reverses the sign of the closing balance.
-pub fn fix_closing_balance(sd: &mut StatementData) {
+pub fn fix_closing_balance(sd: &mut AccountData) {
     // Start with the opening balance, return early if not set
     let mut balance = match sd.opening_balance {
         Some(opening_balance) => opening_balance,
@@ -41,7 +41,7 @@ mod tests {
 
     #[test]
     fn test_fix_closing_balance_no_opening_balance() {
-        let mut sd = StatementData::new();
+        let mut sd = AccountData::new();
         sd.set_closing_balance(500.0);
 
         // Should not panic when opening balance is None
@@ -53,7 +53,7 @@ mod tests {
 
     #[test]
     fn test_fix_closing_balance_no_closing_balance() {
-        let mut sd = StatementData::new();
+        let mut sd = AccountData::new();
         sd.set_opening_balance(1000.0);
 
         // Should not panic when closing balance is None
@@ -65,7 +65,7 @@ mod tests {
 
     #[test]
     fn test_fix_closing_balance_no_transactions() {
-        let mut sd = StatementData::new();
+        let mut sd = AccountData::new();
         sd.set_opening_balance(1000.0);
         sd.set_closing_balance(1000.0);
 
@@ -77,7 +77,7 @@ mod tests {
 
     #[test]
     fn test_fix_closing_balance_reverses_incorrect_sign() {
-        let mut sd = StatementData::new();
+        let mut sd = AccountData::new();
         sd.set_opening_balance(1000.0);
         sd.set_closing_balance(900.0); // Should be -900.0
 
@@ -103,7 +103,7 @@ mod tests {
 
     #[test]
     fn test_fix_closing_balance_leaves_correct_sign() {
-        let mut sd = StatementData::new();
+        let mut sd = AccountData::new();
         sd.set_opening_balance(1000.0);
         sd.set_closing_balance(1100.0);
 
@@ -121,7 +121,7 @@ mod tests {
 
     #[test]
     fn test_fix_closing_balance_with_multiple_transactions() {
-        let mut sd = StatementData::new();
+        let mut sd = AccountData::new();
         sd.set_opening_balance(1000.0);
 
         // Add multiple transactions: +100, -50, +25 = +75 total
@@ -152,7 +152,7 @@ mod tests {
 
     #[test]
     fn test_fix_closing_balance_skips_transactions_without_amount() {
-        let mut sd = StatementData::new();
+        let mut sd = AccountData::new();
         sd.set_opening_balance(1000.0);
         sd.set_closing_balance(1000.0);
 
@@ -177,7 +177,7 @@ mod tests {
 
     #[test]
     fn test_fix_closing_balance_within_tolerance() {
-        let mut sd = StatementData::new();
+        let mut sd = AccountData::new();
         sd.set_opening_balance(1000.0);
 
         // Add transaction

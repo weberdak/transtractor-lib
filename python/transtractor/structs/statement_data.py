@@ -10,25 +10,15 @@ from .transaction import Transaction
 
 @dataclass(repr=False, slots=True)
 class StatementData:
-    """Class representing bank statement data."""
+    """Class representing bank statement data pooled from one or more accounts."""
 
-    key: str = ""
     filename: str = ""
-    account_number: str = ""
-    start_date: int = 0
-    opening_balance: float = 0.0
-    closing_balance: float = 0.0
     transactions: list[Transaction] = field(default_factory=list)
     benchmark: Benchmark = field(default_factory=Benchmark)
 
     def __repr__(self) -> str:
         return (
-            f"StatementData(key={self.key!r}, "
-            f"filename={self.filename!r}, "
-            f"account_number={self.account_number!r}, "
-            f"start_date={self.start_date!r}, "
-            f"opening_balance={self.opening_balance!r}, "
-            f"closing_balance={self.closing_balance!r}, "
+            f"StatementData(filename={self.filename!r}, "
             f"transactions=[{len(self.transactions)} transactions])"
         )
 

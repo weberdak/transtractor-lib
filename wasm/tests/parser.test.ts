@@ -24,12 +24,6 @@ describe("Parser", () => {
     const layoutText = readFileSync(layoutPath, "utf8");
     const expected = JSON.parse(readFileSync(specPath, "utf8")) as {
       statement_data: {
-        key: string;
-        account_number: string;
-        start_date: number;
-        start_date_year: number;
-        opening_balance: number;
-        closing_balance: number;
         proto_transactions: unknown[];
       };
     };
@@ -57,15 +51,6 @@ describe("Parser", () => {
       checkers: expect.any(BigInt),
     });
 
-    expect(actual.key).toBe(expected.statement_data.key);
-    expect(actual.account_number).toBe(expected.statement_data.account_number);
-    expect(actual.start_date).toBe(expected.statement_data.start_date);
-    expect(actual.opening_balance).toBe(
-      expected.statement_data.opening_balance,
-    );
-    expect(actual.closing_balance).toBe(
-      expected.statement_data.closing_balance,
-    );
     expect(actual.transactions).toHaveLength(
       expected.statement_data.proto_transactions.length,
     );
@@ -75,6 +60,7 @@ describe("Parser", () => {
       description: expect.any(String),
       amount: expect.any(Number),
       balance: expect.any(Number),
+      account_number: expect.any(String),
     });
   });
 
@@ -117,15 +103,6 @@ describe("Parser", () => {
       checkers: expect.any(BigInt),
     });
 
-    expect(actual.key).toBe(expected.statement_data.key);
-    expect(actual.account_number).toBe(expected.statement_data.account_number);
-    expect(actual.start_date).toBe(expected.statement_data.start_date);
-    expect(actual.opening_balance).toBe(
-      expected.statement_data.opening_balance,
-    );
-    expect(actual.closing_balance).toBe(
-      expected.statement_data.closing_balance,
-    );
     expect(actual.transactions).toHaveLength(
       expected.statement_data.proto_transactions.length,
     );

@@ -1,4 +1,4 @@
-use crate::structs::StatementData;
+use crate::structs::AccountData;
 
 /// Fix transactions with implicit balances. Occurs when the statement does
 /// not provide a balance for a transaction, usually for credit card statements.
@@ -7,7 +7,7 @@ use crate::structs::StatementData;
 /// balance starting from the opening balance and adding each transaction amount.
 /// For transactions that already have a balance, it uses that balance to continue
 /// the calculation for subsequent transactions.
-pub fn fix_implicit_balances(sd: &mut StatementData) {
+pub fn fix_implicit_balances(sd: &mut AccountData) {
     // Start with the opening balance, return early if not set
     let mut balance = match sd.opening_balance {
         Some(opening_balance) => opening_balance,
@@ -38,7 +38,7 @@ mod tests {
 
     #[test]
     fn test_fix_implicit_balances_no_opening_balance() {
-        let mut sd = StatementData::new();
+        let mut sd = AccountData::new();
 
         // Add a transaction with amount but no balance
         let mut tx1 = ProtoTransaction::new();
@@ -55,7 +55,7 @@ mod tests {
 
     #[test]
     fn test_fix_implicit_balances_no_transactions() {
-        let mut sd = StatementData::new();
+        let mut sd = AccountData::new();
         sd.set_opening_balance(1000.0);
 
         // Should not panic with no transactions
@@ -67,7 +67,7 @@ mod tests {
 
     #[test]
     fn test_fix_implicit_balances_single_transaction() {
-        let mut sd = StatementData::new();
+        let mut sd = AccountData::new();
         sd.set_opening_balance(1000.0);
 
         // Add transaction with amount but no balance
@@ -84,7 +84,7 @@ mod tests {
 
     #[test]
     fn test_fix_implicit_balances_multiple_transactions() {
-        let mut sd = StatementData::new();
+        let mut sd = AccountData::new();
         sd.set_opening_balance(1000.0);
 
         // Add multiple transactions with amounts but no balances
@@ -113,7 +113,7 @@ mod tests {
 
     #[test]
     fn test_fix_implicit_balances_mixed_existing_and_missing() {
-        let mut sd = StatementData::new();
+        let mut sd = AccountData::new();
         sd.set_opening_balance(1000.0);
 
         // First transaction: has amount, no balance
@@ -149,7 +149,7 @@ mod tests {
 
     #[test]
     fn test_fix_implicit_balances_skips_transactions_without_amount() {
-        let mut sd = StatementData::new();
+        let mut sd = AccountData::new();
         sd.set_opening_balance(1000.0);
 
         // First transaction: has amount and no balance
@@ -184,7 +184,7 @@ mod tests {
 
     #[test]
     fn test_fix_implicit_balances_preserves_existing_balances() {
-        let mut sd = StatementData::new();
+        let mut sd = AccountData::new();
         sd.set_opening_balance(1000.0);
 
         // Transaction with both amount and balance already set
@@ -202,7 +202,7 @@ mod tests {
 
     #[test]
     fn test_fix_implicit_balances_negative_amounts() {
-        let mut sd = StatementData::new();
+        let mut sd = AccountData::new();
         sd.set_opening_balance(1000.0);
 
         // Add transactions with negative amounts

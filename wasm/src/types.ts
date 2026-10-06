@@ -4,14 +4,10 @@ export interface Transaction {
   description: string;
   amount: number;
   balance: number;
+  account_number: string;
 }
 
 export interface StatementData {
-  key: string;
-  account_number: string;
-  start_date: number;
-  opening_balance: number;
-  closing_balance: number;
   transactions: Transaction[];
   benchmark: Benchmark;
 }

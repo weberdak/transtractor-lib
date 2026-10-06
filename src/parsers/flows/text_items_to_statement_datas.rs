@@ -4,14 +4,14 @@ use crate::parsers::top::parse_text_items_with_benchmark;
 use crate::structs::StatementConfig;
 use crate::structs::TextItem;
 use crate::structs::text_items::tokenise_items;
-use crate::structs::{Benchmark, StatementData};
+use crate::structs::{AccountData, Benchmark};
 
-/// Extract StatementData objects from text items using provided statement configurations.
+/// Extract AccountData objects from text items using provided statement configurations.
 pub fn text_items_to_statement_datas(
     items: &Vec<TextItem>,
     configs: &Vec<StatementConfig>,
     exit_when_succeed: bool,
-) -> Result<Vec<StatementData>, String> {
+) -> Result<Vec<AccountData>, String> {
     let mut benchmark = Benchmark::new();
     text_items_to_statement_datas_with_benchmark(items, configs, exit_when_succeed, &mut benchmark)
 }
@@ -21,7 +21,7 @@ pub fn text_items_to_statement_datas_with_benchmark(
     configs: &Vec<StatementConfig>,
     exit_when_succeed: bool,
     benchmark: &mut Benchmark,
-) -> Result<Vec<StatementData>, String> {
+) -> Result<Vec<AccountData>, String> {
     let mut results = Vec::new();
     if configs.is_empty() {
         benchmark.total.pause();
@@ -47,7 +47,7 @@ pub fn text_items_to_statement_datas_with_benchmark(
         benchmark.total.pause();
         data.benchmark = benchmark.clone();
 
-        // Return early if an error-free StatementData is found
+        // Return early if an error-free AccountData is found
         if exit_when_succeed && data.errors.is_empty() {
             results.push(data);
             break;

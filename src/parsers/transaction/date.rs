@@ -1,5 +1,5 @@
 use crate::parsers::base::{DateParser, ParserPrimer};
-use crate::structs::{ProtoTransaction, StatementConfig, StatementData, TextItem};
+use crate::structs::{AccountData, ProtoTransaction, StatementConfig, TextItem};
 
 pub struct TransactionDateParser {
     pub primed: bool,
@@ -61,7 +61,7 @@ impl TransactionDateParser {
     }
 
     /// Set the starting year from current statement data
-    pub fn set_start_date_year(&mut self, data: &StatementData) {
+    pub fn set_start_date_year(&mut self, data: &AccountData) {
         self.start_date_year_str = if let Some(year) = data.start_date_year {
             year.to_string()
         } else {

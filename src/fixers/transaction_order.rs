@@ -1,4 +1,4 @@
-use crate::structs::StatementData;
+use crate::structs::AccountData;
 
 /// Reorder proto-transactions by date and then by index.
 ///
@@ -18,7 +18,7 @@ use crate::structs::StatementData;
 ///
 /// Panics if any transaction does not have a date set. All transactions should
 /// have dates before this fixer is called.
-pub fn fix_transaction_order(sd: &mut StatementData) {
+pub fn fix_transaction_order(sd: &mut AccountData) {
     // Check if any transaction has a balance set
     // If so, we should not reorder as it might break balance consistency
     let has_any_balance = sd.proto_transactions.iter().any(|tx| tx.balance.is_some());
@@ -60,7 +60,7 @@ mod tests {
 
     #[test]
     fn test_fix_transaction_order_sorts_by_date_and_index() {
-        let mut sd = StatementData::new();
+        let mut sd = AccountData::new();
 
         // Create transactions in wrong order
         let mut tx1 = ProtoTransaction::new();
@@ -99,7 +99,7 @@ mod tests {
     #[test]
     #[should_panic(expected = "Transaction at index 1 does not have a date set")]
     fn test_fix_transaction_order_panics_on_none_dates() {
-        let mut sd = StatementData::new();
+        let mut sd = AccountData::new();
 
         let mut tx1 = ProtoTransaction::new();
         tx1.date = Some(1000);
@@ -118,7 +118,7 @@ mod tests {
 
     #[test]
     fn test_fix_transaction_order_does_not_reorder_if_balance_present() {
-        let mut sd = StatementData::new();
+        let mut sd = AccountData::new();
 
         let mut tx1 = ProtoTransaction::new();
         tx1.date = Some(1000);
@@ -152,7 +152,7 @@ mod tests {
 
     #[test]
     fn test_fix_transaction_order_empty_transactions() {
-        let mut sd = StatementData::new();
+        let mut sd = AccountData::new();
 
         fix_transaction_order(&mut sd);
 
@@ -162,7 +162,7 @@ mod tests {
 
     #[test]
     fn test_fix_transaction_order_single_transaction() {
-        let mut sd = StatementData::new();
+        let mut sd = AccountData::new();
 
         let mut tx = ProtoTransaction::new();
         tx.date = Some(1000);

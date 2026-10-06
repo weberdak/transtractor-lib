@@ -32,15 +32,17 @@ impl ProtoTransaction {
     }
 
     /// Converts to a Transaction if all fields are present.
-    pub fn to_transaction(&self) -> Result<Transaction, String> {
+    pub fn to_transaction(&self, account_number: &str) -> Result<Transaction, String> {
         if !self.is_ready() {
             return Err("Cannot convert to Transaction: fields are missing".to_string());
         }
         Ok(Transaction::new(
             self.date.unwrap(),
+            self.index,
             self.description.clone(),
             self.amount.unwrap(),
             self.balance.unwrap(),
+            account_number.to_string(),
         ))
     }
 

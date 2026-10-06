@@ -4,9 +4,9 @@ use crate::parsers::transaction::{
     TransactionAmountParser, TransactionBalanceParser, TransactionDateParser,
     TransactionDescriptionParser,
 };
+use crate::structs::AccountData;
 use crate::structs::ProtoTransaction;
 use crate::structs::StatementConfig;
-use crate::structs::StatementData;
 use crate::structs::TextItem;
 use crate::structs::benchmark::Timer;
 use regex::Regex;
@@ -79,14 +79,14 @@ impl TransactionParser {
         }
     }
 
-    pub fn parse_items(&mut self, items: &[TextItem], data: &mut StatementData) -> usize {
+    pub fn parse_items(&mut self, items: &[TextItem], data: &mut AccountData) -> usize {
         self.parse_items_inner(items, data, None, None)
     }
 
     pub fn parse_items_timed(
         &mut self,
         items: &[TextItem],
-        data: &mut StatementData,
+        data: &mut AccountData,
         start_prime_timer: &mut Timer,
         stop_prime_timer: &mut Timer,
     ) -> usize {
@@ -96,7 +96,7 @@ impl TransactionParser {
     fn parse_items_inner(
         &mut self,
         items: &[TextItem],
-        data: &mut StatementData,
+        data: &mut AccountData,
         start_prime_timer: Option<&mut Timer>,
         stop_prime_timer: Option<&mut Timer>,
     ) -> usize {
@@ -267,7 +267,7 @@ impl TransactionParser {
     /// transaction. Called when a new transaction starts or the transaction
     /// table ends, since the stray text most likely belongs to the previous
     /// (vertically centered) transaction.
-    fn merge_stray_into_last(&mut self, data: &mut StatementData) {
+    fn merge_stray_into_last(&mut self, data: &mut AccountData) {
         let Some(text) = self.description_parser_stray.take_stray() else {
             return;
         };
@@ -325,7 +325,7 @@ impl TransactionParser {
     }
 
     /// Append current transaction to statement data if all compulsory fields are set
-    fn append_current_transaction(&mut self, data: &mut StatementData) {
+    fn append_current_transaction(&mut self, data: &mut AccountData) {
         if !self
             .current_transaction
             .has_required_fields_set(&self.compulsory_fields)
@@ -339,7 +339,7 @@ impl TransactionParser {
     }
 
     /// Handle post-parse actions after a field is successfully parsed
-    fn post_parse_append(&mut self, field: String, data: &mut StatementData) {
+    fn post_parse_append(&mut self, field: String, data: &mut AccountData) {
         if !self.end_line_fields.contains(&field) {
             return;
         }
@@ -364,7 +364,7 @@ impl TransactionParser {
     }
 
     /// Handle new line parsing for specified fields
-    fn handle_new_line(&mut self, items: &[TextItem], data: &mut StatementData) -> usize {
+    fn handle_new_line(&mut self, items: &[TextItem], data: &mut AccountData) -> usize {
         if !self.description_parser.primed {
             self.prime_new_line_fields();
         }

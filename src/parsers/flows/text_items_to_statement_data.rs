@@ -1,6 +1,6 @@
 use crate::configs::db::ConfigDB;
 use crate::parsers::flows::text_items_to_statement_datas::text_items_to_statement_datas_with_benchmark;
-use crate::structs::{Benchmark, StatementData, TextItem};
+use crate::structs::{AccountData, Benchmark, StatementData, TextItem};
 
 /// Top-level workflow to parse extracted text items into structured statement data
 pub fn text_items_to_statement_data(
@@ -25,13 +25,23 @@ pub fn text_items_to_statement_data_with_benchmark(
         return Err("Bank statement format cannot be identified.".to_string());
     }
 
-    // Return first error-free StatementData
-    let statement_data_results =
-        text_items_to_statement_datas_with_benchmark(items, &configs, true, benchmark)?;
-    for data in statement_data_results {
+    // Pool every error-free AccountData; duplicates are consolidated on import
+    let account_data_results =
+        text_items_to_statement_datas_with_benchmark(items, &configs, false, benchmark)?;
+    let mut statement_data = StatementData::new();
+    let mut parsed = false;
+    for data in &account_data_results {
         if data.errors.is_empty() {
-            return Ok(data);
+            if let Err(e) = statement_data.import(data) {
+                benchmark.total.pause();
+                return Err(e);
+            }
+            parsed = true;
         }
+    }
+    if parsed {
+        statement_data.benchmark = benchmark.clone();
+        return Ok(statement_data);
     }
     benchmark.total.pause();
 
@@ -41,4 +51,29 @@ pub fn text_items_to_statement_data_with_benchmark(
         "Bank statement recognised but cannot be parsed. Debug configurations: {:?}",
         keys
     ))
+}
+
+/// Parse text items into the first error-free AccountData (single account view).
+pub fn text_items_to_account_data(
+    config_db: &ConfigDB,
+    items: &Vec<TextItem>,
+) -> Result<AccountData, String> {
+    let mut benchmark = Benchmark::new();
+    benchmark.start_total();
+    let configs = config_db.identify_with_benchmark(items, &mut benchmark);
+    if configs.is_empty() {
+        return Err("Bank statement format cannot be identified.".to_string());
+    }
+    let results =
+        text_items_to_statement_datas_with_benchmark(items, &configs, true, &mut benchmark)?;
+    results
+        .into_iter()
+        .find(|data| data.errors.is_empty())
+        .ok_or_else(|| {
+            let keys: Vec<String> = configs.iter().map(|cfg| cfg.key.clone()).collect();
+            format!(
+                "Bank statement recognised but cannot be parsed. Debug configurations: {:?}",
+                keys
+            )
+        })
 }

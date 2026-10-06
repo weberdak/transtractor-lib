@@ -88,7 +88,7 @@ Detailed [documentation](https://transtractor-lib.readthedocs.io/en/latest/) mai
    df = pd.DataFrame(data)
    ```
 
-The `parse` method returns a `StatementData` object containing the account number, statement date, opening and closing balances, and transaction table. Transaction dates, descriptions, amounts, and running balances are extracted or derived when they are not explicitly recorded in the statement. Transaction amounts are validated against the opening and closing balances; if validation fails, the method raises a `ParserError`.
+The `parse` method returns a `StatementData` object containing the transaction table. Transactions from all accounts in the statement are pooled, and each carries its `account_number`. Transaction dates, descriptions, amounts, and running balances are extracted or derived when they are not explicitly recorded in the statement. Transaction amounts are validated against the opening and closing balances; if validation fails, the method raises a `ParserError`.
 
 ## Supported Statements
 See the documentation for a current list of [supported statements](https://transtractor-lib.readthedocs.io/en/latest/supported_statements.html). You may also create your own parsing configuration files by following these [instructions](https://transtractor-lib.readthedocs.io/en/latest/configuration.html)

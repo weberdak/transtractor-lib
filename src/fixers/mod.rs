@@ -1,4 +1,4 @@
-use crate::structs::StatementData;
+use crate::structs::AccountData;
 
 pub mod amounts;
 pub mod closing_balance;
@@ -18,8 +18,8 @@ pub use opening_balance::fix_opening_balance;
 pub use set_indices::fix_set_indices;
 pub use transaction_order::fix_transaction_order;
 
-/// Apply all fixers to the StatementData in a logical order
-pub fn fix_statement_data(sd: &mut StatementData) {
+/// Apply all fixers to the AccountData in a logical order
+pub fn fix_statement_data(sd: &mut AccountData) {
     fix_implicit_dates(sd);
     fix_year_crossovers(sd);
     fix_transaction_order(sd);

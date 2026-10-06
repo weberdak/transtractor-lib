@@ -1,4 +1,4 @@
-use crate::structs::StatementData;
+use crate::structs::AccountData;
 
 /// Check if the statement balances are consistent by calculating running balances.
 ///
@@ -12,7 +12,7 @@ use crate::structs::StatementData;
 /// Panics if required data is missing (this should not happen during runtime):
 /// - Any transaction is missing an amount or balance
 ///
-pub fn check_balances(sd: &mut StatementData) {
+pub fn check_balances(sd: &mut AccountData) {
     // Log error and return if either balance is missing
     if sd.opening_balance.is_none() || sd.closing_balance.is_none() {
         sd.add_error("Cannot check balances if opening or closing balance is missing".to_string());
@@ -87,7 +87,7 @@ mod tests {
 
     #[test]
     fn test_check_balances_missing_opening_balance() {
-        let mut sd = StatementData::new();
+        let mut sd = AccountData::new();
         sd.set_closing_balance(1000.0);
 
         check_balances(&mut sd);
@@ -100,7 +100,7 @@ mod tests {
 
     #[test]
     fn test_check_balances_missing_closing_balance() {
-        let mut sd = StatementData::new();
+        let mut sd = AccountData::new();
         sd.set_opening_balance(1000.0);
 
         check_balances(&mut sd);
@@ -113,7 +113,7 @@ mod tests {
 
     #[test]
     fn test_check_balances_missing_both_balances() {
-        let mut sd = StatementData::new();
+        let mut sd = AccountData::new();
 
         check_balances(&mut sd);
 
@@ -126,7 +126,7 @@ mod tests {
     #[test]
     #[should_panic(expected = "Transaction 0 must have an amount set")]
     fn test_check_balances_panic_missing_transaction_amount() {
-        let mut sd = StatementData::new();
+        let mut sd = AccountData::new();
         sd.set_opening_balance(1000.0);
         sd.set_closing_balance(900.0);
 
@@ -141,7 +141,7 @@ mod tests {
     #[test]
     #[should_panic(expected = "Transaction 0 must have a balance set")]
     fn test_check_balances_panic_missing_transaction_balance() {
-        let mut sd = StatementData::new();
+        let mut sd = AccountData::new();
         sd.set_opening_balance(1000.0);
         sd.set_closing_balance(900.0);
 
@@ -155,7 +155,7 @@ mod tests {
 
     #[test]
     fn test_check_balances_no_transactions_balanced() {
-        let mut sd = StatementData::new();
+        let mut sd = AccountData::new();
         sd.set_opening_balance(1000.0);
         sd.set_closing_balance(1000.0);
         // No transactions
@@ -167,7 +167,7 @@ mod tests {
 
     #[test]
     fn test_check_balances_no_transactions_unbalanced() {
-        let mut sd = StatementData::new();
+        let mut sd = AccountData::new();
         sd.set_opening_balance(1000.0);
         sd.set_closing_balance(900.0);
         // No transactions
@@ -181,7 +181,7 @@ mod tests {
 
     #[test]
     fn test_check_balances_single_transaction_balanced() {
-        let mut sd = StatementData::new();
+        let mut sd = AccountData::new();
         sd.set_opening_balance(1000.0);
         sd.set_closing_balance(900.0);
 
@@ -194,7 +194,7 @@ mod tests {
 
     #[test]
     fn test_check_balances_single_transaction_balance_mismatch() {
-        let mut sd = StatementData::new();
+        let mut sd = AccountData::new();
         sd.set_opening_balance(1000.0);
         sd.set_closing_balance(900.0);
 
@@ -210,7 +210,7 @@ mod tests {
 
     #[test]
     fn test_check_balances_multiple_transactions_balanced() {
-        let mut sd = StatementData::new();
+        let mut sd = AccountData::new();
         sd.set_opening_balance(1000.0);
         sd.set_closing_balance(925.0);
 
@@ -230,7 +230,7 @@ mod tests {
 
     #[test]
     fn test_check_balances_multiple_transactions_middle_error() {
-        let mut sd = StatementData::new();
+        let mut sd = AccountData::new();
         sd.set_opening_balance(1000.0);
         sd.set_closing_balance(925.0);
 
@@ -253,7 +253,7 @@ mod tests {
 
     #[test]
     fn test_check_balances_final_balance_mismatch_only() {
-        let mut sd = StatementData::new();
+        let mut sd = AccountData::new();
         sd.set_opening_balance(1000.0);
         sd.set_closing_balance(800.0); // Wrong final balance
 
@@ -268,7 +268,7 @@ mod tests {
 
     #[test]
     fn test_check_balances_floating_point_precision() {
-        let mut sd = StatementData::new();
+        let mut sd = AccountData::new();
         sd.set_opening_balance(1000.0);
         sd.set_closing_balance(999.90);
 
@@ -282,7 +282,7 @@ mod tests {
 
     #[test]
     fn test_check_balances_negative_amounts() {
-        let mut sd = StatementData::new();
+        let mut sd = AccountData::new();
         sd.set_opening_balance(-500.0);
         sd.set_closing_balance(-700.0);
 
@@ -295,7 +295,7 @@ mod tests {
 
     #[test]
     fn test_check_balances_positive_amounts() {
-        let mut sd = StatementData::new();
+        let mut sd = AccountData::new();
         sd.set_opening_balance(100.0);
         sd.set_closing_balance(400.0);
 
@@ -308,7 +308,7 @@ mod tests {
 
     #[test]
     fn test_check_balances_zero_amounts() {
-        let mut sd = StatementData::new();
+        let mut sd = AccountData::new();
         sd.set_opening_balance(1000.0);
         sd.set_closing_balance(1000.0);
 
@@ -321,7 +321,7 @@ mod tests {
 
     #[test]
     fn test_check_balances_error_messages_contain_transaction_numbers() {
-        let mut sd = StatementData::new();
+        let mut sd = AccountData::new();
         sd.set_opening_balance(1000.0);
         sd.set_closing_balance(600.0);
 
@@ -344,7 +344,7 @@ mod tests {
 
     #[test]
     fn test_check_balances_rounding_consistency() {
-        let mut sd = StatementData::new();
+        let mut sd = AccountData::new();
         sd.set_opening_balance(100.0);
         sd.set_closing_balance(99.67);
 
@@ -358,7 +358,7 @@ mod tests {
 
     #[test]
     fn test_check_balances_large_numbers() {
-        let mut sd = StatementData::new();
+        let mut sd = AccountData::new();
         sd.set_opening_balance(1_000_000.0);
         sd.set_closing_balance(999_999.99);
 

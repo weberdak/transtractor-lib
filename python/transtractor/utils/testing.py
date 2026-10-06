@@ -19,7 +19,6 @@ class TestData:
         self.pdf_file_path = pdf_file_path  # The PDF file being tested
         self.parser = parser  # The Parser instance used for testing
         self.num_transactions: int = 0  # Number of transactions extracted
-        self.config_key: str = ""  # Config key used for parsing
         self.total_time: int = 0  # Total time taken for the test in ms
         self.status: str = ""  # Status of the test (PASS/FAIL)
         self.reason_failed: str = ""  # Error message if any
@@ -30,7 +29,6 @@ class TestData:
         return [
             "PDF File",
             "Transactions",
-            "Config Key",
             "Total Time (ms)",
             "Status",
             "Reason Failed",
@@ -51,7 +49,6 @@ class TestData:
         return [
             Path(self.pdf_file_path).as_posix(),
             str(self.num_transactions),
-            self.config_key,
             str(self.total_time),
             self.status,
             self.reason_failed,
@@ -76,7 +73,6 @@ class TestData:
                 StatementData,
                 self.parser.parse(self.pdf_file_path),
             )
-            self.config_key = sd.key if sd.key else ""
             self.num_transactions = len(sd.transactions)
             self.status = "PASS"
         except Exception as e:

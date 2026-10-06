@@ -1,4 +1,4 @@
-use crate::structs::StatementData;
+use crate::structs::AccountData;
 
 /// Reverse the sign of transaction amounts if the balance is inconsistent
 /// with the sum of the previous balance and the amount.
@@ -7,7 +7,7 @@ use crate::structs::StatementData;
 /// transaction balance is consistent with: previous_balance + transaction_amount.
 /// If the balance is more consistent with: previous_balance - transaction_amount,
 /// then it reverses the sign of the transaction amount.
-pub fn fix_amounts(sd: &mut StatementData) {
+pub fn fix_amounts(sd: &mut AccountData) {
     // Start with the opening balance, return early if not set
     let mut balance = match sd.opening_balance {
         Some(opening_balance) => opening_balance,
@@ -46,7 +46,7 @@ mod tests {
 
     #[test]
     fn test_fix_amounts_no_opening_balance() {
-        let mut sd = StatementData::new();
+        let mut sd = AccountData::new();
         // Should not panic when opening balance is None
         fix_amounts(&mut sd);
         assert_eq!(sd.proto_transactions.len(), 0);
@@ -54,7 +54,7 @@ mod tests {
 
     #[test]
     fn test_fix_amounts_no_transactions() {
-        let mut sd = StatementData::new();
+        let mut sd = AccountData::new();
         sd.set_opening_balance(1000.0);
         fix_amounts(&mut sd);
         assert_eq!(sd.proto_transactions.len(), 0);
@@ -62,7 +62,7 @@ mod tests {
 
     #[test]
     fn test_fix_amounts_reverses_incorrect_signs() {
-        let mut sd = StatementData::new();
+        let mut sd = AccountData::new();
         sd.set_opening_balance(1000.0);
 
         // Create a transaction where the amount should be negative
@@ -82,7 +82,7 @@ mod tests {
 
     #[test]
     fn test_fix_amounts_leaves_correct_signs() {
-        let mut sd = StatementData::new();
+        let mut sd = AccountData::new();
         sd.set_opening_balance(1000.0);
 
         // Create a transaction where the amount is already correct
@@ -101,7 +101,7 @@ mod tests {
 
     #[test]
     fn test_fix_amounts_skips_incomplete_transactions() {
-        let mut sd = StatementData::new();
+        let mut sd = AccountData::new();
         sd.set_opening_balance(1000.0);
 
         // Transaction with missing amount
@@ -127,7 +127,7 @@ mod tests {
 
     #[test]
     fn test_fix_amounts_multiple_transactions() {
-        let mut sd = StatementData::new();
+        let mut sd = AccountData::new();
         sd.set_opening_balance(1000.0);
 
         // First transaction: 1000 + 50 = 1050 (correct)

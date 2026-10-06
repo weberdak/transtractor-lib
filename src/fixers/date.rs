@@ -1,4 +1,4 @@
-use crate::structs::StatementData;
+use crate::structs::AccountData;
 use chrono::{DateTime, Datelike, Utc};
 
 /// Fix transactions with year crossover dates.
@@ -6,7 +6,7 @@ use chrono::{DateTime, Datelike, Utc};
 /// This function handles cases where transaction dates appear to be from the previous year
 /// due to year boundaries in statements. If a transaction date is before the statement start date,
 /// it assumes the transaction actually occurred in the following year and adjusts accordingly.
-pub fn fix_year_crossovers(sd: &mut StatementData) {
+pub fn fix_year_crossovers(sd: &mut AccountData) {
     // Return early if no start date
     let start_date = match sd.start_date {
         Some(date) => date,
@@ -44,7 +44,7 @@ mod tests {
 
     #[test]
     fn test_fix_year_crossovers_no_start_date() {
-        let mut sd = StatementData::new();
+        let mut sd = AccountData::new();
 
         // Add a transaction with date
         let mut tx1 = ProtoTransaction::new();
@@ -64,7 +64,7 @@ mod tests {
 
     #[test]
     fn test_fix_year_crossovers_no_transactions() {
-        let mut sd = StatementData::new();
+        let mut sd = AccountData::new();
         let start_date = Utc
             .with_ymd_and_hms(2024, 1, 15, 0, 0, 0)
             .unwrap()
@@ -80,7 +80,7 @@ mod tests {
 
     #[test]
     fn test_fix_year_crossovers_transaction_after_start_date() {
-        let mut sd = StatementData::new();
+        let mut sd = AccountData::new();
         let start_date = Utc
             .with_ymd_and_hms(2024, 1, 15, 0, 0, 0)
             .unwrap()
@@ -104,7 +104,7 @@ mod tests {
 
     #[test]
     fn test_fix_year_crossovers_transaction_before_start_date() {
-        let mut sd = StatementData::new();
+        let mut sd = AccountData::new();
         // Start date: January 15, 2024
         let start_date = Utc
             .with_ymd_and_hms(2024, 1, 15, 0, 0, 0)
@@ -133,7 +133,7 @@ mod tests {
 
     #[test]
     fn test_fix_year_crossovers_multiple_transactions_mixed() {
-        let mut sd = StatementData::new();
+        let mut sd = AccountData::new();
         // Start date: January 15, 2024
         let start_date = Utc
             .with_ymd_and_hms(2024, 1, 15, 0, 0, 0)
@@ -187,7 +187,7 @@ mod tests {
 
     #[test]
     fn test_fix_year_crossovers_transaction_without_date() {
-        let mut sd = StatementData::new();
+        let mut sd = AccountData::new();
         let start_date = Utc
             .with_ymd_and_hms(2024, 1, 15, 0, 0, 0)
             .unwrap()
@@ -218,7 +218,7 @@ mod tests {
 
     #[test]
     fn test_fix_year_crossovers_same_day_as_start_date() {
-        let mut sd = StatementData::new();
+        let mut sd = AccountData::new();
         // Start date: January 15, 2024
         let start_date = Utc
             .with_ymd_and_hms(2024, 1, 15, 0, 0, 0)
@@ -239,7 +239,7 @@ mod tests {
 
     #[test]
     fn test_fix_year_crossovers_one_millisecond_before() {
-        let mut sd = StatementData::new();
+        let mut sd = AccountData::new();
         // Start date: January 15, 2024
         let start_date = Utc
             .with_ymd_and_hms(2024, 1, 15, 0, 0, 0)
@@ -266,7 +266,7 @@ mod tests {
 
     #[test]
     fn test_fix_year_crossovers_year_boundary_december_january() {
-        let mut sd = StatementData::new();
+        let mut sd = AccountData::new();
         // Start date: January 5, 2024 (early in year)
         let start_date = Utc
             .with_ymd_and_hms(2024, 1, 5, 0, 0, 0)
@@ -295,7 +295,7 @@ mod tests {
 
     #[test]
     fn test_fix_year_crossovers_preserves_time_components() {
-        let mut sd = StatementData::new();
+        let mut sd = AccountData::new();
         // Start date: January 15, 2024 at 12:30:45
         let start_date = Utc
             .with_ymd_and_hms(2024, 1, 15, 12, 30, 45)
