@@ -1,5 +1,5 @@
 use crate::configs::db::ConfigDB;
-use crate::parsers::flows::text_items_to_statement_datas::text_items_to_statement_datas_with_benchmark;
+use crate::parsers::flows::text_items_to_account_datas::text_items_to_account_datas_with_benchmark;
 use crate::structs::{Benchmark, StatementData, TextItem};
 
 /// Top-level workflow to parse extracted text items into structured statement data
@@ -27,7 +27,7 @@ pub fn text_items_to_statement_data_with_benchmark(
 
     // Pool every error-free AccountData; duplicates are consolidated on import
     let account_data_results =
-        text_items_to_statement_datas_with_benchmark(items, &configs, false, benchmark)?;
+        text_items_to_account_datas_with_benchmark(items, &configs, false, benchmark)?;
     let mut statement_data = StatementData::new();
     let mut parsed = false;
     for data in &account_data_results {

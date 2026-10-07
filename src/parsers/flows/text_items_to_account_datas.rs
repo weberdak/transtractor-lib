@@ -7,16 +7,16 @@ use crate::structs::text_items::tokenise_items;
 use crate::structs::{AccountData, Benchmark};
 
 /// Extract AccountData objects from text items using provided statement configurations.
-pub fn text_items_to_statement_datas(
+pub fn text_items_to_account_datas(
     items: &Vec<TextItem>,
     configs: &Vec<StatementConfig>,
     exit_when_succeed: bool,
 ) -> Result<Vec<AccountData>, String> {
     let mut benchmark = Benchmark::new();
-    text_items_to_statement_datas_with_benchmark(items, configs, exit_when_succeed, &mut benchmark)
+    text_items_to_account_datas_with_benchmark(items, configs, exit_when_succeed, &mut benchmark)
 }
 
-pub fn text_items_to_statement_datas_with_benchmark(
+pub fn text_items_to_account_datas_with_benchmark(
     items: &Vec<TextItem>,
     configs: &Vec<StatementConfig>,
     exit_when_succeed: bool,
