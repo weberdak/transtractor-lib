@@ -1,35 +1,31 @@
 {
   "statement_data": {
-    "key": "au__cba__loan__1",
-    "account_number": "123456789",
-    "start_date": 1751328000000,
-    "start_date_year": 2025,
-    "opening_balance": 0.0,
-    "closing_balance": -123703.68,
-    "proto_transactions": [
+    "transactions": [
       {
         "date": 1751587200000,
         "index": 0,
         "description": "XXXXXXXXXX XXXXXXXXXX",
         "amount": -123.45,
-        "balance": -123.45
+        "balance": -123.45,
+        "account_number": "123456789"
       },
       {
         "date": 1751587200000,
         "index": 1,
         "description": "XXXXXXXXXX XXXXXXXXXX",
         "amount": -123456.78,
-        "balance": -123580.23
+        "balance": -123580.23,
+        "account_number": "123456789"
       },
       {
         "date": 1751587200000,
         "index": 2,
         "description": "XXXXXXXXXX XXXXXXXXXX",
         "amount": -123.45,
-        "balance": -123703.68
+        "balance": -123703.68,
+        "account_number": "123456789"
       }
-    ],
-    "errors": []
+    ]
   },
   "text_items": [
     {

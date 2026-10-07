@@ -1,203 +1,223 @@
 {
   "statement_data": {
-    "key": "au__cba__debit__1",
-    "account_number": "01 2345 67890123",
-    "start_date": 1735689600000,
-    "start_date_year": 2025,
-    "opening_balance": 12345.67,
-    "closing_balance": 1.23,
-    "proto_transactions": [
+    "transactions": [
       {
         "date": 1735689600000,
         "index": 0,
         "description": "Credit Interest",
         "amount": 12.34,
-        "balance": 12358.01
+        "balance": 12358.01,
+        "account_number": "01 2345 67890123"
       },
       {
         "date": 1735689600000,
         "index": 1,
         "description": "TFN Witholding Tax",
         "amount": -12.34,
-        "balance": 12345.67
+        "balance": 12345.67,
+        "account_number": "01 2345 67890123"
       },
       {
         "date": 1735689600000,
         "index": 2,
         "description": "Bonus Interest",
         "amount": 123.45,
-        "balance": 12469.12
+        "balance": 12469.12,
+        "account_number": "01 2345 67890123"
       },
       {
         "date": 1735776000000,
         "index": 0,
         "description": "Transfer from xx1234 CommBank app",
         "amount": 123.45,
-        "balance": 12592.57
+        "balance": 12592.57,
+        "account_number": "01 2345 67890123"
       },
       {
         "date": 1737072000000,
         "index": 0,
         "description": "Transfer from xx1234 CommBank app",
         "amount": 1234.56,
-        "balance": 13827.13
+        "balance": 13827.13,
+        "account_number": "01 2345 67890123"
       },
       {
         "date": 1737331200000,
         "index": 0,
         "description": "Transfer from xx1234 CommBank app",
         "amount": 12345.67,
-        "balance": 26172.8
+        "balance": 26172.8,
+        "account_number": "01 2345 67890123"
       },
       {
         "date": 1738281600000,
         "index": 0,
         "description": "Transfer from xx1234 CommBank app",
         "amount": 123.45,
-        "balance": 26296.25
+        "balance": 26296.25,
+        "account_number": "01 2345 67890123"
       },
       {
         "date": 1738368000000,
         "index": 0,
         "description": "Credit Interest",
         "amount": 12.34,
-        "balance": 26308.59
+        "balance": 26308.59,
+        "account_number": "01 2345 67890123"
       },
       {
         "date": 1738368000000,
         "index": 1,
         "description": "TFN Withholding Tax",
         "amount": -123.45,
-        "balance": 26185.14
+        "balance": 26185.14,
+        "account_number": "01 2345 67890123"
       },
       {
         "date": 1738368000000,
         "index": 2,
         "description": "Bonus Interest",
         "amount": 123.45,
-        "balance": 26308.59
+        "balance": 26308.59,
+        "account_number": "01 2345 67890123"
       },
       {
         "date": 1739750400000,
         "index": 0,
         "description": "Transfer from xx1234 CommBank app",
         "amount": 1234.56,
-        "balance": 27543.15
+        "balance": 27543.15,
+        "account_number": "01 2345 67890123"
       },
       {
         "date": 1740787200000,
         "index": 0,
         "description": "Credit Interest",
         "amount": 12.34,
-        "balance": 27555.49
+        "balance": 27555.49,
+        "account_number": "01 2345 67890123"
       },
       {
         "date": 1740787200000,
         "index": 1,
         "description": "TFN Withholding Tax",
         "amount": -123.45,
-        "balance": 27432.04
+        "balance": 27432.04,
+        "account_number": "01 2345 67890123"
       },
       {
         "date": 1740787200000,
         "index": 2,
         "description": "Bonus Interest",
         "amount": 123.45,
-        "balance": 27555.49
+        "balance": 27555.49,
+        "account_number": "01 2345 67890123"
       },
       {
         "date": 1741046400000,
         "index": 0,
         "description": "Transfer from xx1234 CommBank app",
         "amount": 123.45,
-        "balance": 27678.94
+        "balance": 27678.94,
+        "account_number": "01 2345 67890123"
       },
       {
         "date": 1741996800000,
         "index": 0,
         "description": "Transfer from xx1234 CommBank app",
         "amount": 1234.56,
-        "balance": 28913.5
+        "balance": 28913.5,
+        "account_number": "01 2345 67890123"
       },
       {
         "date": 1742860800000,
         "index": 0,
         "description": "Transfer from xx1234 CommBank app",
         "amount": 123.45,
-        "balance": 29036.95
+        "balance": 29036.95,
+        "account_number": "01 2345 67890123"
       },
       {
         "date": 1743465600000,
         "index": 0,
         "description": "Credit Interest",
         "amount": 12.34,
-        "balance": 29049.29
+        "balance": 29049.29,
+        "account_number": "01 2345 67890123"
       },
       {
         "date": 1743465600000,
         "index": 1,
         "description": "TFN Withholding Tax",
         "amount": -123.45,
-        "balance": 28925.84
+        "balance": 28925.84,
+        "account_number": "01 2345 67890123"
       },
       {
         "date": 1743465600000,
         "index": 2,
         "description": "Bonus Interest",
         "amount": 123.45,
-        "balance": 29049.29
+        "balance": 29049.29,
+        "account_number": "01 2345 67890123"
       },
       {
         "date": 1744416000000,
         "index": 0,
         "description": "Transfer from xx1234 CommBank app",
         "amount": 1234.56,
-        "balance": 30283.85
+        "balance": 30283.85,
+        "account_number": "01 2345 67890123"
       },
       {
         "date": 1745452800000,
         "index": 0,
         "description": "Transfer from xx1234 CommBank app",
         "amount": 1234.56,
-        "balance": 31518.41
+        "balance": 31518.41,
+        "account_number": "01 2345 67890123"
       },
       {
         "date": 1746057600000,
         "index": 0,
         "description": "Credit Interest",
         "amount": 12.34,
-        "balance": 31530.75
+        "balance": 31530.75,
+        "account_number": "01 2345 67890123"
       },
       {
         "date": 1746057600000,
         "index": 1,
         "description": "TFN Withholding Tax",
         "amount": -123.45,
-        "balance": 31407.3
+        "balance": 31407.3,
+        "account_number": "01 2345 67890123"
       },
       {
         "date": 1746057600000,
         "index": 2,
         "description": "Bonus Interest",
         "amount": 123.45,
-        "balance": 31530.75
+        "balance": 31530.75,
+        "account_number": "01 2345 67890123"
       },
       {
         "date": 1746835200000,
         "index": 0,
         "description": "Transfer to CBA A/c CommBank app",
         "amount": -31530.75,
-        "balance": 0.0
+        "balance": 0.0,
+        "account_number": "01 2345 67890123"
       },
       {
         "date": 1748736000000,
         "index": 0,
         "description": "Credit Interest",
         "amount": 1.23,
-        "balance": 1.23
+        "balance": 1.23,
+        "account_number": "01 2345 67890123"
       }
-    ],
-    "errors": []
+    ]
   },
   "text_items": [
     {

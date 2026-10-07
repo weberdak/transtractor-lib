@@ -1,5 +1,7 @@
+use serde::{Deserialize, Serialize};
+
 /// Represents a complete transaction. All fields must be filled (no nulls).
-#[derive(Debug, Clone)]
+#[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
 pub struct Transaction {
     /// Date of the transaction as a timestamp (milliseconds since epoch)
     pub date: i64,

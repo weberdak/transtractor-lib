@@ -1,6 +1,6 @@
 use crate::configs::db::ConfigDB;
 use crate::parsers::flows::text_items_to_statement_datas::text_items_to_statement_datas_with_benchmark;
-use crate::structs::{AccountData, Benchmark, StatementData, TextItem};
+use crate::structs::{Benchmark, StatementData, TextItem};
 
 /// Top-level workflow to parse extracted text items into structured statement data
 pub fn text_items_to_statement_data(
@@ -51,29 +51,4 @@ pub fn text_items_to_statement_data_with_benchmark(
         "Bank statement recognised but cannot be parsed. Debug configurations: {:?}",
         keys
     ))
-}
-
-/// Parse text items into the first error-free AccountData (single account view).
-pub fn text_items_to_account_data(
-    config_db: &ConfigDB,
-    items: &Vec<TextItem>,
-) -> Result<AccountData, String> {
-    let mut benchmark = Benchmark::new();
-    benchmark.start_total();
-    let configs = config_db.identify_with_benchmark(items, &mut benchmark);
-    if configs.is_empty() {
-        return Err("Bank statement format cannot be identified.".to_string());
-    }
-    let results =
-        text_items_to_statement_datas_with_benchmark(items, &configs, true, &mut benchmark)?;
-    results
-        .into_iter()
-        .find(|data| data.errors.is_empty())
-        .ok_or_else(|| {
-            let keys: Vec<String> = configs.iter().map(|cfg| cfg.key.clone()).collect();
-            format!(
-                "Bank statement recognised but cannot be parsed. Debug configurations: {:?}",
-                keys
-            )
-        })
 }

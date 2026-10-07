@@ -51,7 +51,28 @@ fn collect_spec_files() -> Vec<PathBuf> {
     spec_files
 }
 
-fn validate_spec_file_name(spec_path: &Path, spec: &Spec) -> Result<(), String> {
+/// Config key implied by a spec path: `<dir>/<a>__<b>__<c>__<name>__<n>.json` -> `<dir>__<a>__<b>__<c>`.
+fn spec_key_from_path(spec_path: &Path) -> Result<String, String> {
+    let dir = spec_path
+        .parent()
+        .and_then(|parent| parent.file_name())
+        .and_then(|name| name.to_str())
+        .ok_or_else(|| format!("{}: missing parent directory name", spec_path.display()))?;
+    let stem = spec_path
+        .file_stem()
+        .and_then(|stem| stem.to_str())
+        .ok_or_else(|| format!("{}: missing or invalid file stem", spec_path.display()))?;
+    let components: Vec<&str> = stem.split("__").collect();
+    if components.len() < 3 {
+        return Err(format!(
+            "{}: expected at least 3 filename components",
+            spec_path.display()
+        ));
+    }
+    Ok(format!("{}__{}", dir, components[..3].join("__")))
+}
+
+fn validate_spec_file_name(spec_path: &Path) -> Result<(), String> {
     let file_name = spec_path
         .file_name()
         .and_then(|name| name.to_str())
@@ -80,49 +101,12 @@ fn validate_spec_file_name(spec_path: &Path, spec: &Spec) -> Result<(), String> 
         ));
     }
 
-    let key_components: Vec<&str> = spec
-        .statement_data
-        .key
-        .as_deref()
-        .ok_or_else(|| format!("{}: statement_data.key is missing", spec_path.display()))?
-        .split("__")
-        .collect();
-
-    if key_components.len() != 4 {
+    let key = spec_key_from_path(spec_path)?;
+    if !get_config_map().contains_key(&key) {
         return Err(format!(
-            "{}: expected statement_data.key to have exactly 4 components separated by double underscores, found {} in {:?}",
+            "{}: derived config key {:?} (directory + first three filename components) is not a registered config",
             spec_path.display(),
-            key_components.len(),
-            key_components
-        ));
-    }
-
-    let expected_dir = key_components[0];
-    let actual_dir = spec_path
-        .parent()
-        .and_then(|parent| parent.file_name())
-        .and_then(|name| name.to_str())
-        .ok_or_else(|| format!("{}: missing parent directory name", spec_path.display()))?;
-
-    if actual_dir != expected_dir {
-        return Err(format!(
-            "{}: expected to be in directory {:?} based on statement_data.key {:?}, found {:?}",
-            spec_path.display(),
-            expected_dir,
-            spec.statement_data.key,
-            actual_dir
-        ));
-    }
-
-    if components[0] != key_components[1]
-        || components[1] != key_components[2]
-        || components[2] != key_components[3]
-    {
-        return Err(format!(
-            "{}: filename components {:?} do not match statement_data.key components {:?} as required",
-            spec_path.display(),
-            components,
-            key_components
+            key
         ));
     }
 
@@ -148,7 +132,7 @@ fn validate_spec_file(spec_path: &str) {
             spec_path.display()
         )
     });
-    validate_spec_file_name(spec_path, &spec).unwrap_or_else(|error| panic!("{error}"));
+    validate_spec_file_name(spec_path).unwrap_or_else(|error| panic!("{error}"));
     spec.validate(&config_db)
         .unwrap_or_else(|error| panic!("{}:\n{error}", spec_path.display()));
 }
@@ -162,44 +146,17 @@ fn every_registered_config_has_a_spec_file() {
     let mut read_failures = Vec::new();
 
     for spec_path in spec_files {
-        let spec_content = match fs::read_to_string(&spec_path) {
-            Ok(content) => content,
-            Err(error) => {
-                read_failures.push(format!(
-                    "{}: failed to read file: {}",
-                    spec_path.display(),
-                    error
-                ));
-                continue;
-            }
-        };
-
-        let spec = match Spec::from_json(&spec_content) {
-            Ok(spec) => spec,
-            Err(error) => {
-                read_failures.push(format!(
-                    "{}: failed to parse JSON spec: {}",
-                    spec_path.display(),
-                    error
-                ));
-                continue;
-            }
-        };
-
-        match spec.statement_data.key {
-            Some(key) => {
+        match spec_key_from_path(&spec_path) {
+            Ok(key) => {
                 spec_keys.insert(key);
             }
-            None => read_failures.push(format!(
-                "{}: statement_data.key is missing",
-                spec_path.display()
-            )),
+            Err(error) => read_failures.push(error),
         }
     }
 
     assert!(
         read_failures.is_empty(),
-        "{} spec read/parse failure(s):\n\n{}",
+        "{} spec path failure(s):\n\n{}",
         read_failures.len(),
         read_failures.join("\n\n")
     );

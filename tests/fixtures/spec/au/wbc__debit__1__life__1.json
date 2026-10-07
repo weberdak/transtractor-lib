@@ -1,224 +1,247 @@
 {
   "statement_data": {
-    "key": "au__wbc__debit__1",
-    "account_number": "123456789",
-    "start_date": 1725580800000,
-    "start_date_year": 2024,
-    "opening_balance": 1234.56,
-    "closing_balance": 2071.73,
-    "proto_transactions": [
+    "transactions": [
       {
         "date": 1725840000000,
         "index": 0,
         "description": "XXXXXXXXXX XXXXXXXXXX",
         "amount": 1234.56,
-        "balance": 2469.12
+        "balance": 2469.12,
+        "account_number": "123456789"
       },
       {
         "date": 1725840000000,
         "index": 1,
         "description": "XXXXXXXXXX XXXXXXXXXX",
         "amount": -123.45,
-        "balance": 2345.67
+        "balance": 2345.67,
+        "account_number": "123456789"
       },
       {
         "date": 1725840000000,
         "index": 2,
         "description": "XXXXXXXXXX XXXXXXXXXX",
         "amount": -1987.65,
-        "balance": 358.02
+        "balance": 358.02,
+        "account_number": "123456789"
       },
       {
         "date": 1726099200000,
         "index": 0,
         "description": "XXXXXXXXXX XXXXXXXXXX",
         "amount": 2345.67,
-        "balance": 2703.69
+        "balance": 2703.69,
+        "account_number": "123456789"
       },
       {
         "date": 1726099200000,
         "index": 1,
         "description": "XXXXXXXXXX XXXXXXXXXX",
         "amount": 1234.56,
-        "balance": 3938.25
+        "balance": 3938.25,
+        "account_number": "123456789"
       },
       {
         "date": 1726099200000,
         "index": 2,
         "description": "XXXXXXXXXX XXXXXXXXXX",
         "amount": -1234.56,
-        "balance": 2703.69
+        "balance": 2703.69,
+        "account_number": "123456789"
       },
       {
         "date": 1726185600000,
         "index": 0,
         "description": "XXXXXXXXXX XXXXXXXXXX",
         "amount": -123.45,
-        "balance": 2580.24
+        "balance": 2580.24,
+        "account_number": "123456789"
       },
       {
         "date": 1739404800000,
         "index": 0,
         "description": "XXXXXXXXXX XXXXXXXXXX",
         "amount": 3456.78,
-        "balance": 6037.02
+        "balance": 6037.02,
+        "account_number": "123456789"
       },
       {
         "date": 1739404800000,
         "index": 1,
         "description": "XXXXXXXXXX XXXXXXXXXX",
         "amount": -123.45,
-        "balance": 5913.57
+        "balance": 5913.57,
+        "account_number": "123456789"
       },
       {
         "date": 1739404800000,
         "index": 2,
         "description": "XXXXXXXXXX XXXXXXXXXX",
         "amount": -2345.67,
-        "balance": 3567.9
+        "balance": 3567.9,
+        "account_number": "123456789"
       },
       {
         "date": 1739404800000,
         "index": 3,
         "description": "XXXXXXXXXX XXXXXXXXXX",
         "amount": -234.56,
-        "balance": 3333.34
+        "balance": 3333.34,
+        "account_number": "123456789"
       },
       {
         "date": 1739491200000,
         "index": 0,
         "description": "XXXXXXXXXX XXXXXXXXXX",
         "amount": -123.45,
-        "balance": 3209.89
+        "balance": 3209.89,
+        "account_number": "123456789"
       },
       {
         "date": 1739750400000,
         "index": 0,
         "description": "XXXXXXXXXX XXXXXXXXXX",
         "amount": -345.67,
-        "balance": 2864.22
+        "balance": 2864.22,
+        "account_number": "123456789"
       },
       {
         "date": 1739750400000,
         "index": 1,
         "description": "XXXXXXXXXX XXXXXXXXXX",
         "amount": -123.45,
-        "balance": 2740.77
+        "balance": 2740.77,
+        "account_number": "123456789"
       },
       {
         "date": 1739836800000,
         "index": 0,
         "description": "XXXXXXXXXX XXXXXXXXXX",
         "amount": -321.09,
-        "balance": 2419.68
+        "balance": 2419.68,
+        "account_number": "123456789"
       },
       {
         "date": 1740009600000,
         "index": 0,
         "description": "XXXXXXXXXX XXXXXXXXXX",
         "amount": -123.45,
-        "balance": 2296.23
+        "balance": 2296.23,
+        "account_number": "123456789"
       },
       {
         "date": 1740096000000,
         "index": 0,
         "description": "XXXXXXXXXX XXXXXXXXXX",
         "amount": -345.67,
-        "balance": 1950.56
+        "balance": 1950.56,
+        "account_number": "123456789"
       },
       {
         "date": 1740355200000,
         "index": 0,
         "description": "XXXXXXXXXX XXXXXXXXXX",
         "amount": -123.45,
-        "balance": 1827.11
+        "balance": 1827.11,
+        "account_number": "123456789"
       },
       {
         "date": 1740355200000,
         "index": 1,
         "description": "XXXXXXXXXX XXXXXXXXXX",
         "amount": -234.56,
-        "balance": 1592.55
+        "balance": 1592.55,
+        "account_number": "123456789"
       },
       {
         "date": 1740355200000,
         "index": 2,
         "description": "XXXXXXXXXX XXXXXXXXXX",
         "amount": -456.78,
-        "balance": 1135.77
+        "balance": 1135.77,
+        "account_number": "123456789"
       },
       {
         "date": 1740614400000,
         "index": 0,
         "description": "XXXXXXXXXX XXXXXXXXXX",
         "amount": 2345.67,
-        "balance": 3481.44
+        "balance": 3481.44,
+        "account_number": "123456789"
       },
       {
         "date": 1740614400000,
         "index": 1,
         "description": "XXXXXXXXXX XXXXXXXXXX",
         "amount": -567.89,
-        "balance": 2913.55
+        "balance": 2913.55,
+        "account_number": "123456789"
       },
       {
         "date": 1740614400000,
         "index": 2,
         "description": "XXXXXXXXXX XXXXXXXXXX",
         "amount": -1234.56,
-        "balance": 1678.99
+        "balance": 1678.99,
+        "account_number": "123456789"
       },
       {
         "date": 1740700800000,
         "index": 0,
         "description": "XXXXXXXXXX XXXXXXXXXX",
         "amount": -2.34,
-        "balance": 1676.65
+        "balance": 1676.65,
+        "account_number": "123456789"
       },
       {
         "date": 1740700800000,
         "index": 1,
         "description": "XXXXXXXXXX XXXXXXXXXX",
         "amount": 234.56,
-        "balance": 1911.21
+        "balance": 1911.21,
+        "account_number": "123456789"
       },
       {
         "date": 1740700800000,
         "index": 2,
         "description": "XXXXXXXXXX XXXXXXXXXX",
         "amount": -345.67,
-        "balance": 1565.54
+        "balance": 1565.54,
+        "account_number": "123456789"
       },
       {
         "date": 1740700800000,
         "index": 3,
         "description": "XXXXXXXXXX XXXXXXXXXX",
         "amount": -234.56,
-        "balance": 1330.98
+        "balance": 1330.98,
+        "account_number": "123456789"
       },
       {
         "date": 1740700800000,
         "index": 4,
         "description": "XXXXXXXXXX XXXXXXXXXX",
         "amount": -123.45,
-        "balance": 1207.53
+        "balance": 1207.53,
+        "account_number": "123456789"
       },
       {
         "date": 1740960000000,
         "index": 0,
         "description": "XXXXXXXXXX XXXXXXXXXX",
         "amount": -234.56,
-        "balance": 972.97
+        "balance": 972.97,
+        "account_number": "123456789"
       },
       {
         "date": 1741046400000,
         "index": 0,
         "description": "XXXXXXXXXX XXXXXXXXXX",
         "amount": 1098.76,
-        "balance": 2071.73
+        "balance": 2071.73,
+        "account_number": "123456789"
       }
-    ],
-    "errors": []
+    ]
   },
   "text_items": [
     {

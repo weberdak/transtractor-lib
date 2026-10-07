@@ -1,448 +1,503 @@
 {
   "statement_data": {
-    "key": "au__gtb__fake_account__1",
-    "account_number": "1234 5678 9123 4567",
-    "start_date": 1735689600000,
-    "start_date_year": 2025,
-    "opening_balance": 50000.0,
-    "closing_balance": 11663.82,
-    "proto_transactions": [
+    "transactions": [
       {
         "date": 1735689600000,
         "index": 0,
         "description": "Transaction 1 unexpected text",
         "amount": 50000.0,
-        "balance": 100000.0
+        "balance": 100000.0,
+        "account_number": "1234 5678 9123 4567"
       },
       {
         "date": 1735689600000,
         "index": 1,
         "description": "Transaction 2",
         "amount": -1000.0,
-        "balance": 99000.0
+        "balance": 99000.0,
+        "account_number": "1234 5678 9123 4567"
       },
       {
         "date": 1735689600000,
         "index": 2,
         "description": "Transaction 3",
         "amount": -10000.0,
-        "balance": 89000.0
+        "balance": 89000.0,
+        "account_number": "1234 5678 9123 4567"
       },
       {
         "date": 1735689600000,
         "index": 3,
         "description": "Transaction 4",
         "amount": 1350.0,
-        "balance": 90350.0
+        "balance": 90350.0,
+        "account_number": "1234 5678 9123 4567"
       },
       {
         "date": 1735862400000,
         "index": 0,
         "description": "Transaction 5",
         "amount": -530.99,
-        "balance": 89819.01
+        "balance": 89819.01,
+        "account_number": "1234 5678 9123 4567"
       },
       {
         "date": 1735862400000,
         "index": 1,
         "description": "Transaction 6",
         "amount": 1532.55,
-        "balance": 91351.56
+        "balance": 91351.56,
+        "account_number": "1234 5678 9123 4567"
       },
       {
         "date": 1735948800000,
         "index": 0,
         "description": "Transaction 7",
         "amount": -568.01,
-        "balance": 90783.55
+        "balance": 90783.55,
+        "account_number": "1234 5678 9123 4567"
       },
       {
         "date": 1735948800000,
         "index": 1,
         "description": "Transaction 8",
         "amount": -23.56,
-        "balance": 90759.99
+        "balance": 90759.99,
+        "account_number": "1234 5678 9123 4567"
       },
       {
         "date": 1735948800000,
         "index": 2,
         "description": "Transaction 9",
         "amount": -2000.0,
-        "balance": 88759.99
+        "balance": 88759.99,
+        "account_number": "1234 5678 9123 4567"
       },
       {
         "date": 1735948800000,
         "index": 3,
         "description": "Transaction 10",
         "amount": 600.35,
-        "balance": 89360.34000000001
+        "balance": 89360.34000000001,
+        "account_number": "1234 5678 9123 4567"
       },
       {
         "date": 1735948800000,
         "index": 4,
         "description": "Transaction 11",
         "amount": -4.0,
-        "balance": 89356.34000000001
+        "balance": 89356.34000000001,
+        "account_number": "1234 5678 9123 4567"
       },
       {
         "date": 1735948800000,
         "index": 5,
         "description": "Transaction 12",
         "amount": -800.36,
-        "balance": 88555.98000000001
+        "balance": 88555.98000000001,
+        "account_number": "1234 5678 9123 4567"
       },
       {
         "date": 1736208000000,
         "index": 0,
         "description": "Transaction 13",
         "amount": -654.52,
-        "balance": 87901.46
+        "balance": 87901.46,
+        "account_number": "1234 5678 9123 4567"
       },
       {
         "date": 1736208000000,
         "index": 1,
         "description": "Transaction 14",
         "amount": 500.22,
-        "balance": 88401.68000000001
+        "balance": 88401.68000000001,
+        "account_number": "1234 5678 9123 4567"
       },
       {
         "date": 1736208000000,
         "index": 2,
         "description": "Transaction 15",
         "amount": -812.14,
-        "balance": 87589.54000000001
+        "balance": 87589.54000000001,
+        "account_number": "1234 5678 9123 4567"
       },
       {
         "date": 1736208000000,
         "index": 3,
         "description": "Transaction 16",
         "amount": 5254.55,
-        "balance": 92844.09000000001
+        "balance": 92844.09000000001,
+        "account_number": "1234 5678 9123 4567"
       },
       {
         "date": 1736380800000,
         "index": 0,
         "description": "Transaction 17",
         "amount": 2561.22,
-        "balance": 95405.31000000001
+        "balance": 95405.31000000001,
+        "account_number": "1234 5678 9123 4567"
       },
       {
         "date": 1736380800000,
         "index": 1,
         "description": "Transaction 18",
         "amount": 1000.0,
-        "balance": 96405.31000000001
+        "balance": 96405.31000000001,
+        "account_number": "1234 5678 9123 4567"
       },
       {
         "date": 1736380800000,
         "index": 2,
         "description": "Transaction 19",
         "amount": -31552.0,
-        "balance": 64853.31000000001
+        "balance": 64853.31000000001,
+        "account_number": "1234 5678 9123 4567"
       },
       {
         "date": 1736380800000,
         "index": 3,
         "description": "Transaction 20",
         "amount": 20000.0,
-        "balance": 84853.31000000001
+        "balance": 84853.31000000001,
+        "account_number": "1234 5678 9123 4567"
       },
       {
         "date": 1736380800000,
         "index": 4,
         "description": "Transaction 21",
         "amount": -1024.25,
-        "balance": 83829.06000000001
+        "balance": 83829.06000000001,
+        "account_number": "1234 5678 9123 4567"
       },
       {
         "date": 1736380800000,
         "index": 5,
         "description": "Transaction 22",
         "amount": -0.32,
-        "balance": 83828.74
+        "balance": 83828.74,
+        "account_number": "1234 5678 9123 4567"
       },
       {
         "date": 1736380800000,
         "index": 6,
         "description": "Transaction 23",
         "amount": -662.12,
-        "balance": 83166.62000000001
+        "balance": 83166.62000000001,
+        "account_number": "1234 5678 9123 4567"
       },
       {
         "date": 1736380800000,
         "index": 7,
         "description": "Transaction 24",
         "amount": 1011.11,
-        "balance": 84177.73000000001
+        "balance": 84177.73000000001,
+        "account_number": "1234 5678 9123 4567"
       },
       {
         "date": 1736726400000,
         "index": 0,
         "description": "Transaction 25",
         "amount": 200.33,
-        "balance": 84378.06000000001
+        "balance": 84378.06000000001,
+        "account_number": "1234 5678 9123 4567"
       },
       {
         "date": 1736726400000,
         "index": 1,
         "description": "Transaction 26",
         "amount": 600.14,
-        "balance": 84978.20000000001
+        "balance": 84978.20000000001,
+        "account_number": "1234 5678 9123 4567"
       },
       {
         "date": 1736726400000,
         "index": 2,
         "description": "Transaction 27",
         "amount": -9876.54,
-        "balance": 75101.66
+        "balance": 75101.66,
+        "account_number": "1234 5678 9123 4567"
       },
       {
         "date": 1736726400000,
         "index": 3,
         "description": "Transaction 28",
         "amount": -1.33,
-        "balance": 75100.33
+        "balance": 75100.33,
+        "account_number": "1234 5678 9123 4567"
       },
       {
         "date": 1736899200000,
         "index": 0,
         "description": "Transaction 29",
         "amount": -1122.33,
-        "balance": 73978.0
+        "balance": 73978.0,
+        "account_number": "1234 5678 9123 4567"
       },
       {
         "date": 1736985600000,
         "index": 0,
         "description": "Transaction 30",
         "amount": 0.53,
-        "balance": 73978.53
+        "balance": 73978.53,
+        "account_number": "1234 5678 9123 4567"
       },
       {
         "date": 1737072000000,
         "index": 0,
         "description": "Transaction 31 Goes over multiple pages",
         "amount": -0.0,
-        "balance": 73978.53
+        "balance": 73978.53,
+        "account_number": "1234 5678 9123 4567"
       },
       {
         "date": 1737072000000,
         "index": 1,
         "description": "Transaction 32 Goes over multiple lines",
         "amount": 0.01,
-        "balance": 73978.54
+        "balance": 73978.54,
+        "account_number": "1234 5678 9123 4567"
       },
       {
         "date": 1737072000000,
         "index": 2,
         "description": "Transaction 33",
         "amount": -80000.0,
-        "balance": -6021.460000000006
+        "balance": -6021.460000000006,
+        "account_number": "1234 5678 9123 4567"
       },
       {
         "date": 1737072000000,
         "index": 3,
         "description": "Transaction 34",
         "amount": -10123.12,
-        "balance": -16144.580000000007
+        "balance": -16144.580000000007,
+        "account_number": "1234 5678 9123 4567"
       },
       {
         "date": 1737158400000,
         "index": 0,
         "description": "Transaction 35",
         "amount": 12345.67,
-        "balance": -3798.910000000007
+        "balance": -3798.910000000007,
+        "account_number": "1234 5678 9123 4567"
       },
       {
         "date": 1737158400000,
         "index": 1,
         "description": "Transaction 36",
         "amount": -567.54,
-        "balance": -4366.450000000007
+        "balance": -4366.450000000007,
+        "account_number": "1234 5678 9123 4567"
       },
       {
         "date": 1737158400000,
         "index": 2,
         "description": "Transaction 37",
         "amount": 12000.0,
-        "balance": 7633.549999999993
+        "balance": 7633.549999999993,
+        "account_number": "1234 5678 9123 4567"
       },
       {
         "date": 1737158400000,
         "index": 3,
         "description": "Transaction 38",
         "amount": 222.22,
-        "balance": 7855.769999999993
+        "balance": 7855.769999999993,
+        "account_number": "1234 5678 9123 4567"
       },
       {
         "date": 1737158400000,
         "index": 4,
         "description": "Transaction 39",
         "amount": -23.0,
-        "balance": 7832.769999999993
+        "balance": 7832.769999999993,
+        "account_number": "1234 5678 9123 4567"
       },
       {
         "date": 1737158400000,
         "index": 5,
         "description": "Transaction 40",
         "amount": -40.13,
-        "balance": 7792.639999999993
+        "balance": 7792.639999999993,
+        "account_number": "1234 5678 9123 4567"
       },
       {
         "date": 1737158400000,
         "index": 6,
         "description": "Transaction 41",
         "amount": -2.33,
-        "balance": 7790.309999999993
+        "balance": 7790.309999999993,
+        "account_number": "1234 5678 9123 4567"
       },
       {
         "date": 1737158400000,
         "index": 7,
         "description": "Transaction 42",
         "amount": 3333.01,
-        "balance": 11123.319999999992
+        "balance": 11123.319999999992,
+        "account_number": "1234 5678 9123 4567"
       },
       {
         "date": 1737158400000,
         "index": 8,
         "description": "Transaction 43",
         "amount": 20.0,
-        "balance": 11143.319999999992
+        "balance": 11143.319999999992,
+        "account_number": "1234 5678 9123 4567"
       },
       {
         "date": 1737158400000,
         "index": 9,
         "description": "Transaction 44",
         "amount": -10.11,
-        "balance": 11133.209999999992
+        "balance": 11133.209999999992,
+        "account_number": "1234 5678 9123 4567"
       },
       {
         "date": 1737590400000,
         "index": 0,
         "description": "Transaction 45",
         "amount": -10000.99,
-        "balance": 1132.219999999992
+        "balance": 1132.219999999992,
+        "account_number": "1234 5678 9123 4567"
       },
       {
         "date": 1737590400000,
         "index": 1,
         "description": "Transaction 46",
         "amount": -23.9,
-        "balance": 1108.319999999992
+        "balance": 1108.319999999992,
+        "account_number": "1234 5678 9123 4567"
       },
       {
         "date": 1737590400000,
         "index": 2,
         "description": "Transaction 47",
         "amount": -0.99,
-        "balance": 1107.329999999992
+        "balance": 1107.329999999992,
+        "account_number": "1234 5678 9123 4567"
       },
       {
         "date": 1737590400000,
         "index": 3,
         "description": "Transaction 48",
         "amount": 2001.22,
-        "balance": 3108.549999999992
+        "balance": 3108.549999999992,
+        "account_number": "1234 5678 9123 4567"
       },
       {
         "date": 1737763200000,
         "index": 0,
         "description": "Transaction 49",
         "amount": -100.0,
-        "balance": 3008.549999999992
+        "balance": 3008.549999999992,
+        "account_number": "1234 5678 9123 4567"
       },
       {
         "date": 1737763200000,
         "index": 1,
         "description": "Transaction 50",
         "amount": -50.05,
-        "balance": 2958.499999999992
+        "balance": 2958.499999999992,
+        "account_number": "1234 5678 9123 4567"
       },
       {
         "date": 1737849600000,
         "index": 0,
         "description": "Transaction 51",
         "amount": -1000.0,
-        "balance": 1958.4999999999918
+        "balance": 1958.4999999999918,
+        "account_number": "1234 5678 9123 4567"
       },
       {
         "date": 1737849600000,
         "index": 1,
         "description": "Transaction 52",
         "amount": -30.0,
-        "balance": 1928.4999999999918
+        "balance": 1928.4999999999918,
+        "account_number": "1234 5678 9123 4567"
       },
       {
         "date": 1737936000000,
         "index": 0,
         "description": "Transaction 53",
         "amount": -1000.0,
-        "balance": 928.4999999999918
+        "balance": 928.4999999999918,
+        "account_number": "1234 5678 9123 4567"
       },
       {
         "date": 1737936000000,
         "index": 1,
         "description": "Transaction 54",
         "amount": 10123.45,
-        "balance": 11051.949999999993
+        "balance": 11051.949999999993,
+        "account_number": "1234 5678 9123 4567"
       },
       {
         "date": 1737936000000,
         "index": 2,
         "description": "Transaction 55",
         "amount": -1.02,
-        "balance": 11050.929999999993
+        "balance": 11050.929999999993,
+        "account_number": "1234 5678 9123 4567"
       },
       {
         "date": 1737936000000,
         "index": 3,
         "description": "Transaction 56",
         "amount": -4.0,
-        "balance": 11046.929999999993
+        "balance": 11046.929999999993,
+        "account_number": "1234 5678 9123 4567"
       },
       {
         "date": 1738108800000,
         "index": 0,
         "description": "Transaction 57",
         "amount": -999.99,
-        "balance": 10046.939999999993
+        "balance": 10046.939999999993,
+        "account_number": "1234 5678 9123 4567"
       },
       {
         "date": 1738108800000,
         "index": 1,
         "description": "Transaction 58",
         "amount": -30.12,
-        "balance": 10016.819999999992
+        "balance": 10016.819999999992,
+        "account_number": "1234 5678 9123 4567"
       },
       {
         "date": 1738108800000,
         "index": 2,
         "description": "Transaction 59",
         "amount": -456.98,
-        "balance": 9559.839999999993
+        "balance": 9559.839999999993,
+        "account_number": "1234 5678 9123 4567"
       },
       {
         "date": 1738108800000,
         "index": 3,
         "description": "Transaction 60",
         "amount": 2123.98,
-        "balance": 11683.819999999992
+        "balance": 11683.819999999992,
+        "account_number": "1234 5678 9123 4567"
       },
       {
         "date": 1738281600000,
         "index": 0,
         "description": "Transaction 61",
         "amount": -30.0,
-        "balance": 11653.819999999992
+        "balance": 11653.819999999992,
+        "account_number": "1234 5678 9123 4567"
       },
       {
         "date": 1738281600000,
         "index": 1,
         "description": "Transaction 62",
         "amount": 10.0,
-        "balance": 11663.819999999992
+        "balance": 11663.819999999992,
+        "account_number": "1234 5678 9123 4567"
       }
-    ],
-    "errors": []
+    ]
   },
   "text_items": [
     {

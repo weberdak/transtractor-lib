@@ -1,329 +1,367 @@
 {
   "statement_data": {
-    "key": "au__cba__credit_card__1",
-    "account_number": "1234 5678 9123 4567",
-    "start_date": 1498262400000,
-    "start_date_year": 2017,
-    "opening_balance": -1234.56,
-    "closing_balance": -1736.62,
-    "proto_transactions": [
+    "transactions": [
       {
         "date": 1498262400000,
         "index": 0,
         "description": "XXXXX XXXXX XXXXX XXXXX",
         "amount": -12.34,
-        "balance": -1246.8999999999999
+        "balance": -1246.8999999999999,
+        "account_number": "1234 5678 9123 4567"
       },
       {
         "date": 1498262400000,
         "index": 1,
         "description": "XXXXX XXXXX XXXXX XXXXX",
         "amount": -45.67,
-        "balance": -1292.57
+        "balance": -1292.57,
+        "account_number": "1234 5678 9123 4567"
       },
       {
         "date": 1498262400000,
         "index": 2,
         "description": "XXXXX XXXXX XXXXX XXXXX",
         "amount": -45.67,
-        "balance": -1338.24
+        "balance": -1338.24,
+        "account_number": "1234 5678 9123 4567"
       },
       {
         "date": 1498348800000,
         "index": 0,
         "description": "XXXXX XXXXX XXXXX XXXXX",
         "amount": -123.45,
-        "balance": -1461.69
+        "balance": -1461.69,
+        "account_number": "1234 5678 9123 4567"
       },
       {
         "date": 1498435200000,
         "index": 0,
         "description": "XXXXX XXXXX XXXXX XXXXX",
         "amount": -234.56,
-        "balance": -1696.25
+        "balance": -1696.25,
+        "account_number": "1234 5678 9123 4567"
       },
       {
         "date": 1498435200000,
         "index": 1,
         "description": "XXXXX XXXXX XXXXX XXXXX",
         "amount": -12.34,
-        "balance": -1708.59
+        "balance": -1708.59,
+        "account_number": "1234 5678 9123 4567"
       },
       {
         "date": 1498521600000,
         "index": 0,
         "description": "XXXXX XXXXX XXXXX XXXXX",
         "amount": -67.89,
-        "balance": -1776.48
+        "balance": -1776.48,
+        "account_number": "1234 5678 9123 4567"
       },
       {
         "date": 1498521600000,
         "index": 1,
         "description": "XXXXX XXXXX XXXXX XXXXX",
         "amount": -1.23,
-        "balance": -1777.71
+        "balance": -1777.71,
+        "account_number": "1234 5678 9123 4567"
       },
       {
         "date": 1498521600000,
         "index": 2,
         "description": "XXXXX XXXXX XXXXX XXXXX",
         "amount": -8.9,
-        "balance": -1786.6100000000001
+        "balance": -1786.6100000000001,
+        "account_number": "1234 5678 9123 4567"
       },
       {
         "date": 1498521600000,
         "index": 3,
         "description": "XXXXX XXXXX XXXXX XXXXX",
         "amount": -1234.56,
-        "balance": -3021.17
+        "balance": -3021.17,
+        "account_number": "1234 5678 9123 4567"
       },
       {
         "date": 1498608000000,
         "index": 0,
         "description": "XXXXX XXXXX XXXXX XXXXX",
         "amount": -1.23,
-        "balance": -3022.4
+        "balance": -3022.4,
+        "account_number": "1234 5678 9123 4567"
       },
       {
         "date": 1498694400000,
         "index": 0,
         "description": "XXXXX XXXXX XXXXX XXXXX",
         "amount": -12.34,
-        "balance": -3034.7400000000002
+        "balance": -3034.7400000000002,
+        "account_number": "1234 5678 9123 4567"
       },
       {
         "date": 1498780800000,
         "index": 0,
         "description": "XXXXX XXXXX XXXXX XXXXX",
         "amount": -23.45,
-        "balance": -3058.19
+        "balance": -3058.19,
+        "account_number": "1234 5678 9123 4567"
       },
       {
         "date": 1498780800000,
         "index": 1,
         "description": "XXXXX XXXXX XXXXX XXXXX",
         "amount": -56.78,
-        "balance": -3114.9700000000003
+        "balance": -3114.9700000000003,
+        "account_number": "1234 5678 9123 4567"
       },
       {
         "date": 1498867200000,
         "index": 0,
         "description": "XXXXX XXXXX XXXXX XXXXX",
         "amount": -23.0,
-        "balance": -3137.9700000000003
+        "balance": -3137.9700000000003,
+        "account_number": "1234 5678 9123 4567"
       },
       {
         "date": 1498867200000,
         "index": 1,
         "description": "XXXXX XXXXX XXXXX XXXXX",
         "amount": -321.12,
-        "balance": -3459.09
+        "balance": -3459.09,
+        "account_number": "1234 5678 9123 4567"
       },
       {
         "date": 1499040000000,
         "index": 0,
         "description": "XXXXX XXXXX XXXXX XXXXX",
         "amount": 2121.21,
-        "balance": -1337.88
+        "balance": -1337.88,
+        "account_number": "1234 5678 9123 4567"
       },
       {
         "date": 1499040000000,
         "index": 1,
         "description": "XXXXX XXXXX XXXXX XXXXX",
         "amount": -1.23,
-        "balance": -1339.1100000000001
+        "balance": -1339.1100000000001,
+        "account_number": "1234 5678 9123 4567"
       },
       {
         "date": 1499040000000,
         "index": 2,
         "description": "XXXXX XXXXX XXXXX XXXXX",
         "amount": -4.56,
-        "balance": -1343.67
+        "balance": -1343.67,
+        "account_number": "1234 5678 9123 4567"
       },
       {
         "date": 1499040000000,
         "index": 3,
         "description": "XXXXX XXXXX XXXXX XXXXX",
         "amount": -2.34,
-        "balance": -1346.01
+        "balance": -1346.01,
+        "account_number": "1234 5678 9123 4567"
       },
       {
         "date": 1499126400000,
         "index": 0,
         "description": "XXXXX XXXXX XXXXX XXXXX",
         "amount": -2.34,
-        "balance": -1348.35
+        "balance": -1348.35,
+        "account_number": "1234 5678 9123 4567"
       },
       {
         "date": 1499212800000,
         "index": 0,
         "description": "XXXXX XXXXX XXXXX XXXXX",
         "amount": -5.67,
-        "balance": -1354.02
+        "balance": -1354.02,
+        "account_number": "1234 5678 9123 4567"
       },
       {
         "date": 1499212800000,
         "index": 1,
         "description": "XXXXX XXXXX XXXXX XXXXX",
         "amount": -15.27,
-        "balance": -1369.29
+        "balance": -1369.29,
+        "account_number": "1234 5678 9123 4567"
       },
       {
         "date": 1499385600000,
         "index": 0,
         "description": "XXXXX XXXXX XXXXX XXXXX",
         "amount": -1.23,
-        "balance": -1370.52
+        "balance": -1370.52,
+        "account_number": "1234 5678 9123 4567"
       },
       {
         "date": 1499385600000,
         "index": 1,
         "description": "XXXXX XXXXX XXXXX XXXXX",
         "amount": -4.56,
-        "balance": -1375.08
+        "balance": -1375.08,
+        "account_number": "1234 5678 9123 4567"
       },
       {
         "date": 1499385600000,
         "index": 2,
         "description": "XXXXX XXXXX XXXXX XXXXX",
         "amount": -78.9,
-        "balance": -1453.98
+        "balance": -1453.98,
+        "account_number": "1234 5678 9123 4567"
       },
       {
         "date": 1499385600000,
         "index": 3,
         "description": "XXXXX XXXXX XXXXX XXXXX",
         "amount": -12.21,
-        "balance": -1466.19
+        "balance": -1466.19,
+        "account_number": "1234 5678 9123 4567"
       },
       {
         "date": 1499385600000,
         "index": 4,
         "description": "XXXXX XXXXX XXXXX XXXXX",
         "amount": -54.31,
-        "balance": -1520.5
+        "balance": -1520.5,
+        "account_number": "1234 5678 9123 4567"
       },
       {
         "date": 1499472000000,
         "index": 0,
         "description": "XXXXX XXXXX XXXXX XXXXX",
         "amount": -34.56,
-        "balance": -1555.06
+        "balance": -1555.06,
+        "account_number": "1234 5678 9123 4567"
       },
       {
         "date": 1499472000000,
         "index": 1,
         "description": "XXXXX XXXXX XXXXX XXXXX",
         "amount": -2.34,
-        "balance": -1557.3999999999999
+        "balance": -1557.3999999999999,
+        "account_number": "1234 5678 9123 4567"
       },
       {
         "date": 1499644800000,
         "index": 0,
         "description": "XXXXX XXXXX XXXXX XXXXX",
         "amount": -4.56,
-        "balance": -1561.9599999999998
+        "balance": -1561.9599999999998,
+        "account_number": "1234 5678 9123 4567"
       },
       {
         "date": 1499731200000,
         "index": 0,
         "description": "XXXXX XXXXX XXXXX XXXXX",
         "amount": -12.34,
-        "balance": -1574.2999999999997
+        "balance": -1574.2999999999997,
+        "account_number": "1234 5678 9123 4567"
       },
       {
         "date": 1499817600000,
         "index": 0,
         "description": "XXXXX XXXXX XXXXX XXXXX",
         "amount": -4.56,
-        "balance": -1578.8599999999997
+        "balance": -1578.8599999999997,
+        "account_number": "1234 5678 9123 4567"
       },
       {
         "date": 1499817600000,
         "index": 1,
         "description": "XXXXX XXXXX XXXXX XXXXX",
         "amount": -12.45,
-        "balance": -1591.3099999999997
+        "balance": -1591.3099999999997,
+        "account_number": "1234 5678 9123 4567"
       },
       {
         "date": 1499817600000,
         "index": 2,
         "description": "XXXXX XXXXX XXXXX XXXXX",
         "amount": -1.23,
-        "balance": -1592.5399999999997
+        "balance": -1592.5399999999997,
+        "account_number": "1234 5678 9123 4567"
       },
       {
         "date": 1499904000000,
         "index": 0,
         "description": "XXXXX XXXXX XXXXX XXXXX",
         "amount": -3.45,
-        "balance": -1595.9899999999998
+        "balance": -1595.9899999999998,
+        "account_number": "1234 5678 9123 4567"
       },
       {
         "date": 1500163200000,
         "index": 0,
         "description": "XXXXX XXXXX XXXXX XXXXX",
         "amount": -11.11,
-        "balance": -1607.0999999999997
+        "balance": -1607.0999999999997,
+        "account_number": "1234 5678 9123 4567"
       },
       {
         "date": 1500249600000,
         "index": 0,
         "description": "XXXXX XXXXX XXXXX XXXXX",
         "amount": -33.45,
-        "balance": -1640.5499999999997
+        "balance": -1640.5499999999997,
+        "account_number": "1234 5678 9123 4567"
       },
       {
         "date": 1500249600000,
         "index": 1,
         "description": "XXXXX XXXXX XXXXX XXXXX",
         "amount": -2.34,
-        "balance": -1642.8899999999996
+        "balance": -1642.8899999999996,
+        "account_number": "1234 5678 9123 4567"
       },
       {
         "date": 1500336000000,
         "index": 0,
         "description": "XXXXX XXXXX XXXXX XXXXX",
         "amount": -12.11,
-        "balance": -1654.9999999999995
+        "balance": -1654.9999999999995,
+        "account_number": "1234 5678 9123 4567"
       },
       {
         "date": 1500336000000,
         "index": 1,
         "description": "XXXXX XXXXX XXXXX XXXXX",
         "amount": -34.22,
-        "balance": -1689.2199999999996
+        "balance": -1689.2199999999996,
+        "account_number": "1234 5678 9123 4567"
       },
       {
         "date": 1500422400000,
         "index": 0,
         "description": "XXXXX XXXXX XXXXX XXXXX",
         "amount": -44.55,
-        "balance": -1733.7699999999995
+        "balance": -1733.7699999999995,
+        "account_number": "1234 5678 9123 4567"
       },
       {
         "date": 1500595200000,
         "index": 0,
         "description": "XXXXX XXXXX XXXXX XXXXX",
         "amount": -1.5,
-        "balance": -1735.2699999999995
+        "balance": -1735.2699999999995,
+        "account_number": "1234 5678 9123 4567"
       },
       {
         "date": 1500595200000,
         "index": 1,
         "description": "Interest charged on purchases Purchase Rate 12.340%p.a.",
         "amount": -1.23,
-        "balance": -1736.4999999999995
+        "balance": -1736.4999999999995,
+        "account_number": "1234 5678 9123 4567"
       },
       {
         "date": 1500595200000,
         "index": 2,
         "description": "Interest charged on cash advances Cash Advance Rate 23.456%p.a.",
         "amount": -0.12,
-        "balance": -1736.6199999999994
+        "balance": -1736.6199999999994,
+        "account_number": "1234 5678 9123 4567"
       }
-    ],
-    "errors": []
+    ]
   },
   "text_items": [
     {

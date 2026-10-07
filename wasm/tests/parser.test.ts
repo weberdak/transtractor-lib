@@ -24,7 +24,7 @@ describe("Parser", () => {
     const layoutText = readFileSync(layoutPath, "utf8");
     const expected = JSON.parse(readFileSync(specPath, "utf8")) as {
       statement_data: {
-        proto_transactions: unknown[];
+        transactions: unknown[];
       };
     };
 
@@ -52,7 +52,7 @@ describe("Parser", () => {
     });
 
     expect(actual.transactions).toHaveLength(
-      expected.statement_data.proto_transactions.length,
+      expected.statement_data.transactions.length,
     );
     expect(actual.transactions[0]).toMatchObject({
       date: expect.any(Number),
@@ -76,7 +76,7 @@ describe("Parser", () => {
         start_date: number;
         opening_balance: number;
         closing_balance: number;
-        proto_transactions: unknown[];
+        transactions: unknown[];
       };
     };
 
@@ -104,7 +104,7 @@ describe("Parser", () => {
     });
 
     expect(actual.transactions).toHaveLength(
-      expected.statement_data.proto_transactions.length,
+      expected.statement_data.transactions.length,
     );
   });
 });

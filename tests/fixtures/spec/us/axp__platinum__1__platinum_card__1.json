@@ -1,448 +1,503 @@
 {
   "statement_data": {
-    "key": "us__axp__platinum__1",
-    "account_number": "0-99999",
-    "start_date": null,
-    "start_date_year": null,
-    "opening_balance": -9999.99,
-    "closing_balance": -47999.43,
-    "proto_transactions": [
+    "transactions": [
       {
         "date": 1784332800000,
         "index": 0,
         "description": "ASI PREFERRED INSURANCE ST PETERSBURG XX 82GLSMGTA07 00000 Policy",
         "amount": -999.99,
-        "balance": -10999.98
+        "balance": -10999.98,
+        "account_number": "0-99999"
       },
       {
         "date": 1784332800000,
         "index": 1,
         "description": "ACI XX POWER & LIGHT 800-226-3545 XX 46727629 33408",
         "amount": -999.99,
-        "balance": -11999.97
+        "balance": -11999.97,
+        "account_number": "0-99999"
       },
       {
         "date": 1784332800000,
         "index": 2,
         "description": "ACI XX POWER & LIGHT 800-226-3545 XX 46727663 33408",
         "amount": -999.99,
-        "balance": -12999.96
+        "balance": -12999.96,
+        "account_number": "0-99999"
       },
       {
         "date": 1784419200000,
         "index": 0,
         "description": "AMERICAN AIRLINES FT WORTH XX American Airlines Inc Ticket Number: CHKTJAEVZO3TF Date of Departure: 12/31 Passenger Name: XXXXXXX Document Type: PASSENGER TICKET Continued on reverse Account Ending 0-99999 p. 4/9 ⧫ - Pay Over Time and/or Cash Advance activity Amount",
         "amount": -999.99,
-        "balance": -13999.949999999999
+        "balance": -13999.949999999999,
+        "account_number": "0-99999"
       },
       {
         "date": 1784419200000,
         "index": 1,
         "description": "XXXXXXX 800-433-7300 XX American Airlines From: To: Carrier: Class: XX INTER CHICAGO O'HARE INT AA Y Ticket Number: 0012360955793 Date of Departure: 08/15 Passenger Name: XXXXXXX Document Type: PASSENGER TICKET",
         "amount": -999.99,
-        "balance": -14999.939999999999
+        "balance": -14999.939999999999,
+        "account_number": "0-99999"
       },
       {
         "date": 1784419200000,
         "index": 2,
         "description": "XXXXXXX FT WORTH XX American Airlines From: To: Carrier: Class: CHICAGO O'HARE INT XX INTER AA Q Ticket Number: 0012360961801 Date of Departure: 08/17 Passenger Name: XXXXXXX Document Type: PASSENGER TICKET",
         "amount": -999.99,
-        "balance": -15999.929999999998
+        "balance": -15999.929999999998,
+        "account_number": "0-99999"
       },
       {
         "date": 1784505600000,
         "index": 0,
         "description": "XXXXXXX 43684555707829 XX XX XXXXX",
         "amount": -999.99,
-        "balance": -16999.92
+        "balance": -16999.92,
+        "account_number": "0-99999"
       },
       {
         "date": 1784505600000,
         "index": 1,
         "description": "XXXXXXX #0047 OUTSI/UNBRANDED XX XX GAS AND CONV",
         "amount": -999.99,
-        "balance": -17999.91
+        "balance": -17999.91,
+        "account_number": "0-99999"
       },
       {
         "date": 1784592000000,
         "index": 0,
         "description": "XXXXXXX 690550110125328 XX XX XXXXX",
         "amount": -999.99,
-        "balance": -18999.9
+        "balance": -18999.9,
+        "account_number": "0-99999"
       },
       {
         "date": 1784592000000,
         "index": 1,
         "description": "XXXXXXX #346218 346218 XX XX 407-282-7147",
         "amount": -999.99,
-        "balance": -19999.890000000003
+        "balance": -19999.890000000003,
+        "account_number": "0-99999"
       },
       {
         "date": 1784592000000,
         "index": 2,
         "description": "XXXXXXX #346218 346218 XX XX 407-282-7147",
         "amount": -999.99,
-        "balance": -20999.880000000005
+        "balance": -20999.880000000005,
+        "account_number": "0-99999"
       },
       {
         "date": 1784678400000,
         "index": 0,
         "description": "XXXXXXX 00075774 XX XX RESTAURANT",
         "amount": -999.99,
-        "balance": -21999.870000000006
+        "balance": -21999.870000000006,
+        "account_number": "0-99999"
       },
       {
         "date": 1784851200000,
         "index": 0,
         "description": "XXXXXXX #0047 OUTSI/UNBRANDED XX XX GAS AND CONV",
         "amount": -999.99,
-        "balance": -22999.860000000008
+        "balance": -22999.860000000008,
+        "account_number": "0-99999"
       },
       {
         "date": 1784937600000,
         "index": 0,
         "description": "XXXXXXX, a Orlando XX Arrival Date Departure Date 07/20/26 07/24/26 00000000 LODGING",
         "amount": -999.99,
-        "balance": -23999.85000000001
+        "balance": -23999.85000000001,
+        "account_number": "0-99999"
       },
       {
         "date": 1785024000000,
         "index": 0,
         "description": "XXXXXXX XXXXXXX",
         "amount": 9999.99,
-        "balance": -13999.86000000001
+        "balance": -13999.86000000001,
+        "account_number": "0-99999"
       },
       {
         "date": 1785024000000,
         "index": 1,
         "description": "XXXXXXX # 2972 2972 XXXXX XX 800-877-8988",
         "amount": -999.99,
-        "balance": -14999.85000000001
+        "balance": -14999.85000000001,
+        "account_number": "0-99999"
       },
       {
         "date": 1785196800000,
         "index": 0,
         "description": "XXXXXXX #11309 11309 XXXXX XX 912-443-9676",
         "amount": -999.99,
-        "balance": -15999.84000000001
+        "balance": -15999.84000000001,
+        "account_number": "0-99999"
       },
       {
         "date": 1785196800000,
         "index": 1,
         "description": "XXXXXXX XXXXX XX 941-786-7026",
         "amount": -999.99,
-        "balance": -16999.83000000001
+        "balance": -16999.83000000001,
+        "account_number": "0-99999"
       },
       {
         "date": 1785283200000,
         "index": 0,
         "description": "XXXXXXX XXXXX XXXXX +95165992",
         "amount": -999.99,
-        "balance": -17999.82000000001
+        "balance": -17999.82000000001,
+        "account_number": "0-99999"
       },
       {
         "date": 1785369600000,
         "index": 0,
         "description": "XXXXXXX #1792 000001792 XXXXX XX 8636881188",
         "amount": -999.99,
-        "balance": -18999.810000000012
+        "balance": -18999.810000000012,
+        "account_number": "0-99999"
       },
       {
         "date": 1785456000000,
         "index": 0,
         "description": "XXXXXXX XX XX 520217 32266",
         "amount": -999.99,
-        "balance": -19999.800000000014
+        "balance": -19999.800000000014,
+        "account_number": "0-99999"
       },
       {
         "date": 1785456000000,
         "index": 1,
         "description": "XXXXXXX #0824 000000824 XXXXX XX 8008880776",
         "amount": -999.99,
-        "balance": -20999.790000000015
+        "balance": -20999.790000000015,
+        "account_number": "0-99999"
       },
       {
         "date": 1785456000000,
         "index": 2,
         "description": "XXXXXXX #1792 000001792 XXXXX XX 8636881188",
         "amount": -999.99,
-        "balance": -21999.780000000017
+        "balance": -21999.780000000017,
+        "account_number": "0-99999"
       },
       {
         "date": 1785456000000,
         "index": 3,
         "description": "XXXXXXX XX XX 904-398-7501",
         "amount": -999.99,
-        "balance": -22999.77000000002
+        "balance": -22999.77000000002,
+        "account_number": "0-99999"
       },
       {
         "date": 1785456000000,
         "index": 4,
         "description": "XXXXXXX #0091 XX XX FAST FOOD RESTAURANT",
         "amount": -999.99,
-        "balance": -23999.76000000002
+        "balance": -23999.76000000002,
+        "account_number": "0-99999"
       },
       {
         "date": 1785542400000,
         "index": 0,
         "description": "XXXXXXX XX NH 3174180489",
         "amount": -999.99,
-        "balance": -24999.750000000022
+        "balance": -24999.750000000022,
+        "account_number": "0-99999"
       },
       {
         "date": 1785542400000,
         "index": 1,
         "description": "XXXXXXX XX XX squareup.com/receipts",
         "amount": -999.99,
-        "balance": -25999.740000000023
+        "balance": -25999.740000000023,
+        "account_number": "0-99999"
       },
       {
         "date": 1785542400000,
         "index": 2,
         "description": "XXXXXXX 000032572 XX XX 9127211549 Continued on next page Platinum Card® p. 5/9 XXXXXXX Closing Date 08/16/26 Account Ending 0-99999 ⧫ - Pay Over Time and/or Cash Advance activity Amount",
         "amount": -999.99,
-        "balance": -26999.730000000025
+        "balance": -26999.730000000025,
+        "account_number": "0-99999"
       },
       {
         "date": 1785628800000,
         "index": 0,
         "description": "XXXXXXX XX XX 6476681296 / XXXXX",
         "amount": -999.99,
-        "balance": -27999.720000000027
+        "balance": -27999.720000000027,
+        "account_number": "0-99999"
       },
       {
         "date": 1785628800000,
         "index": 1,
         "description": "XXXXXXX XX XX 8662387323",
         "amount": -999.99,
-        "balance": -28999.71000000003
+        "balance": -28999.71000000003,
+        "account_number": "0-99999"
       },
       {
         "date": 1785628800000,
         "index": 2,
         "description": "XXXXXXX XX XX WOMEN'S CLOTHING",
         "amount": -999.99,
-        "balance": -29999.70000000003
+        "balance": -29999.70000000003,
+        "account_number": "0-99999"
       },
       {
         "date": 1785628800000,
         "index": 3,
         "description": "XXXXXXX XX XX 800-923-6245",
         "amount": -999.99,
-        "balance": -30999.69000000003
+        "balance": -30999.69000000003,
+        "account_number": "0-99999"
       },
       {
         "date": 1785628800000,
         "index": 4,
         "description": "XXXXXXX XX XX 3107735405",
         "amount": -999.99,
-        "balance": -31999.680000000033
+        "balance": -31999.680000000033,
+        "account_number": "0-99999"
       },
       {
         "date": 1785715200000,
         "index": 0,
         "description": "XXXXXXX XXXXXXX #0824 000000824 XXXXX XX 8008880776 Pay In Full Pay Over Time⧫ Total $9,999.99 $9,999.99 $9,999.99 $9,999.99 $9,999.99 $9,999.99 $9,999.99 $9,999.99 $9,999.99",
         "amount": 999.99,
-        "balance": -30999.69000000003
+        "balance": -30999.69000000003,
+        "account_number": "0-99999"
       },
       {
         "date": 1785715200000,
         "index": 1,
         "description": "XXXXXXX # 2972 2972 XXXXX XX 800-877-8988",
         "amount": -999.99,
-        "balance": -31999.680000000033
+        "balance": -31999.680000000033,
+        "account_number": "0-99999"
       },
       {
         "date": 1785715200000,
         "index": 2,
         "description": "XXXXXXX XX XX 8002463627 / sitesupport@",
         "amount": -999.99,
-        "balance": -32999.670000000035
+        "balance": -32999.670000000035,
+        "account_number": "0-99999"
       },
       {
         "date": 1785715200000,
         "index": 3,
         "description": "XXXXXXX XX XX 8002463627 / sitesupport@",
         "amount": -999.99,
-        "balance": -33999.66000000003
+        "balance": -33999.66000000003,
+        "account_number": "0-99999"
       },
       {
         "date": 1785974400000,
         "index": 0,
         "description": "XXXXXXX XXXXX XX 10030044003 32097 FAST FOOD REST.",
         "amount": -999.99,
-        "balance": -34999.65000000003
+        "balance": -34999.65000000003,
+        "account_number": "0-99999"
       },
       {
         "date": 1786060800000,
         "index": 0,
         "description": "XXXXXXX #1202 1202 XXXXX XX COSMETIC STORE",
         "amount": -999.99,
-        "balance": -35999.64000000003
+        "balance": -35999.64000000003,
+        "account_number": "0-99999"
       },
       {
         "date": 1786060800000,
         "index": 1,
         "description": "XXXXXXX 5443 XXXXX XX 610-358-8000",
         "amount": -999.99,
-        "balance": -36999.63000000003
+        "balance": -36999.63000000003,
+        "account_number": "0-99999"
       },
       {
         "date": 1786147200000,
         "index": 0,
         "description": "XXXXXXX #1792 000001792 XXXXX XX 8636881188",
         "amount": -999.99,
-        "balance": -37999.620000000024
+        "balance": -37999.620000000024,
+        "account_number": "0-99999"
       },
       {
         "date": 1786147200000,
         "index": 1,
         "description": "XXXXXXX XXXXX XX 610-358-8000",
         "amount": -999.99,
-        "balance": -38999.61000000002
+        "balance": -38999.61000000002,
+        "account_number": "0-99999"
       },
       {
         "date": 1786233600000,
         "index": 0,
         "description": "XXXXXXX #0047 OUTSI/UNBRANDED XX XX GAS AND CONV",
         "amount": -999.99,
-        "balance": -39999.60000000002
+        "balance": -39999.60000000002,
+        "account_number": "0-99999"
       },
       {
         "date": 1786233600000,
         "index": 1,
         "description": "XXXXXXX XX XX 800-284-7348",
         "amount": -999.99,
-        "balance": -40999.59000000002
+        "balance": -40999.59000000002,
+        "account_number": "0-99999"
       },
       {
         "date": 1786492800000,
         "index": 0,
         "description": "XXXXXXX XXXXXX XX American Airlines From: To: Carrier: Class: XX INTER CHARLOTTE AA Y DUBLIN AA Y CHICAGO O'HARE INT EI P XX INTER AA T Ticket Number: 9999999 Date of Departure: XXXXXXX Passenger Name: XXXXXXX Document Type: PREFERRED SEAT UPGRADE",
         "amount": -999.99,
-        "balance": -41999.580000000016
+        "balance": -41999.580000000016,
+        "account_number": "0-99999"
       },
       {
         "date": 1786492800000,
         "index": 1,
         "description": "XXXXXXX XXXXX XX 941-786-7026",
         "amount": -999.99,
-        "balance": -42999.570000000014
+        "balance": -42999.570000000014,
+        "account_number": "0-99999"
       },
       {
         "date": 1786492800000,
         "index": 2,
         "description": "XXXXXXX XXXXX XX 610-358-8000",
         "amount": -999.99,
-        "balance": -43999.56000000001
+        "balance": -43999.56000000001,
+        "account_number": "0-99999"
       },
       {
         "date": 1786492800000,
         "index": 3,
         "description": "XXXXXXX 877-8144102 XX XXXXX",
         "amount": -999.99,
-        "balance": -44999.55000000001
+        "balance": -44999.55000000001,
+        "account_number": "0-99999"
       },
       {
         "date": 1786579200000,
         "index": 0,
         "description": "XXXXXXX XXXXX XX 8777877186 / XXXXX",
         "amount": -999.99,
-        "balance": -45999.54000000001
+        "balance": -45999.54000000001,
+        "account_number": "0-99999"
       },
       {
         "date": 1786579200000,
         "index": 1,
         "description": "XXXXXXX 00994 0994 XXXXXX XX 800-237-8289",
         "amount": -999.99,
-        "balance": -46999.530000000006
+        "balance": -46999.530000000006,
+        "account_number": "0-99999"
       },
       {
         "date": 1786579200000,
         "index": 2,
         "description": "XXXXXXX XXXXX XX 8636881188",
         "amount": -999.99,
-        "balance": -47999.520000000004
+        "balance": -47999.520000000004,
+        "account_number": "0-99999"
       },
       {
         "date": 1786665600000,
         "index": 0,
         "description": "XXXXXXX XXXXXXX Amount",
         "amount": 9999.99,
-        "balance": -37999.530000000006
+        "balance": -37999.530000000006,
+        "account_number": "0-99999"
       },
       {
         "date": 1786665600000,
         "index": 1,
         "description": "XXXXXXX XXXXX XX 8777877186 / XXXXX",
         "amount": -999.99,
-        "balance": -38999.520000000004
+        "balance": -38999.520000000004,
+        "account_number": "0-99999"
       },
       {
         "date": 1786665600000,
         "index": 2,
         "description": "XXXXXXX XX XX 800-237-8289",
         "amount": -999.99,
-        "balance": -39999.51
+        "balance": -39999.51,
+        "account_number": "0-99999"
       },
       {
         "date": 1786665600000,
         "index": 3,
         "description": "XXXXXXX #1792 000001792 XXXXX XX 8636881188 Continued on reverse Account Ending 0-99999 p. 6/9 ⧫ - Pay Over Time and/or Cash Advance activity Amount",
         "amount": -999.99,
-        "balance": -40999.5
+        "balance": -40999.5,
+        "account_number": "0-99999"
       },
       {
         "date": 1786665600000,
         "index": 4,
         "description": "XXXXXXX #1406 000001406 XXXXX XX 8636881188",
         "amount": -999.99,
-        "balance": -41999.49
+        "balance": -41999.49,
+        "account_number": "0-99999"
       },
       {
         "date": 1786665600000,
         "index": 5,
         "description": "XXXXXXX XXXXX XX 8004400680",
         "amount": -999.99,
-        "balance": -42999.479999999996
+        "balance": -42999.479999999996,
+        "account_number": "0-99999"
       },
       {
         "date": 1786752000000,
         "index": 0,
         "description": "XXXXXXX XX XX 2129467368 / XXXXX",
         "amount": -999.99,
-        "balance": -43999.469999999994
+        "balance": -43999.469999999994,
+        "account_number": "0-99999"
       },
       {
         "date": 1786752000000,
         "index": 1,
         "description": "XXXXXXX XXXXX XX 497675833 21236 FURNITURE/LAMP/LIGHTING",
         "amount": -999.99,
-        "balance": -44999.45999999999
+        "balance": -44999.45999999999,
+        "account_number": "0-99999"
       },
       {
         "date": 1786752000000,
         "index": 2,
         "description": "XXXXXXX XX XX 904-635-2525",
         "amount": -999.99,
-        "balance": -45999.44999999999
+        "balance": -45999.44999999999,
+        "account_number": "0-99999"
       },
       {
         "date": 1786752000000,
         "index": 3,
         "description": "XXXXXXX XX XX 904-635-2525 Amount",
         "amount": -999.99,
-        "balance": -46999.43999999999
+        "balance": -46999.43999999999,
+        "account_number": "0-99999"
       },
       {
         "date": 1786838400000,
         "index": 0,
         "description": "XXXXXXX XXXXX XX DISCOUNT STORE Amount",
         "amount": -999.99,
-        "balance": -47999.429999999986
+        "balance": -47999.429999999986,
+        "account_number": "0-99999"
       }
-    ],
-    "errors": []
+    ]
   },
   "text_items": [
     {

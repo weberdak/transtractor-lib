@@ -2,13 +2,15 @@ use crate::structs::account_data::benchmark_report;
 use crate::structs::{AccountData, Benchmark, Transaction};
 use chrono::DateTime;
 use chrono::Utc;
+use serde::{Deserialize, Serialize};
 use std::collections::HashSet;
 use std::fmt;
 
 /// Flattened, validated transactions pooled from one or more accounts.
-#[derive(Clone, Debug, Default)]
+#[derive(Clone, Debug, Default, Serialize, Deserialize)]
 pub struct StatementData {
     pub transactions: Vec<Transaction>,
+    #[serde(skip)]
     pub benchmark: Benchmark,
 }
 
@@ -116,7 +118,10 @@ mod tests {
         let a = account("A", vec![proto(1, 0, 10.0, 110.0, "x")]);
         let a_again = account(
             "A",
-            vec![proto(1, 0, 10.0, 110.0, "different"), proto(1, 1, 5.0, 115.0, "y")],
+            vec![
+                proto(1, 0, 10.0, 110.0, "different"),
+                proto(1, 1, 5.0, 115.0, "y"),
+            ],
         );
         let b = account("B", vec![proto(1, 0, 10.0, 110.0, "x")]);
         assert_eq!(sd.import(&a).unwrap(), 1);

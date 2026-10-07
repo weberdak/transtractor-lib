@@ -1,301 +1,335 @@
 {
   "statement_data": {
-    "key": "au__nab__classic_banking__1",
-    "account_number": "12-345-6789",
-    "start_date": 1604707200000,
-    "start_date_year": 2020,
-    "opening_balance": 1234.56,
-    "closing_balance": 2509.17,
-    "proto_transactions": [
+    "transactions": [
       {
         "date": 1604966400000,
         "index": 0,
         "description": "V1234 08/11 XXXXX XXXX Ref: 12345678912",
         "amount": -12.34,
-        "balance": 1222.22
+        "balance": 1222.22,
+        "account_number": "12-345-6789"
       },
       {
         "date": 1604966400000,
         "index": 1,
         "description": "V1234 XXXXX XXXXX XXXXX XXXXX Ref: 12345678912",
         "amount": -12.34,
-        "balance": 1209.88
+        "balance": 1209.88,
+        "account_number": "12-345-6789"
       },
       {
         "date": 1604966400000,
         "index": 2,
         "description": "V1234 XXXXX XXXXX 123456 XXXX Ref: 12345678912",
         "amount": -12.34,
-        "balance": 1197.5400000000002
+        "balance": 1197.5400000000002,
+        "account_number": "12-345-6789"
       },
       {
         "date": 1604966400000,
         "index": 3,
         "description": "V1234 XXXXX XXXXX 123456 XXXX Ref: 12345678912",
         "amount": -12.34,
-        "balance": 1185.2000000000003
+        "balance": 1185.2000000000003,
+        "account_number": "12-345-6789"
       },
       {
         "date": 1605052800000,
         "index": 0,
         "description": "12345678912 XXXXX XXXXX 123456",
         "amount": -123.45,
-        "balance": 1061.7500000000002
+        "balance": 1061.7500000000002,
+        "account_number": "12-345-6789"
       },
       {
         "date": 1605052800000,
         "index": 1,
         "description": "V1234 XXXXX XXXXX XXXX XXXX Ref: 12345678912",
         "amount": -12.34,
-        "balance": 1049.4100000000003
+        "balance": 1049.4100000000003,
+        "account_number": "12-345-6789"
       },
       {
         "date": 1605052800000,
         "index": 2,
         "description": "V1234 XXXXX XXXXX - XXXX XXXX Ref: 12345678912",
         "amount": -123.45,
-        "balance": 925.9600000000003
+        "balance": 925.9600000000003,
+        "account_number": "12-345-6789"
       },
       {
         "date": 1605139200000,
         "index": 0,
         "description": "XXXXX XXXXX XXXXX XXXXX 123456.",
         "amount": 123.45,
-        "balance": 1049.4100000000003
+        "balance": 1049.4100000000003,
+        "account_number": "12-345-6789"
       },
       {
         "date": 1605139200000,
         "index": 1,
         "description": "XXXXX XXXXX XXXXX XXXXX 12345678912.",
         "amount": -12.34,
-        "balance": 1037.0700000000004
+        "balance": 1037.0700000000004,
+        "account_number": "12-345-6789"
       },
       {
         "date": 1605139200000,
         "index": 2,
         "description": "V1234 XXXXX XXXXX - XXXXX XXXX Ref: 12345678912",
         "amount": -123.45,
-        "balance": 913.6200000000003
+        "balance": 913.6200000000003,
+        "account_number": "12-345-6789"
       },
       {
         "date": 1605139200000,
         "index": 3,
         "description": "V1234 11/11 XXXXX XXXXX XXXXX Ref: 12345678912",
         "amount": -12.34,
-        "balance": 901.2800000000003
+        "balance": 901.2800000000003,
+        "account_number": "12-345-6789"
       },
       {
         "date": 1605571200000,
         "index": 0,
         "description": "V1234 16/11 XXXXX XXXXX XXXXX XXXX Ref: 12345678912",
         "amount": -12.34,
-        "balance": 888.9400000000003
+        "balance": 888.9400000000003,
+        "account_number": "12-345-6789"
       },
       {
         "date": 1605571200000,
         "index": 1,
         "description": "V1234 15/11 XXXXX XXXXX XXXX Ref: 12345678912",
         "amount": -12.34,
-        "balance": 876.6000000000003
+        "balance": 876.6000000000003,
+        "account_number": "12-345-6789"
       },
       {
         "date": 1605571200000,
         "index": 2,
         "description": "V1234 14/11 XXXXX XXXXX 1234 XX XXXX Ref: 12345678912",
         "amount": -12.34,
-        "balance": 864.2600000000002
+        "balance": 864.2600000000002,
+        "account_number": "12-345-6789"
       },
       {
         "date": 1605744000000,
         "index": 0,
         "description": "XXXXX XXXXX XXXXX XXXXX 012345.",
         "amount": 1345.67,
-        "balance": 2209.9300000000003
+        "balance": 2209.9300000000003,
+        "account_number": "12-345-6789"
       },
       {
         "date": 1605744000000,
         "index": 1,
         "description": "XXXXX XXXXX XXXXX XXXXX 012345.",
         "amount": 1234.56,
-        "balance": 3444.4900000000002
+        "balance": 3444.4900000000002,
+        "account_number": "12-345-6789"
       },
       {
         "date": 1605744000000,
         "index": 2,
         "description": "Internet Bpay XXXXX XXXXX 987654321",
         "amount": -123.45,
-        "balance": 3321.0400000000004
+        "balance": 3321.0400000000004,
+        "account_number": "12-345-6789"
       },
       {
         "date": 1605744000000,
         "index": 3,
         "description": "V1234 18/11 XXXXX XXXXX XXXX Ref: 12345678912",
         "amount": -1.23,
-        "balance": 3319.8100000000004
+        "balance": 3319.8100000000004,
+        "account_number": "12-345-6789"
       },
       {
         "date": 1605744000000,
         "index": 4,
         "description": "V1234 18/11 XXXXX XXXXX XXXX Ref: 12345678912",
         "amount": -12.34,
-        "balance": 3307.4700000000003
+        "balance": 3307.4700000000003,
+        "account_number": "12-345-6789"
       },
       {
         "date": 1605744000000,
         "index": 5,
         "description": "V1234 18/11 XXXXX XXXXX XXXX Ref: 12345678912",
         "amount": -12.34,
-        "balance": 3295.13
+        "balance": 3295.13,
+        "account_number": "12-345-6789"
       },
       {
         "date": 1605744000000,
         "index": 6,
         "description": "V1234 17/11 XXXXX XXXXX - XXXXX XXXXX Ref: 12345678912",
         "amount": -123.45,
-        "balance": 3171.6800000000003
+        "balance": 3171.6800000000003,
+        "account_number": "12-345-6789"
       },
       {
         "date": 1605830400000,
         "index": 0,
         "description": "XXXXX XXXXX XXXXX XXXXX 123456789 123456",
         "amount": -234.56,
-        "balance": 2937.1200000000003
+        "balance": 2937.1200000000003,
+        "account_number": "12-345-6789"
       },
       {
         "date": 1606089600000,
         "index": 0,
         "description": "XXXXX XXXXX XXXXX XXXXX 123456789 123456",
         "amount": -324.56,
-        "balance": 2612.5600000000004
+        "balance": 2612.5600000000004,
+        "account_number": "12-345-6789"
       },
       {
         "date": 1606089600000,
         "index": 1,
         "description": "XXXXX 21/11 10:46 XXXXX XXXXX",
         "amount": -12.34,
-        "balance": 2600.2200000000003
+        "balance": 2600.2200000000003,
+        "account_number": "12-345-6789"
       },
       {
         "date": 1606176000000,
         "index": 0,
         "description": "V1234 23/11 XXXXX XXXXX 1234 XXX XXXX Ref: 12345678912",
         "amount": -12.34,
-        "balance": 2587.88
+        "balance": 2587.88,
+        "account_number": "12-345-6789"
       },
       {
         "date": 1606176000000,
         "index": 1,
         "description": "V1234 21/11 XXXXX XXXXX - XXXXX XXXXX Ref: 12345678912",
         "amount": -23.45,
-        "balance": 2564.4300000000003
+        "balance": 2564.4300000000003,
+        "account_number": "12-345-6789"
       },
       {
         "date": 1606176000000,
         "index": 2,
         "description": "V1234 21/11 XXXXX XXXXX 123456 XXXX Ref: 12345678912",
         "amount": -34.56,
-        "balance": 2529.8700000000003
+        "balance": 2529.8700000000003,
+        "account_number": "12-345-6789"
       },
       {
         "date": 1606348800000,
         "index": 0,
         "description": "XXXXX XXXXX XXXXX XXXXX 0123456.",
         "amount": 234.56,
-        "balance": 2764.4300000000003
+        "balance": 2764.4300000000003,
+        "account_number": "12-345-6789"
       },
       {
         "date": 1606348800000,
         "index": 1,
         "description": "V1234 24/11 XXXXX XXXXX XXXX Ref: 12345678912",
         "amount": -12.34,
-        "balance": 2752.09
+        "balance": 2752.09,
+        "account_number": "12-345-6789"
       },
       {
         "date": 1606348800000,
         "index": 2,
         "description": "V1234 24/11 XXXXX XXXXX - XXXXX XXXXX Ref: 12345678912",
         "amount": -234.56,
-        "balance": 2517.53
+        "balance": 2517.53,
+        "account_number": "12-345-6789"
       },
       {
         "date": 1606435200000,
         "index": 0,
         "description": "V1234 26/11 XXXXX XXXXX XXXX Ref: 12345678912",
         "amount": -23.45,
-        "balance": 2494.0800000000004
+        "balance": 2494.0800000000004,
+        "account_number": "12-345-6789"
       },
       {
         "date": 1609804800000,
         "index": 0,
         "description": "V1234 31/12 XXXXX XXXXX Ref: 12345678912",
         "amount": 12.34,
-        "balance": 2506.4200000000005
+        "balance": 2506.4200000000005,
+        "account_number": "12-345-6789"
       },
       {
         "date": 1609804800000,
         "index": 1,
         "description": "V1234 31/12 XXXXX XXXXX Debit 12345678912 Ref: 12345678912",
         "amount": 12.34,
-        "balance": 2518.7600000000007
+        "balance": 2518.7600000000007,
+        "account_number": "12-345-6789"
       },
       {
         "date": 1609804800000,
         "index": 2,
         "description": "V1234 01/01 XXXXX XXXXX 1234 XXX XXXX Ref: 12345678912",
         "amount": -23.45,
-        "balance": 2495.310000000001
+        "balance": 2495.310000000001,
+        "account_number": "12-345-6789"
       },
       {
         "date": 1609804800000,
         "index": 3,
         "description": "V1234 02/01 XXXXX XXXXX 1234 XXX XXXX Ref: 12345678912",
         "amount": -23.45,
-        "balance": 2471.860000000001
+        "balance": 2471.860000000001,
+        "account_number": "12-345-6789"
       },
       {
         "date": 1609804800000,
         "index": 4,
         "description": "V1234 04/01 XXXXX XXXXX Debit Fee Ref: 12345678912",
         "amount": -23.45,
-        "balance": 2448.410000000001
+        "balance": 2448.410000000001,
+        "account_number": "12-345-6789"
       },
       {
         "date": 1609891200000,
         "index": 0,
         "description": "12345678912 XXXXX XXXXX 123456",
         "amount": -123.45,
-        "balance": 2324.9600000000014
+        "balance": 2324.9600000000014,
+        "account_number": "12-345-6789"
       },
       {
         "date": 1609891200000,
         "index": 1,
         "description": "XXXXXX 05/01 17:27 XXXXX XXXXX - XXXXX",
         "amount": -234.56,
-        "balance": 2090.4000000000015
+        "balance": 2090.4000000000015,
+        "account_number": "12-345-6789"
       },
       {
         "date": 1609891200000,
         "index": 2,
         "description": "V1234 06/01 XXXXX XXXXX 1234 XXX XXXX Ref: 12345678912",
         "amount": -3.45,
-        "balance": 2086.9500000000016
+        "balance": 2086.9500000000016,
+        "account_number": "12-345-6789"
       },
       {
         "date": 1609977600000,
         "index": 0,
         "description": "XXXXX XXXXX XXXXX XXXXX 0123456.",
         "amount": 456.78,
-        "balance": 2543.7300000000014
+        "balance": 2543.7300000000014,
+        "account_number": "12-345-6789"
       },
       {
         "date": 1609977600000,
         "index": 1,
         "description": "V1234 05/01 XXXXX XXXXX XXXX Ref: 12345678912",
         "amount": -34.56,
-        "balance": 2509.1700000000014
+        "balance": 2509.1700000000014,
+        "account_number": "12-345-6789"
       }
-    ],
-    "errors": []
+    ]
   },
   "text_items": [
     {
