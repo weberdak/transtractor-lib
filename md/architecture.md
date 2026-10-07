@@ -1,5 +1,5 @@
 # Architecture Guide
-The Transtractor is implemented in **Python** and **Rust**. Rust is used not primarily for performance, but to ensure the core processing engine can be ported across multiple languages and runtimes. Python bindings make it easy to integrate Transtractor into backend systems for data extraction and analysis. WASM bindings will also be developed to support static web applications such as [Transtractor.net](https://www.transtractor.net/), for secure, in‑browser parsing of bank statements.
+The Transtractor is implemented in **Python** and **Rust**. Rust is used not primarily for performance, but to ensure the core processing engine can be ported across multiple languages and runtimes. Python bindings make it easy to integrate Transtractor into backend systems for data extraction and analysis. WASM bindings also support static web applications such as [Transtractor.net](https://www.transtractor.net/), for secure, in‑browser parsing of bank statements.
 
 ## Parsing Pipeline
 Transtractor first extracts PDF text into **tokenised word units**, which are then passed to the **processing engine**
@@ -20,11 +20,13 @@ The processing engine processes statements in two parts:
 ### Step 2: Process tokens into Structured Transaction Data
 Extracts transaction data according to one or more candidate statement types returned by the `StatementTyper`.
 
-The top‑level entry point, `text_items_to_statement_datas`, iterates through all relevant configurations and invokes `text_items_to_statement_data` for each one. This continues until a configuration produces a valid, error‑free `StatementData` object containing fully structured and internally validated results.
+The top‑level entry point, `text_items_to_statement_data`, identifies the relevant configurations and passes them to `text_items_to_account_datas`. That function tokenises the items and, for each configuration, parses, fixes and checks them into an `AccountData` object holding the results for a single account. Fixers repair recoverable problems (for example implicit dates and balances), and checkers validate field completeness and balance continuity, recording any problems in the object's `errors`.
 
-This iterative behaviour is essential because statement formats evolve over time, and multiple versions may share identical keyword signatures. By attempting each configuration in turn, the engine can reliably select the correct format even when classification alone is ambiguous.
+This iterative behaviour is essential because statement formats evolve over time, and multiple versions may share identical keyword signatures. Every configuration is attempted, so the correct format is found even when classification alone is ambiguous. A single statement may also contain several accounts, each parsed successfully by a different configuration.
 
-Once a valid `StatementData` is produced, results are returned to Python through `rust_statement_data_to_py_statement_data`, the **Rust‑to‑Python output interface**. All subsequent processing and data handling occur on the Python side using the `StatementData` transfer class.
+Every error‑free `AccountData` is then imported into a single `StatementData` object, a flat pool of `Transaction` records, each tagged with its account number and per‑date index. A transaction is unique by its date, index, amount, balance and account number (descriptions are ignored), so duplicates produced by multiple parsing attempts are consolidated. Import fails if an `AccountData` is incomplete. If no configuration yields error‑free data, an error is returned.
+
+The pooled result is returned to Python through `rust_statement_data_to_py_statement_data`, the **Rust‑to‑Python output interface** (the WASM bindings provide an equivalent). All subsequent processing and data handling occur on the Python side using the `StatementData` transfer class.
 
 The Transtractor’s core parsing model separates **reusable logic** from **format‑specific rules**. All general parsing behaviour is implemented directly in the Rust engine, while statement‑specific formatting details are defined in lightweight configuration modules or JSON files. This avoids building a bespoke parser for every individual statement format. Even though statements can look very different, they share structural patterns that the Transtractor can exploit and eventually evolve into a genuinely universal parser.
 
