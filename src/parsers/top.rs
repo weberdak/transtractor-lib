@@ -121,6 +121,18 @@ pub fn parse_text_items_with_benchmark(
         }
     }
 
+    // Closing balance is taken from the running balance of the last transaction
+    if config.closing_balance_set_from_last_transaction {
+        let balance = statement_data
+            .proto_transactions
+            .last()
+            .and_then(|transaction| transaction.balance)
+            .expect(
+                "closing_balance_set_from_last_transaction requires the last transaction to have a balance",
+            );
+        statement_data.set_closing_balance(balance);
+    }
+
     statement_data.benchmark = benchmark.clone();
     statement_data
 }

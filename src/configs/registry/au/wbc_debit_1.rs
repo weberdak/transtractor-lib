@@ -33,6 +33,7 @@ pub fn get_config() -> StatementConfig {
         closing_balance_alignment: "y1".to_string(),
         closing_balance_alignment_tol: 5,
         closing_balance_invert: false,
+        closing_balance_set_from_last_transaction: false,
 
         start_date_terms: vec!["Statement Period".to_string()],
         start_date_trigger_count: 1,

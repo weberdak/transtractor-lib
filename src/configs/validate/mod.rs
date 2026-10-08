@@ -66,7 +66,7 @@ pub fn validate_config(config: &StatementConfig) -> Result<(), String> {
     closing_balance_alignment_tol::closing_balance_alignment_tol(
         config.closing_balance_alignment_tol,
     )?;
-    // closing_balance_invert is a bool, no validation needed
+    // closing_balance_invert and closing_balance_set_from_last_transaction are bools, no validation needed
     start_date_terms::start_date_terms(&config.start_date_terms)?;
     start_date_formats::start_date_formats(&config.start_date_formats)?;
     start_date_alignment::start_date_alignment(&config.start_date_alignment)?;

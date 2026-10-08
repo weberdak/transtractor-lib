@@ -428,6 +428,15 @@ Boolean value specifying whether to invert the sign of the extracted closing bal
 often useful for loan or credit card statements where the closing balance is presented as a
 positive value despite it being a liability.
 
+*closing_balance_set_from_last_transaction*
+*************************************
+Boolean value (default *false*) specifying whether to set the closing balance to the running
+balance of the last extracted transaction, rather than using the value parsed from the statement
+via the other *closing_balance_* parameters. This is useful when the statement does not state a
+closing balance. Only set this to *true* if the statement provides running transaction balances.
+The parser panics if the last transaction has no balance, so do not combine it with
+*transaction_balance_ignore*.
+
 
 Start Date Parameters
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~

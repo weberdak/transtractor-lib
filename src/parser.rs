@@ -637,4 +637,48 @@ mod tests {
             "Expected validate_spec to fail without a config"
         );
     }
+
+    /// Load test1 config with an unmatchable closing balance term and the flag set.
+    fn parse_test1_layout_with_flag(
+        flag: bool,
+        ignore_balances: bool,
+    ) -> crate::structs::AccountData {
+        let json = read_fixture("test1_config.json")
+            .replace("\"Closing balance:\"", "\"No such term:\"")
+            .replace(
+                "[\"date\", \"description\", \"amount\"],\n        [\"description\", \"amount\", \"balance\"],\n        [\"description\", \"amount\"]",
+                "[\"description\", \"amount\", \"balance\"]",
+            )
+            .replace(
+                "\"closing_balance_invert\": false,",
+                &format!(
+                    "\"closing_balance_invert\": false,\n    \"closing_balance_set_from_last_transaction\": {flag},\n    \"transaction_balance_ignore\": {ignore_balances},"
+                ),
+            );
+        let path = temp_file_path(".json");
+        std::fs::write(&path, json).unwrap();
+        let mut parser = Parser::new();
+        parser.load(&path.to_string_lossy()).unwrap();
+        std::fs::remove_file(&path).ok();
+
+        let items = layout_path_to_text_items(&fixture("test1_layout.txt")).unwrap();
+        let configs = parser.db.identify(&items);
+        let tokenised = crate::structs::text_items::tokenise_items(&items);
+        crate::parsers::top::parse_text_items(&configs[0], &tokenised)
+    }
+
+    #[test]
+    fn test_closing_balance_set_from_last_transaction() {
+        let off = parse_test1_layout_with_flag(false, false);
+        assert_eq!(off.closing_balance, None);
+
+        let on = parse_test1_layout_with_flag(true, false);
+        assert_eq!(on.closing_balance, Some(11663.82));
+    }
+
+    #[test]
+    #[should_panic(expected = "closing_balance_set_from_last_transaction")]
+    fn test_closing_balance_set_from_last_transaction_panics_without_balance() {
+        parse_test1_layout_with_flag(true, true);
+    }
 }

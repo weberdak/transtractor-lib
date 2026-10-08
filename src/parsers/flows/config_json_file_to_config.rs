@@ -52,6 +52,7 @@ struct StatementConfigPartial {
     closing_balance_alignment: Option<String>,
     closing_balance_alignment_tol: Option<i32>,
     closing_balance_invert: Option<bool>,
+    closing_balance_set_from_last_transaction: Option<bool>,
 
     start_date_terms: Option<Vec<String>>,
     start_date_trigger_count: Option<usize>,
@@ -165,6 +166,7 @@ pub fn from_json_str_with_deprecations(src: &str) -> Result<ConfigParseResult, S
     overlay!(closing_balance_alignment);
     overlay!(closing_balance_alignment_tol);
     overlay!(closing_balance_invert);
+    overlay!(closing_balance_set_from_last_transaction);
 
     overlay!(start_date_terms);
     overlay!(start_date_trigger_count);

@@ -56,6 +56,9 @@ pub struct StatementConfig {
     pub closing_balance_alignment_tol: i32,
     /// Invert the sign of the closing balance amount
     pub closing_balance_invert: bool,
+    /// Set the closing balance to the balance of the last transaction after parsing.
+    /// Only valid when the statement provides running balances.
+    pub closing_balance_set_from_last_transaction: bool,
 
     // START DATE READ PARAMS
     /// Array of terms to identify the statement start date line (e.g., "Statement Period", "From")
@@ -182,6 +185,7 @@ impl Default for StatementConfig {
             closing_balance_alignment: "y1".to_string(),
             closing_balance_alignment_tol: 5,
             closing_balance_invert: false,
+            closing_balance_set_from_last_transaction: false,
 
             start_date_terms: vec![],
             start_date_trigger_count: 1,
