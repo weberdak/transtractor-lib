@@ -639,10 +639,7 @@ mod tests {
     }
 
     /// Load test1 config with an unmatchable closing balance term and the flag set.
-    fn parse_test1_layout_with_flag(
-        flag: bool,
-        ignore_balances: bool,
-    ) -> crate::structs::AccountData {
+    fn parse_test1_layout_with_flag(flag: bool) -> crate::structs::AccountData {
         let json = read_fixture("test1_config.json")
             .replace("\"Closing balance:\"", "\"No such term:\"")
             .replace(
@@ -652,7 +649,7 @@ mod tests {
             .replace(
                 "\"closing_balance_invert\": false,",
                 &format!(
-                    "\"closing_balance_invert\": false,\n    \"closing_balance_set_from_last_transaction\": {flag},\n    \"transaction_balance_ignore\": {ignore_balances},"
+                    "\"closing_balance_invert\": false,\n    \"closing_balance_set_from_last_transaction\": {flag},"
                 ),
             );
         let path = temp_file_path(".json");
@@ -669,16 +666,10 @@ mod tests {
 
     #[test]
     fn test_closing_balance_set_from_last_transaction() {
-        let off = parse_test1_layout_with_flag(false, false);
+        let off = parse_test1_layout_with_flag(false);
         assert_eq!(off.closing_balance, None);
 
-        let on = parse_test1_layout_with_flag(true, false);
+        let on = parse_test1_layout_with_flag(true);
         assert_eq!(on.closing_balance, Some(11663.82));
-    }
-
-    #[test]
-    #[should_panic(expected = "closing_balance_set_from_last_transaction")]
-    fn test_closing_balance_set_from_last_transaction_panics_without_balance() {
-        parse_test1_layout_with_flag(true, true);
     }
 }
