@@ -434,8 +434,6 @@ Boolean value (default *false*) specifying whether to set the closing balance to
 balance of the last extracted transaction, rather than using the value parsed from the statement
 via the other *closing_balance_* parameters. This is useful when the statement does not state a
 closing balance. Only set this to *true* if the statement provides running transaction balances.
-The parser panics if the last transaction has no balance, so do not combine it with
-*transaction_balance_ignore*.
 
 
 Start Date Parameters
