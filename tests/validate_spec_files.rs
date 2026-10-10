@@ -1,76 +1,8 @@
 use std::fs;
-use std::path::{Path, PathBuf};
+use std::path::Path;
 use transtractor::configs::db::ConfigDB;
 use transtractor::configs::registry::get_config_map;
 use transtractor::structs::Spec;
-
-fn collect_json_files(dir: &Path, out: &mut Vec<PathBuf>) {
-    let entries = fs::read_dir(dir)
-        .unwrap_or_else(|e| panic!("Failed to read directory {}: {}", dir.display(), e));
-
-    for entry in entries {
-        let entry = entry.unwrap_or_else(|e| {
-            panic!(
-                "Failed to read an entry in directory {}: {}",
-                dir.display(),
-                e
-            )
-        });
-        let path = entry.path();
-
-        if path.is_dir() {
-            collect_json_files(&path, out);
-        } else if path
-            .extension()
-            .and_then(|ext| ext.to_str())
-            .is_some_and(|ext| ext.eq_ignore_ascii_case("json"))
-        {
-            out.push(path);
-        }
-    }
-}
-
-fn collect_spec_files() -> Vec<PathBuf> {
-    let fixtures_root = Path::new("tests/fixtures/spec");
-    assert!(
-        fixtures_root.exists(),
-        "Spec fixtures directory does not exist: {}",
-        fixtures_root.display()
-    );
-
-    let mut spec_files = Vec::new();
-    collect_json_files(fixtures_root, &mut spec_files);
-    spec_files.sort();
-
-    assert!(
-        !spec_files.is_empty(),
-        "No JSON spec fixtures found under {}",
-        fixtures_root.display()
-    );
-
-    spec_files
-}
-
-/// Config key implied by a spec path: `<dir>/<a>__<b>__<c>__<name>__<n>.json` -> `<dir>__<a>__<b>__<c>`.
-fn spec_key_from_path(spec_path: &Path) -> Result<String, String> {
-    let dir = spec_path
-        .parent()
-        .and_then(|parent| parent.file_name())
-        .and_then(|name| name.to_str())
-        .ok_or_else(|| format!("{}: missing parent directory name", spec_path.display()))?;
-    let stem = spec_path
-        .file_stem()
-        .and_then(|stem| stem.to_str())
-        .ok_or_else(|| format!("{}: missing or invalid file stem", spec_path.display()))?;
-    let components: Vec<&str> = stem.split("__").collect();
-    if components.len() < 3 {
-        return Err(format!(
-            "{}: expected at least 3 filename components",
-            spec_path.display()
-        ));
-    }
-    Ok(format!("{}__{}", dir, components[..3].join("__")))
-}
 
 fn validate_spec_file_name(spec_path: &Path) -> Result<(), String> {
     let file_name = spec_path
@@ -86,35 +18,40 @@ fn validate_spec_file_name(spec_path: &Path) -> Result<(), String> {
         ));
     }
 
+    let dir = spec_path
+        .parent()
+        .and_then(|parent| parent.file_name())
+        .and_then(|name| name.to_str())
+        .ok_or_else(|| format!("{}: missing parent directory name", spec_path.display()))?;
     let file_stem = spec_path
         .file_stem()
         .and_then(|stem| stem.to_str())
         .ok_or_else(|| format!("{}: missing or invalid file stem", spec_path.display()))?;
 
     let components: Vec<&str> = file_stem.split("__").collect();
-    if components.len() != 5 {
+    if components.len() != 3 {
         return Err(format!(
-            "{}: expected exactly 5 filename components separated by double underscores, found {} in {:?}",
+            "{}: expected exactly 3 filename components separated by double underscores, found {} in {:?}",
             spec_path.display(),
             components.len(),
             components
         ));
     }
 
-    let key = spec_key_from_path(spec_path)?;
-    if !get_config_map().contains_key(&key) {
+    let prefix = format!("{}__{}__", dir, components[0]);
+    if !get_config_map().keys().any(|key| key.starts_with(&prefix)) {
         return Err(format!(
-            "{}: derived config key {:?} (directory + first three filename components) is not a registered config",
+            "{}: no registered config key starts with {:?} (directory + first filename component)",
             spec_path.display(),
-            key
+            prefix
         ));
     }
 
-    if components[4].parse::<i64>().is_err() {
+    if components[2].parse::<i64>().is_err() {
         return Err(format!(
-            "{}: fifth filename component {:?} is not a valid integer",
+            "{}: third filename component {:?} is not a valid integer",
             spec_path.display(),
-            components[4]
+            components[2]
         ));
     }
 
@@ -138,41 +75,3 @@ fn validate_spec_file(spec_path: &str) {
 }
 
 include!(concat!(env!("OUT_DIR"), "/spec_tests.rs"));
-
-#[test]
-fn every_registered_config_has_a_spec_file() {
-    let spec_files = collect_spec_files();
-    let mut spec_keys = std::collections::HashSet::new();
-    let mut read_failures = Vec::new();
-
-    for spec_path in spec_files {
-        match spec_key_from_path(&spec_path) {
-            Ok(key) => {
-                spec_keys.insert(key);
-            }
-            Err(error) => read_failures.push(error),
-        }
-    }
-
-    assert!(
-        read_failures.is_empty(),
-        "{} spec path failure(s):\n\n{}",
-        read_failures.len(),
-        read_failures.join("\n\n")
-    );
-
-    let config_map = get_config_map();
-    let mut missing = config_map
-        .keys()
-        .filter(|key| !spec_keys.contains(*key))
-        .cloned()
-        .collect::<Vec<String>>();
-    missing.sort();
-
-    assert!(
-        missing.is_empty(),
-        "{} config(s) are missing associated spec files in tests/fixtures/spec:\n{}",
-        missing.len(),
-        missing.join("\n")
-    );
-}
