@@ -7,7 +7,8 @@ and account type. These configuration are defined in Rust modules located in `sr
 the `source code <https://github.com/weberdak/transtractor-lib>`_.
 
 The following statements will be recognised and parsed automatically. You must create and load 
-your own configuration files if your bank or account type is not listed here.
+your own configuration files if your bank or account type is not listed here. Statements marked
+`Unreleased` can be processed on the `website <https://www.transtractor.net/>`_ but are not yet included in a PyPI release.
 
 Australia
 ---------
@@ -44,6 +45,22 @@ Australia
       - ING Bank
       - Orange Everyday, Savings Maximiser
       - v0.12.0
+
+Thailand
+--------
+
+.. list-table::
+    :header-rows: 1
+    :widths: 15 40 30 15
+
+    * - Key
+      - Bank
+      - Example Accounts
+      - Introduced
+    * - ``th__bbl__savings__1``
+      - Bangkok Bank
+      - Savings Account
+      - Unreleased
 
 United States
 -------------
