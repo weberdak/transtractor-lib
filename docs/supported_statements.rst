@@ -8,7 +8,8 @@ the `source code <https://github.com/weberdak/transtractor-lib>`_.
 
 The following statements will be recognised and parsed automatically. You must create and load 
 your own configuration files if your bank or account type is not listed here. Statements marked
-`Unreleased` can be processed on the `website <https://www.transtractor.net/>`_ but are not yet included in a PyPI release.
+`Unreleased` can be processed on the `website <https://www.transtractor.net/>`_ or using the source 
+code directly but are not yet included in a PyPI release.
 
 Australia
 ---------
