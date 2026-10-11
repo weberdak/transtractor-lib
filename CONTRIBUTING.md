@@ -34,7 +34,7 @@ npm ci
 
 ## Adding statement support
 
-New statement support generally consists of a configuration, a redacted spec fixture, and any required date or amount formats. The `Parser.test()` method searches the supplied directory and its subdirectories for PDFs and tests whether they can be successfully parsed.
+New statement support generally consists of a configuration, a redacted spec fixture, and any required date or amount formats. The `Parser.test()` method of the Python API searches the supplied directory and its subdirectories for PDFs and tests whether they can be successfully parsed.
 
 1. Create and test a JSON configuration using the documented [configuration reference](https://transtractor-lib.readthedocs.io/en/latest/configuration.html):
 
@@ -55,22 +55,32 @@ New statement support generally consists of a configuration, a redacted spec fix
 	uv sync --locked --group dev
 	```
 
-3. Create at least one representative spec fixture. A spec stores the ordered text and coordinates extracted from a PDF together with the expected parsed statement data, allowing realistic layouts to be tested without committing private PDFs. Use `Parser.layout()` to extract layout text, replace sensitive quoted text with dummy values while preserving coordinates and formatting, then validate it with `Parser.debug_layout()` and generate the fixture with `Parser.spec_layout()`:
-
-	In the layout file, search for the regex `"([^"]*)"` to highlight quoted text within the coordinate data. This makes sensitive values easier to find and replace.
+3. To contribute to the project, at least one representative *spec* file is required. A spec file is a special testing fixture that stores the ordered text and coordinates extracted from a PDF together with the expected parsing result. These files are easy to redact and are a safer alternative to real PDF statements. To create these, first create a *layout* file from a representative PDF statement:
 
 	```python
 	parser.layout("path/to/representative/statement.pdf", "statement_layout.txt")
+	```
+
+	Redact your personal information following the instructions on the [website](https://www.transtractor.net/add-support-for-your-statements). Note that you need to enure that the dummy amounts and balances are balanced before creating the spec file. The easiest way to validate this is by the `debug_layout` method:
+
+	```python
 	parser.debug_layout("statement_layout.txt", "statement_debug.txt")
+	```
+
+	If no errors are encountered, generate the spec file:
+
+	```python
 	parser.spec_layout(
 		 "statement_layout.txt",
-		 "{bank-code}__{account-type}__{config-version}__{bank-product}__{spec-version}.json",
+		 "{bank-code}__{bank-product}__{spec-version}.json",
 	)
 	```
 
-	Store the resulting JSON under `tests/fixtures/spec/<region>/`. The directory must match the first component of the configuration `key`; the first three filename components must match the next three components of that key. The fourth component describes the bank product, the fifth must be an integer spec version, and the complete filename must be lowercase. Do not commit real bank statement PDFs or other personal information.
+	Store the resulting JSON under `tests/fixtures/spec/<region>/`. The filename must have exactly three lowercase components separated by double underscores: `<bank-code>__<spec-name>__<integer-version>.json`. The region directory and bank-code component must match the start of at least one configuration `key` (for example, `au/cba__savings__1.json` requires a key starting with `au__cba__`).
 
-4. Run the spec tests with `cargo test`. They check fixture naming, placement, configuration coverage, and exact parsing behaviour.
+4. Run the spec tests with `cargo test`. They check fixture naming, placement, and exact parsing behaviour.
+
+5. Email the spec file separately to develop@transtractor.net once a pull request is opened. This allows maintainers to verify accuracy ensure the parsing of your statements are not corrupted in future releases. These files are not committed to the repository in case personal information has not been properly redacted.
 
 ## Validate your changes
 
