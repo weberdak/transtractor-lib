@@ -246,3 +246,6 @@ wasm/*.tgz
 # Working folders for project
 examples/
 notes/
+
+# Testing fixtures
+tests/fixtures/spec
