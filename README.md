@@ -26,7 +26,7 @@ Each supported statement format is implemented as a lightweight configuration mo
 
 ## Installation
 ### Install from PyPI
-Transtractor is available on PyPI and can be installed with pip:
+The Transtractor is available on PyPI and can be installed with pip:
 
 ```shell
 pip install transtractor
@@ -119,5 +119,3 @@ The following pages provide further information about how this package is built 
 * [Developer Guide](md/develop.md): Reference page for core development and maintenance.
 * [Contributor Guide](CONTRIBUTING.md): Extending the package to parse additional bank statements.
 * [WASM Guide](md/wasm.md): Build and usage notes for the TypeScript/WASM package.
-
-Please get involved or email gravytoast@pm.me if you have any questions.
