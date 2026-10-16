@@ -1,47 +1,38 @@
 use crate::structs::StatementConfig;
 use regex::Regex;
 
-pub const KEY: &str = "us__cof__360_combo__1";
+pub const KEY: &str = "us__cof__360_checking__1";
 
 pub fn get_config() -> StatementConfig {
     StatementConfig {
         key: KEY.to_string(),
         bank_name: "Capital One".to_string(),
-        account_type: "Mixed".to_string(),
-        account_terms: vec![
-            "Capital One 360®".to_string(),
-            "TOTAL ENDING BALANCE".to_string(),
-        ],
-        account_examples: vec![
-            "360 Checking".to_string(),
-            "360 Performance Savings".to_string(),
-        ],
+        account_type: "Checking".to_string(),
+        account_terms: vec!["Capital One 360®".to_string(), "360 Checking".to_string()],
+        account_examples: vec!["360 Checking".to_string()],
 
-        account_number_terms: vec![
-            "360 Checking -".to_string(),
-            "360 Performance Savings -".to_string(),
-        ],
+        account_number_terms: vec!["360 Checking -".to_string()],
         account_number_trigger_count: 1,
         account_number_patterns: vec![Regex::new(r"\b\d+\b").unwrap()],
         account_number_alignment: "y1".to_string(),
         account_number_alignment_tol: 5,
 
-        opening_balance_terms: vec!["All Accounts".to_string()],
+        opening_balance_terms: vec!["Opening Balance".to_string()],
         opening_balance_trigger_count: 1,
         opening_balance_formats: vec!["format2".to_string()],
         opening_balance_alignment: "y1".to_string(),
         opening_balance_alignment_tol: 5,
         opening_balance_invert: false,
-        opening_balance_inside_table: false,
+        opening_balance_inside_table: true,
 
-        closing_balance_terms: vec![],
-        closing_balance_trigger_count: 0,
+        closing_balance_terms: vec!["Closing Balance".to_string()],
+        closing_balance_trigger_count: 1,
         closing_balance_formats: vec!["format2".to_string()],
         closing_balance_alignment: "y1".to_string(),
         closing_balance_alignment_tol: 5,
         closing_balance_invert: false,
         closing_balance_set_from_last_transaction: false,
-        closing_balance_inside_table: false,
+        closing_balance_inside_table: true,
 
         start_date_terms: vec!["STATEMENT PERIOD".to_string()],
         start_date_trigger_count: 1,
@@ -49,9 +40,9 @@ pub fn get_config() -> StatementConfig {
         start_date_alignment: "x1".to_string(),
         start_date_alignment_tol: 5,
 
-        transaction_terms: vec!["DATE DESCRIPTION".to_string()],
+        transaction_terms: vec!["360 Checking -".to_string()],
         transaction_trigger_count: 1,
-        transaction_terms_stop: vec!["Note: The last".to_string()],
+        transaction_terms_stop: vec!["Closing Balance".to_string()],
         transaction_stop_trigger_count: 1,
         transaction_formats: vec![vec![
             "date".to_string(),
