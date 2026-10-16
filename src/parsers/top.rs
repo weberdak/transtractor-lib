@@ -82,7 +82,10 @@ pub fn parse_text_items_with_benchmark(
             );
             benchmark.parsers_opening_balance_parser_parse.pause();
         }
-        if consumed == 0 && (!config.closing_balance_inside_table || transaction_parser.is_primed())
+        if consumed == 0
+            && (!config.closing_balance_inside_table
+                || transaction_parser.is_primed()
+                || closing_balance_parser.is_primed())
         {
             benchmark.parsers_closing_balance_parser_parse.start();
             consumed = closing_balance_parser.parse_items_timed(

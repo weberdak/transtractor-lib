@@ -59,6 +59,10 @@ impl ClosingBalanceParser {
     pub fn get_max_lookahead(&self) -> usize {
         self.parser.get_max_lookahead()
     }
+
+    pub fn is_primed(&self) -> bool {
+        self.parser.is_primed()
+    }
 }
 
 #[cfg(test)]
