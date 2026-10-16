@@ -383,6 +383,12 @@ Boolean value specifying whether to invert the sign of the extracted opening bal
 often useful for loan or credit card statements where the opening balance is presented as a
 positive value despite it being a liability.
 
+*opening_balance_inside_table*
+*************************************
+Boolean value (default *false*) specifying whether the opening balance parser should only look for
+its primer term after the transaction table has started. When *true*, the parser will not extract
+opening balances elsewhere in statements containing multiple account sections.
+
 
 Closing Balance Parameters
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -434,6 +440,13 @@ Boolean value (default *false*) specifying whether to set the closing balance to
 balance of the last extracted transaction, rather than using the value parsed from the statement
 via the other *closing_balance_* parameters. This is useful when the statement does not state a
 closing balance. Only set this to *true* if the statement provides running transaction balances.
+
+*closing_balance_inside_table*
+*************************************
+Boolean value (default *false*) specifying whether the closing balance parser should only look for
+its primer term while the transaction table is active (after its start term and before its stop
+term). When *true*, the parser will not extract closing balances elsewhere in statements containing
+multiple account sections.
 
 
 Start Date Parameters

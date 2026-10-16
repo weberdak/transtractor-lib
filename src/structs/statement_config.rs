@@ -42,6 +42,8 @@ pub struct StatementConfig {
     pub opening_balance_alignment_tol: i32,
     /// Invert the sign of the opening balance amount
     pub opening_balance_invert: bool,
+    /// Only parse the opening balance after the transaction table has started.
+    pub opening_balance_inside_table: bool,
 
     // CLOSING BALANCE READ PARAMS
     /// Array of terms to identify the closing balance line (e.g., "Closing Balance", "New Balance")
@@ -59,6 +61,8 @@ pub struct StatementConfig {
     /// Set the closing balance to the balance of the last transaction after parsing.
     /// Only valid when the statement provides running balances.
     pub closing_balance_set_from_last_transaction: bool,
+    /// Only parse the closing balance while the transaction table is active.
+    pub closing_balance_inside_table: bool,
 
     // START DATE READ PARAMS
     /// Array of terms to identify the statement start date line (e.g., "Statement Period", "From")
@@ -178,6 +182,7 @@ impl Default for StatementConfig {
             opening_balance_alignment: "y1".to_string(),
             opening_balance_alignment_tol: 5,
             opening_balance_invert: false,
+            opening_balance_inside_table: false,
 
             closing_balance_terms: vec![],
             closing_balance_trigger_count: 1,
@@ -186,6 +191,7 @@ impl Default for StatementConfig {
             closing_balance_alignment_tol: 5,
             closing_balance_invert: false,
             closing_balance_set_from_last_transaction: false,
+            closing_balance_inside_table: false,
 
             start_date_terms: vec![],
             start_date_trigger_count: 1,

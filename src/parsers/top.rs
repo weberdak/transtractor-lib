@@ -72,7 +72,8 @@ pub fn parse_text_items_with_benchmark(
             );
             benchmark.parsers_start_date_parser_parse.pause();
         }
-        if consumed == 0 {
+        if consumed == 0 && (!config.opening_balance_inside_table || transaction_parser.is_primed())
+        {
             benchmark.parsers_opening_balance_parser_parse.start();
             consumed = opening_balance_parser.parse_items_timed(
                 buffer,
@@ -81,7 +82,8 @@ pub fn parse_text_items_with_benchmark(
             );
             benchmark.parsers_opening_balance_parser_parse.pause();
         }
-        if consumed == 0 {
+        if consumed == 0 && (!config.closing_balance_inside_table || transaction_parser.is_primed())
+        {
             benchmark.parsers_closing_balance_parser_parse.start();
             consumed = closing_balance_parser.parse_items_timed(
                 buffer,
@@ -132,4 +134,73 @@ pub fn parse_text_items_with_benchmark(
 
     statement_data.benchmark = benchmark.clone();
     statement_data
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    fn item(text: &str, y1: i32) -> TextItem {
+        TextItem {
+            text: text.to_string(),
+            x1: 100,
+            y1,
+            x2: 110,
+            y2: y1 + 10,
+            page: 1,
+            y1_bin: y1,
+        }
+    }
+
+    fn base_config() -> StatementConfig {
+        StatementConfig {
+            transaction_terms: vec!["Transactions".to_string()],
+            transaction_terms_stop: vec!["End table".to_string()],
+            opening_balance_terms: vec!["Opening balance".to_string()],
+            opening_balance_formats: vec!["format1".to_string()],
+            opening_balance_alignment: "x1".to_string(),
+            closing_balance_terms: vec!["Closing balance".to_string()],
+            closing_balance_formats: vec!["format1".to_string()],
+            closing_balance_alignment: "x1".to_string(),
+            ..Default::default()
+        }
+    }
+
+    #[test]
+    fn opening_balance_inside_table_ignores_pre_table_value() {
+        let mut config = base_config();
+        config.opening_balance_inside_table = true;
+        let items = vec![
+            item("Opening", 10),
+            item("balance", 10),
+            item("100.00", 20),
+            item("Transactions", 30),
+            item("Opening", 40),
+            item("balance", 40),
+            item("200.00", 50),
+        ];
+
+        let data = parse_text_items(&config, &items);
+
+        assert_eq!(data.opening_balance(), Some(200.0));
+    }
+
+    #[test]
+    fn closing_balance_inside_table_ignores_pre_table_value() {
+        let mut config = base_config();
+        config.closing_balance_inside_table = true;
+        let items = vec![
+            item("Closing", 10),
+            item("balance", 10),
+            item("100.00", 20),
+            item("Transactions", 30),
+            item("Closing", 40),
+            item("balance", 40),
+            item("200.00", 50),
+        ];
+
+        let data = parse_text_items(&config, &items);
+
+        assert_eq!(data.closing_balance(), Some(200.0));
+    }
 }

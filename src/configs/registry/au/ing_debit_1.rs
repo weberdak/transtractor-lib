@@ -29,6 +29,7 @@ pub fn get_config() -> StatementConfig {
         opening_balance_alignment: "x1".to_string(),
         opening_balance_alignment_tol: 5,
         opening_balance_invert: false,
+        opening_balance_inside_table: false,
 
         closing_balance_terms: vec!["Closing balance".to_string()],
         closing_balance_trigger_count: 1,
@@ -37,6 +38,7 @@ pub fn get_config() -> StatementConfig {
         closing_balance_alignment_tol: 5,
         closing_balance_invert: false,
         closing_balance_set_from_last_transaction: false,
+        closing_balance_inside_table: false,
 
         start_date_terms: vec!["Statement from:".to_string()],
         start_date_trigger_count: 1,

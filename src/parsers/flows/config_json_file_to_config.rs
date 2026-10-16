@@ -45,6 +45,7 @@ struct StatementConfigPartial {
     opening_balance_alignment: Option<String>,
     opening_balance_alignment_tol: Option<i32>,
     opening_balance_invert: Option<bool>,
+    opening_balance_inside_table: Option<bool>,
 
     closing_balance_terms: Option<Vec<String>>,
     closing_balance_trigger_count: Option<usize>,
@@ -53,6 +54,7 @@ struct StatementConfigPartial {
     closing_balance_alignment_tol: Option<i32>,
     closing_balance_invert: Option<bool>,
     closing_balance_set_from_last_transaction: Option<bool>,
+    closing_balance_inside_table: Option<bool>,
 
     start_date_terms: Option<Vec<String>>,
     start_date_trigger_count: Option<usize>,
@@ -159,6 +161,7 @@ pub fn from_json_str_with_deprecations(src: &str) -> Result<ConfigParseResult, S
     overlay!(opening_balance_alignment);
     overlay!(opening_balance_alignment_tol);
     overlay!(opening_balance_invert);
+    overlay!(opening_balance_inside_table);
 
     overlay!(closing_balance_terms);
     overlay!(closing_balance_trigger_count);
@@ -167,6 +170,7 @@ pub fn from_json_str_with_deprecations(src: &str) -> Result<ConfigParseResult, S
     overlay!(closing_balance_alignment_tol);
     overlay!(closing_balance_invert);
     overlay!(closing_balance_set_from_last_transaction);
+    overlay!(closing_balance_inside_table);
 
     overlay!(start_date_terms);
     overlay!(start_date_trigger_count);
@@ -238,6 +242,8 @@ mod tests {
             serde_json::from_str(include_str!("../../../tests/fixtures/test1_config.json"))
                 .unwrap();
         let fields = [
+            ("opening_balance_inside_table", serde_json::json!(true)),
+            ("closing_balance_inside_table", serde_json::json!(true)),
             ("transaction_date_x1_range", serde_json::json!([1, 2])),
             ("transaction_date_x2_range", serde_json::json!([3, 4])),
             (
@@ -267,6 +273,8 @@ mod tests {
         }
         let config = from_json_str(&config_json.to_string()).unwrap();
 
+        assert!(config.opening_balance_inside_table);
+        assert!(config.closing_balance_inside_table);
         assert_eq!(config.transaction_date_x1_range, [1, 2]);
         assert_eq!(config.transaction_date_x2_range, [3, 4]);
         assert_eq!(config.transaction_description_x1_range, [5, 6]);
@@ -280,6 +288,8 @@ mod tests {
 
         let default_config =
             from_json_str(include_str!("../../../tests/fixtures/test1_config.json")).unwrap();
+        assert!(!default_config.opening_balance_inside_table);
+        assert!(!default_config.closing_balance_inside_table);
         assert_eq!(default_config.transaction_date_x1_range, [0, 10000]);
         assert_eq!(default_config.transaction_date_x2_range, [0, 10000]);
         assert_eq!(default_config.transaction_description_x1_range, [0, 10000]);

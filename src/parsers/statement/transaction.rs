@@ -83,6 +83,11 @@ impl TransactionParser {
         self.parse_items_inner(items, data, None, None)
     }
 
+    /// Whether the transaction table has started and has not reached its stop term.
+    pub fn is_primed(&self) -> bool {
+        self.start_primer.primed && !self.stop_primer.primed
+    }
+
     pub fn parse_items_timed(
         &mut self,
         items: &[TextItem],
