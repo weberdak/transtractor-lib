@@ -61,24 +61,38 @@ impl ParserPrimer {
         if self.primed {
             return 0; // Already primed
         }
-        // Try longest first, then shorter
+        let Some((consumed, text_item)) = self.find_match(items) else {
+            return 0;
+        };
+        self.text_item = Some(text_item);
+        self.trigger_count -= 1;
+        if self.trigger_count == 0 {
+            self.primed = true;
+        }
+        consumed
+    }
+
+    /// Return the number of leading items matching a primer term without
+    /// changing primer state.
+    pub fn matching_items(&self, items: &[TextItem]) -> usize {
+        self.find_match(items)
+            .map(|(consumed, _)| consumed)
+            .unwrap_or(0)
+    }
+
+    fn find_match(&self, items: &[TextItem]) -> Option<(usize, TextItem)> {
+        // Try longest first, then shorter.
         for term_count in &self.item_counts {
-            let Some(i) = items_for_term_count(items, *term_count) else {
+            let Some(consumed) = items_for_term_count(items, *term_count) else {
                 continue;
             };
-            if let Some(curr_item) = TextItem::from_items(&items[0..i]) {
-                let curr_text = &curr_item.text;
-                if self.terms.iter().any(|t| t == curr_text) {
-                    self.text_item = Some(curr_item);
-                    self.trigger_count -= 1;
-                    if self.trigger_count == 0 {
-                        self.primed = true;
-                    }
-                    return i;
-                }
+            if let Some(text_item) = TextItem::from_items(&items[0..consumed])
+                && self.terms.iter().any(|term| term == &text_item.text)
+            {
+                return Some((consumed, text_item));
             }
         }
-        0
+        None
     }
 
     pub fn parse_items_timed(&mut self, items: &[TextItem], timer: &mut Timer) -> usize {

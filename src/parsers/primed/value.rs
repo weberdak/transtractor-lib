@@ -46,13 +46,20 @@ impl PrimedValueParser {
             return 0;
         }
 
-        // Primer not primed, or re-prime if term found again
-        let consumed_primer = match prime_timer {
-            Some(timer) => self.primer_parser.parse_items_timed(items, timer),
-            None => self.primer_parser.parse_items(items),
-        };
-        if consumed_primer > 0 {
-            return consumed_primer;
+        // Primer terms are visible to other parsers, including after this
+        // parser is primed.
+        if self.primer_parser.primed {
+            if self.primer_parser.matching_items(items) > 0 {
+                return 0;
+            }
+        } else {
+            let matched = match prime_timer {
+                Some(timer) => self.primer_parser.parse_items_timed(items, timer),
+                None => self.primer_parser.parse_items(items),
+            };
+            if matched > 0 {
+                return 0;
+            }
         }
 
         // Must be primed to look for account number
@@ -136,9 +143,10 @@ mod tests {
         let items = vec![create_text_item("Account", 100, 100)];
         let consumed = parser.parse_items(&items);
 
-        assert_eq!(consumed, 1);
+        assert_eq!(consumed, 0);
         assert!(parser.primer_parser.primed);
         assert!(parser.value().is_none());
+        assert_eq!(parser.parse_items(&items), 0);
     }
 
     #[test]
@@ -168,6 +176,17 @@ mod tests {
 
         assert_eq!(consumed, 1);
         assert_eq!(parser.value(), Some("1234"));
+    }
+
+    #[test]
+    fn test_primer_match_is_not_consumed_after_priming() {
+        let patterns = vec![Regex::new(r"\b\d{4}\b").unwrap()];
+        let mut parser = PrimedValueParser::new(&["Account"], &patterns, "", 0, 1);
+        let primer = vec![create_text_item("Account", 100, 100)];
+        assert_eq!(parser.parse_items(&primer), 0);
+        assert!(parser.is_primed());
+        assert_eq!(parser.parse_items(&primer), 0);
+        assert!(parser.value().is_none());
     }
 
     #[test]

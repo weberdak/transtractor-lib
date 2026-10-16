@@ -117,14 +117,16 @@ impl TransactionParser {
             self.date_parser_newline.set_start_date_year(data);
         }
 
+        if !self.start_primer.primed {
+            return 0;
+        }
+
         match stop_prime_timer {
             Some(timer) => self.stop_primer.parse_items_timed(items, timer),
             None => self.stop_primer.parse_items(items),
         };
-        if !self.start_primer.primed || self.stop_primer.primed {
-            if self.stop_primer.primed {
-                self.merge_stray_into_last(data);
-            }
+        if self.stop_primer.primed {
+            self.merge_stray_into_last(data);
             return 0;
         }
 

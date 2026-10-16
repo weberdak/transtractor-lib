@@ -44,12 +44,24 @@ impl PrimedDateParser {
             return 0;
         }
 
-        // Try to prime (if not already primed)
-        if !self.primer_parser.primed {
-            return match prime_timer {
+        // Primer terms are visible to other parsers, including after this
+        // parser is primed.
+        if self.primer_parser.primed {
+            if self.primer_parser.matching_items(items) > 0 {
+                return 0;
+            }
+        } else {
+            let matched = match prime_timer {
                 Some(timer) => self.primer_parser.parse_items_timed(items, timer),
                 None => self.primer_parser.parse_items(items),
             };
+            if matched > 0 {
+                return 0;
+            }
+        }
+
+        if !self.primer_parser.primed {
+            return 0;
         }
 
         // Primer is primed, look for date
@@ -132,9 +144,10 @@ mod tests {
         ];
         // First call primes the parser
         let consumed_primer = parser.parse_items(&items);
-        assert_eq!(consumed_primer, 1);
+        assert_eq!(consumed_primer, 0);
         assert!(parser.primer_parser.primed);
         assert!(parser.date_parser.value.is_none());
+        assert_eq!(parser.parse_items(&items), 0);
 
         // Second call parses the date
         let consumed_date = parser.parse_items(&items[1..]);
@@ -203,5 +216,15 @@ mod tests {
         // Try parsing again, should return 0 since value is already set
         let consumed = parser.parse_items(&items[1..]);
         assert_eq!(consumed, 0);
+    }
+
+    #[test]
+    fn test_primer_match_is_not_consumed_after_priming() {
+        let mut parser = PrimedDateParser::new(&["DATE"], &["format2"], "", 0, 1);
+        let primer = vec![make_text_item("DATE", 100, 200, 1)];
+        assert_eq!(parser.parse_items(&primer), 0);
+        assert!(parser.is_primed());
+        assert_eq!(parser.parse_items(&primer), 0);
+        assert!(parser.value().is_none());
     }
 }

@@ -102,7 +102,7 @@ mod tests {
 
         // Parse primer
         let consumed_primer = parser.parse_items(&items, &mut data);
-        assert_eq!(consumed_primer, 1);
+        assert_eq!(consumed_primer, 0);
         assert!(parser.parser.is_primed());
         assert!(data.account_number().is_none());
 

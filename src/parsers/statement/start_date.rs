@@ -97,7 +97,7 @@ mod tests {
         ];
 
         let consumed_primer = parser.parse_items(&items, &mut data);
-        assert_eq!(consumed_primer, 1);
+        assert_eq!(consumed_primer, 0);
         assert!(parser.parser.is_primed());
         assert!(parser.parser.value().is_none());
 
@@ -138,7 +138,7 @@ mod tests {
         ];
 
         let consumed_primer = parser.parse_items(&items, &mut data);
-        assert_eq!(consumed_primer, 1);
+        assert_eq!(consumed_primer, 0);
         let consumed_date = parser.parse_items(&items[1..], &mut data);
         assert_eq!(consumed_date, 0);
         assert!(data.start_date().is_none());
