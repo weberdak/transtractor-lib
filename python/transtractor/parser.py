@@ -53,6 +53,7 @@ class Parser:
             StatementData,
             self._inner.py_layout_path_to_py_statement_data(layout_file_path),
         )
+        sd.filename = layout_file_path
         return sd
 
     def debug(self, pdf_file_path: str, output_file: str):
