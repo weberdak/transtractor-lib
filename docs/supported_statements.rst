@@ -84,5 +84,5 @@ United States
       - v0.14.0
 
 \* Capital One 360 statements bundle transactions from multiple account types into a 
-single PDF. The Transtractor merges these transactions into a single table and assigns 
-them against the first account number found in the statement.
+single PDF. The Transtractor extracts them individually and assigns each transaction 
+to the correct account based on the account numbers.
