@@ -6,7 +6,6 @@ from pathlib import Path
 import pytest
 from transtractor import ParseError
 from transtractor.parser import Parser
-from transtractor.structs.benchmark import Benchmark
 from transtractor.structs.statement_data import StatementData
 
 
@@ -22,30 +21,7 @@ def test_parse_generates_correct_csv():
     expected_csv = fixtures_dir / "test1_parsed.csv"
 
     statement_data: StatementData = parser.parse(str(test_pdf))
-    assert isinstance(statement_data.benchmark, Benchmark)
-    assert all(
-        isinstance(getattr(statement_data.benchmark, stage), int)
-        for stage in (
-            "pdf_extractor",
-            "total",
-            "tokeniser",
-            "typer",
-            "parsers",
-            "parsers_account_number_parser_prime",
-            "parsers_account_number_parser_parse",
-            "parsers_start_date_parser_prime",
-            "parsers_start_date_parser_parse",
-            "parsers_opening_balance_parser_prime",
-            "parsers_opening_balance_parser_parse",
-            "parsers_closing_balance_parser_prime",
-            "parsers_closing_balance_parser_parse",
-            "parsers_transaction_parser_start_prime",
-            "parsers_transaction_parser_parse",
-            "parsers_transaction_parser_stop_prime",
-            "fixers",
-            "checkers",
-        )
-    )
+    assert not hasattr(statement_data, "benchmark")
 
     # Generate CSV in a temporary file
     with tempfile.NamedTemporaryFile(

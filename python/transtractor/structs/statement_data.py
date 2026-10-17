@@ -4,7 +4,6 @@ subsequent processing in Python."""
 import csv
 from dataclasses import dataclass, field
 
-from .benchmark import Benchmark
 from .transaction import Transaction
 
 
@@ -14,7 +13,6 @@ class StatementData:
 
     filename: str = ""
     transactions: list[Transaction] = field(default_factory=list)
-    benchmark: Benchmark = field(default_factory=Benchmark)
 
     def __repr__(self) -> str:
         return (
