@@ -72,23 +72,24 @@ Statement Data:
     61: 31 Jan 2025, "Transaction 61", -30.00, 11653.82
     62: 31 Jan 2025, "Transaction 62", 10.00, 11663.82
   Errors: None
-  Benchmark (microseconds):
-    Total time: 0
-    PDF extractor: 0
-    Tokeniser: 0
-    Typer: 0
-    Parsers: 0
-        Account number (prime): 0
-        Account number (parse): 0
-        Start date (prime): 0
-        Start date (parse): 0
-        Opening balance (prime): 0
-        Opening balance (parse): 0
-        Closing balance (prime): 0
-        Closing balance (parse): 0
-        Transaction (prime start): 0
-        Transaction (parse): 0
-        Transaction (prime stop): 0
-    Fixers: 0
-    Checkers: 0
 
+=== Cumulative Benchmark ===
+Benchmark (microseconds):
+  Total time: 0
+  PDF extractor: 0
+  Tokeniser: 0
+  Typer: 0
+  Parsers: 0
+      Account number (prime): 0
+      Account number (parse): 0
+      Start date (prime): 0
+      Start date (parse): 0
+      Opening balance (prime): 0
+      Opening balance (parse): 0
+      Closing balance (prime): 0
+      Closing balance (parse): 0
+      Transaction (prime start): 0
+      Transaction (parse): 0
+      Transaction (prime stop): 0
+  Fixers: 0
+  Checkers: 0

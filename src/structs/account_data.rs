@@ -83,8 +83,12 @@ impl AccountData {
     }
 }
 
-impl fmt::Display for AccountData {
-    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+impl AccountData {
+    pub(crate) fn debug_report(&self) -> String {
+        self.report(false)
+    }
+
+    fn report(&self, include_benchmark: bool) -> String {
         let mut result = String::new();
         result.push_str("Statement Data:\n");
         match &self.key {
@@ -148,8 +152,16 @@ impl fmt::Display for AccountData {
         } else {
             result.push_str("  Errors: None\n");
         }
-        result.push_str(&benchmark_report(&self.benchmark));
-        write!(f, "{}", result)
+        if include_benchmark {
+            result.push_str(&benchmark_report(&self.benchmark));
+        }
+        result
+    }
+}
+
+impl fmt::Display for AccountData {
+    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+        write!(f, "{}", self.report(true))
     }
 }
 
@@ -159,61 +171,73 @@ impl Default for AccountData {
     }
 }
 
-/// Format the benchmark section shared by AccountData and StatementData displays.
+/// Format the benchmark section for embedding in AccountData and StatementData displays.
 pub(crate) fn benchmark_report(benchmark: &Benchmark) -> String {
+    benchmark_report_with_indent(benchmark, "  ")
+}
+
+/// Format the benchmark section as a standalone debug-output section.
+pub(crate) fn standalone_benchmark_report(benchmark: &Benchmark) -> String {
+    benchmark_report_with_indent(benchmark, "")
+}
+
+fn benchmark_report_with_indent(benchmark: &Benchmark, indent: &str) -> String {
     let mut result = String::new();
     let benchmark = benchmark.as_micros();
-    result.push_str("  Benchmark (microseconds):\n");
-    result.push_str(&format!("    Total time: {}\n", benchmark.total));
-    result.push_str(&format!("    PDF extractor: {}\n", benchmark.pdf_extractor));
-    result.push_str(&format!("    Tokeniser: {}\n", benchmark.tokeniser));
-    result.push_str(&format!("    Typer: {}\n", benchmark.typer));
-    result.push_str(&format!("    Parsers: {}\n", benchmark.parsers));
+    result.push_str(&format!("{indent}Benchmark (microseconds):\n"));
+    result.push_str(&format!("{indent}  Total time: {}\n", benchmark.total));
     result.push_str(&format!(
-        "        Account number (prime): {}\n",
+        "{indent}  PDF extractor: {}\n",
+        benchmark.pdf_extractor
+    ));
+    result.push_str(&format!("{indent}  Tokeniser: {}\n", benchmark.tokeniser));
+    result.push_str(&format!("{indent}  Typer: {}\n", benchmark.typer));
+    result.push_str(&format!("{indent}  Parsers: {}\n", benchmark.parsers));
+    result.push_str(&format!(
+        "{indent}      Account number (prime): {}\n",
         benchmark.parsers_account_number_parser_prime
     ));
     result.push_str(&format!(
-        "        Account number (parse): {}\n",
+        "{indent}      Account number (parse): {}\n",
         benchmark.parsers_account_number_parser_parse
     ));
     result.push_str(&format!(
-        "        Start date (prime): {}\n",
+        "{indent}      Start date (prime): {}\n",
         benchmark.parsers_start_date_parser_prime
     ));
     result.push_str(&format!(
-        "        Start date (parse): {}\n",
+        "{indent}      Start date (parse): {}\n",
         benchmark.parsers_start_date_parser_parse
     ));
     result.push_str(&format!(
-        "        Opening balance (prime): {}\n",
+        "{indent}      Opening balance (prime): {}\n",
         benchmark.parsers_opening_balance_parser_prime
     ));
     result.push_str(&format!(
-        "        Opening balance (parse): {}\n",
+        "{indent}      Opening balance (parse): {}\n",
         benchmark.parsers_opening_balance_parser_parse
     ));
     result.push_str(&format!(
-        "        Closing balance (prime): {}\n",
+        "{indent}      Closing balance (prime): {}\n",
         benchmark.parsers_closing_balance_parser_prime
     ));
     result.push_str(&format!(
-        "        Closing balance (parse): {}\n",
+        "{indent}      Closing balance (parse): {}\n",
         benchmark.parsers_closing_balance_parser_parse
     ));
     result.push_str(&format!(
-        "        Transaction (prime start): {}\n",
+        "{indent}      Transaction (prime start): {}\n",
         benchmark.parsers_transaction_parser_start_prime
     ));
     result.push_str(&format!(
-        "        Transaction (parse): {}\n",
+        "{indent}      Transaction (parse): {}\n",
         benchmark.parsers_transaction_parser_parse
     ));
     result.push_str(&format!(
-        "        Transaction (prime stop): {}\n",
+        "{indent}      Transaction (prime stop): {}\n",
         benchmark.parsers_transaction_parser_stop_prime
     ));
-    result.push_str(&format!("    Fixers: {}\n", benchmark.fixers));
-    result.push_str(&format!("    Checkers: {}\n", benchmark.checkers));
+    result.push_str(&format!("{indent}  Fixers: {}\n", benchmark.fixers));
+    result.push_str(&format!("{indent}  Checkers: {}\n", benchmark.checkers));
     result
 }

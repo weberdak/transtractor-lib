@@ -1,5 +1,6 @@
 use crate::configs::db::ConfigDB;
 use crate::parsers::flows::text_items_to_account_datas::text_items_to_account_datas_with_benchmark;
+use crate::structs::account_data::standalone_benchmark_report;
 use crate::structs::{Benchmark, TextItem};
 
 /// Parse non-tokenised text items into debug information string,
@@ -36,9 +37,11 @@ pub fn text_items_to_debug_with_benchmark(
 
             for (i, data) in statement_data_results.iter().enumerate() {
                 output.push_str(&format!("=== StatementData Result {} ===\n", i + 1));
-                output.push_str(&data.to_string());
+                output.push_str(&data.debug_report());
                 output.push('\n');
             }
+            output.push_str("=== Cumulative Benchmark ===\n");
+            output.push_str(&standalone_benchmark_report(benchmark));
         }
         Err(e) => {
             return Err(format!("Unexpected error: {}", e));

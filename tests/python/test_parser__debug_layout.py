@@ -12,10 +12,10 @@ def normalise_benchmark_timings(content: str) -> str:
     in_benchmark = False
     normalized = []
     for line in content.replace("\r\n", "\n").splitlines():
-        if line == "  Benchmark (microseconds):":
+        if line in {"  Benchmark (microseconds):", "Benchmark (microseconds):"}:
             in_benchmark = True
             normalized.append(line)
-        elif in_benchmark and line.startswith("    ") and ": " in line:
+        elif in_benchmark and line.startswith(" ") and ": " in line:
             label, _ = line.split(": ", maxsplit=1)
             normalized.append(f"{label}: <TIMING>")
         else:
