@@ -435,7 +435,7 @@ often useful for loan or credit card statements where the closing balance is pre
 positive value despite it being a liability.
 
 *closing_balance_set_from_last_transaction*
-*************************************
+********************************************
 Boolean value (default *false*) specifying whether to set the closing balance to the running
 balance of the last extracted transaction, rather than using the value parsed from the statement
 via the other *closing_balance_* parameters. This is useful when the statement does not state a
@@ -551,7 +551,7 @@ Specifies the alignment of the transaction date field relative to the *transacti
 Must be one of "x1" (left-aligned) or "x2" (right-aligned).
 
 *transaction_date_x1_range* and *transaction_date_x2_range*
-****************************************
+*************************************************************
 Two-element inclusive ranges for the transaction date's x1 and x2 coordinates, respectively.
 Both default to ``[0, 10000]``. When a date header is configured and found, its position
 overrides the range selected by *transaction_date_alignment*. Without date headers, alignment
@@ -568,7 +568,7 @@ Specifies the alignment of the transaction description field relative to the *tr
 Must be one of "x1" (left-aligned) or "x2" (right-aligned).
 
 *transaction_description_x1_range* and *transaction_description_x2_range*
-****************************************
+***************************************************************************
 Two-element inclusive ranges for the transaction description's x1 and x2 coordinates, respectively.
 Both default to ``[0, 10000]``. When a description header is configured and found, its position
 overrides the range selected by *transaction_description_alignment*. Without description headers,
@@ -614,7 +614,7 @@ Specifies the alignment of the transaction amount field relative to the *transac
 Must be one of "x1" (left-aligned) or "x2" (right-aligned).
 
 *transaction_amount_invert_x1_range* and *transaction_amount_invert_x2_range*
-****************************************
+*******************************************************************************
 Two-element inclusive ranges for x1 and x2 coordinates of amounts in the inverted column,
 respectively. Both default to ``[0, 10000]``. When an invert header is configured and found, its
 position overrides the range selected by *transaction_amount_invert_alignment*. Without invert
@@ -644,7 +644,7 @@ Specifies the alignment of the transaction balance field relative to the *transa
 Must be one of "x1" (left-aligned) or "x2" (right-aligned). Cannot be left empty.
 
 *transaction_balance_x1_range* and *transaction_balance_x2_range*
-****************************************
+*********************************************************************
 Two-element inclusive ranges for the transaction balance's x1 and x2 coordinates, respectively.
 Both default to ``[0, 10000]``. When a balance header is configured and found, its position
 overrides the range selected by *transaction_balance_alignment*. Without balance headers,
