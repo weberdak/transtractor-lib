@@ -80,7 +80,7 @@ Thailand
       - Key
     * - Bangkok Bank
       - Savings Account
-      - Unreleased
+      - v0.15.0
       - ``th__bbl__savings__1``
 
 United States
@@ -100,11 +100,11 @@ United States
       - ``us__axp__platinum__1``
     * - Capital One
       - 360 Checking
-      - Unreleased
+      - v0.15.0
       - ``us__cof__360_checking__1``\*
     * - Capital One
       - 360 Performance Savings
-      - Unreleased
+      - v0.15.0
       - ``us__cof__360_performance_savings__1``\*
 
 \* Capital One 360 statements bundle transactions from multiple account types into a 
