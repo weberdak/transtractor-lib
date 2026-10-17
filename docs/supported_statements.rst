@@ -3,89 +3,109 @@ Supported Statements
 
 The Transtractor uses rules-based parsing to extract transaction data from bank statements. Each 
 supported statement format is defined by a specific set of parsing rules tailored to the bank 
-and account type. These configuration are defined in Rust modules located in `src/configs/registry` of 
-the `source code <https://github.com/weberdak/transtractor-lib>`_.
+and account type. The tables below summarise the supported statements.
 
-The following statements will be recognised and parsed automatically. You must create and load 
-your own configuration files if your bank or account type is not listed here. Statements marked
-`Unreleased` can be processed on the `website <https://www.transtractor.net/>`_ or using the source 
-code directly but are not yet included in a PyPI release.
+Statement is not Listed
+------------------------
+You can also create your own configuration file following the guidelines in the 
+`Creating Configuration Files <configuration.html>`_ section. 
+
+Otherwise, you can send a redacted `layout file` to developer@transtractor.net. Layout 
+files can be generated using Python:
+
+
+.. code-block:: python
+
+    from transtractor import Parser
+    parser = Parser()
+    layout = parser.layout("path/to/your/statement.pdf", "path/to/write/your/layout.txt")
+
+Or using the `add support for your statements page <https://www.transtractor.net/add-support-for-your-statements>`_
+on the website. See this webpage for instructions explaining how these files are redacted.
+
+This provides me the information required for hard-coding parsing rules for your statements.
+
+Supported Statements by Country
+-------------------------------
+
+Statements marked as `Unreleased` can be processed on the `website <https://www.transtractor.net/>`_ or 
+using the source code directly. These will be available in future PyPI releases.
 
 Australia
----------
+***********
 
 .. list-table::
     :header-rows: 1
-    :widths: 15 40 30 15
+    :widths: 40 30 15 15
 
-    * - Key
-      - Bank
+    * - Bank
       - Example Accounts
       - Introduced
-    * - ``au__cba__credit_card__1``
-      - Commonwealth Bank
+      - Key
+    * - Commonwealth Bank
       - Low Rate MasterCard, Low Fee Mastercard
       - v0.9.0
-    * - ``au__cba__debit__1``
-      - Commonwealth Bank
+      - ``au__cba__credit_card__1``
+    * - Commonwealth Bank
       - Streamline, Smart Access, GoalSaver, Everyday Offset
       - v0.9.0
-    * - ``au__cba__loan__1``
-      - Commonwealth Bank
+      - ``au__cba__debit__1``
+    * - Commonwealth Bank
       - Complete Home Loan
       - v0.9.0
-    * - ``au__nab__classic_banking__1``
-      - National Australia Bank
+      - ``au__cba__loan__1``
+    * - National Australia Bank
       - Classic Banking
       - v0.9.0
-    * - ``au__wbc__debit__1``
-      - Westpac Banking Corporation
+      - ``au__nab__classic_banking__1``
+    * - Westpac Banking Corporation
       - Choice, Life
       - v0.12.0
-    * - ``au__ing__debit__1``
-      - ING Bank
+      - ``au__wbc__debit__1``
+    * - ING Bank
       - Orange Everyday, Savings Maximiser
       - v0.12.0
+      - ``au__ing__debit__1``
 
 Thailand
---------
+***********
 
 .. list-table::
     :header-rows: 1
-    :widths: 15 40 30 15
+    :widths: 40 30 15 15
 
-    * - Key
-      - Bank
+    * - Bank
       - Example Accounts
       - Introduced
-    * - ``th__bbl__savings__1``
-      - Bangkok Bank
+      - Key
+    * - Bangkok Bank
       - Savings Account
       - Unreleased
+      - ``th__bbl__savings__1``
 
 United States
--------------
+**************
 
 .. list-table::
     :header-rows: 1
-    :widths: 15 40 30 15
+    :widths: 40 30 15 15
 
-    * - Key
-      - Bank
+    * - Bank
       - Example Accounts
       - Introduced
-    * - ``us__axp__platinum__1``
-      - American Express
+      - Key
+    * - American Express
       - Platinum Card
       - v0.13.0
-    * - ``us__cof__360_checking__1``\*
-      - Capital One
+      - ``us__axp__platinum__1``
+    * - Capital One
       - 360 Checking
       - Unreleased
-    * - ``us__cof__360_performance_savings__1``\*
-      - Capital One
+      - ``us__cof__360_checking__1``\*
+    * - Capital One
       - 360 Performance Savings
       - Unreleased
+      - ``us__cof__360_performance_savings__1``\*
 
 \* Capital One 360 statements bundle transactions from multiple account types into a 
 single PDF. The Transtractor extracts them individually and assigns each transaction 
