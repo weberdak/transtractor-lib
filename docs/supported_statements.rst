@@ -54,6 +54,14 @@ Australia
       - Complete Home Loan
       - v0.9.0
       - ``au__cba__loan__1``
+    * - Defence Bank
+      - Foundation Credit Card
+      - Unreleased
+      - ``au__def__credit_card__1``
+    * - ING Bank
+      - Orange Everyday, Savings Maximiser
+      - v0.12.0
+      - ``au__ing__debit__1``
     * - National Australia Bank
       - Classic Banking
       - v0.9.0
@@ -62,10 +70,7 @@ Australia
       - Choice, Life
       - v0.12.0
       - ``au__wbc__debit__1``
-    * - ING Bank
-      - Orange Everyday, Savings Maximiser
-      - v0.12.0
-      - ``au__ing__debit__1``
+
 
 Thailand
 ***********
