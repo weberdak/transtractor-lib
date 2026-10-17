@@ -15,6 +15,7 @@ The Transtractor is a rules-based PDF bank statement parser for extracting struc
 
 * Parse bank statement PDFs with deterministic, configuration-driven rules
 * Normalise extracted data into consistent dates, descriptions, amounts, balances, and account details
+* Extract transactions from multiple accounts within a single statement
 * Infer missing transaction dates and running balances
 * Normalise transaction signs so debits are negative and credits are positive
 * Validate transaction totals against opening and closing balances
