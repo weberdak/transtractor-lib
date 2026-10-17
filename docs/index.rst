@@ -57,15 +57,15 @@ Writes a CSV of the following standard format regardless of the original stateme
 
 .. code-block:: text
 
-   date,description,amount,balance
-   2025-01-01,Transaction 1,50000.0,100000.0
-   2025-01-01,Transaction 2,-1000.0,99000.0
-   2025-01-01,Transaction 3,-10000.0,89000.0
-   2025-01-01,Transaction 4,1350.0,90350.0
-   2025-01-03,Transaction 5,-530.99,89819.01
-   2025-01-03,Transaction 6,1532.55,91351.56
-   2025-01-04,Transaction 7,-568.01,90783.55
-   2025-01-04,Transaction 8,-23.56,90759.99
+   date,description,amount,balance,account_number
+   2025-01-01,Transaction 1,50000.0,100000.0,1234 5678 9123 4567
+   2025-01-01,Transaction 2,-1000.0,99000.0,1234 5678 9123 4567
+   2025-01-01,Transaction 3,-10000.0,89000.0,1234 5678 9123 4567
+   2025-01-01,Transaction 4,1350.0,90350.0,1234 5678 9123 4567
+   2025-01-03,Transaction 5,-530.99,89819.01,1234 5678 9123 4567
+   2025-01-03,Transaction 6,1532.55,91351.56,1234 5678 9123 4567
+   2025-01-04,Transaction 7,-568.01,90783.55,1234 5678 9123 4567
+   2025-01-04,Transaction 8,-23.56,90759.99,1234 5678 9123 4567
    ...
 
 All columns are included in the CSV output, with the date in ISO format (YYYY-MM-DD), 

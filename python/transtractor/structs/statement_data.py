@@ -28,7 +28,7 @@ class StatementData:
         :param file_path: Path to the output CSV file
         :type file_path: str
         """
-        fields = ("date", "description", "amount", "balance")
+        fields = ("date", "description", "amount", "balance", "account_number")
 
         with open(file_path, mode="w", newline="", encoding="utf-8") as csvfile:
             writer = csv.writer(csvfile)
@@ -42,16 +42,18 @@ class StatementData:
                         transaction.description,
                         transaction.amount,
                         transaction.balance,
+                        transaction.account_number,
                     ]
                 )
 
     def to_pandas_dict(self) -> dict[str, list]:
         """Convert the statement data to a dictionary suitable for pandas DataFrame.
 
-        :return: Dictionary containing date, description, amount, and balance lists
+        :return: Dictionary containing date, description, amount, balance, and
+            account_number lists
         :rtype: dict[str, list]
         """
-        fields = ("date", "description", "amount", "balance")
+        fields = ("date", "description", "amount", "balance", "account_number")
         data_dict = {field_name: [] for field_name in fields}
 
         for transaction in self.transactions:
@@ -59,5 +61,6 @@ class StatementData:
             data_dict["description"].append(transaction.description)
             data_dict["amount"].append(transaction.amount)
             data_dict["balance"].append(transaction.balance)
+            data_dict["account_number"].append(transaction.account_number)
 
         return data_dict
