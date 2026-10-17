@@ -188,11 +188,14 @@ mod tests {
             .replace("\r\n", "\n")
             .lines()
             .map(|line| {
-                if line == "  Benchmark (microseconds):" {
+                if matches!(
+                    line,
+                    "  Benchmark (microseconds):" | "Benchmark (microseconds):"
+                ) {
                     in_benchmark = true;
                     return line.to_string();
                 }
-                if in_benchmark && line.starts_with("    ") {
+                if in_benchmark && line.starts_with(' ') {
                     if let Some((label, _)) = line.split_once(": ") {
                         return format!("{}: <timing>", label);
                     }
