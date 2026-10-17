@@ -78,10 +78,14 @@ United States
       - American Express
       - Platinum Card
       - v0.13.0
-    * - ``us__cof__360_combo__1``\*
+    * - ``us__cof__360_checking__1``\*
       - Capital One
-      - 360 Checking, 360 Performance Savings
-      - v0.14.0
+      - 360 Checking
+      - Unreleased
+    * - ``us__cof__360_performance_savings__1``\*
+      - Capital One
+      - 360 Performance Savings
+      - Unreleased
 
 \* Capital One 360 statements bundle transactions from multiple account types into a 
 single PDF. The Transtractor extracts them individually and assigns each transaction 
