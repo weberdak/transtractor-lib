@@ -597,7 +597,7 @@ Specifies the alignment of the transaction amount field relative to the *transac
 Must be one of "x1" (left-aligned) or "x2" (right-aligned).
 
 *transaction_amount_x1_range* and *transaction_amount_x2_range*
-****************************************
+******************************************************************
 Two-element inclusive ranges for the transaction amount's x1 and x2 coordinates, respectively.
 Both default to ``[0, 10000]``. When an amount header is configured and found, its position
 overrides the range selected by *transaction_amount_alignment*. Without amount headers, alignment
