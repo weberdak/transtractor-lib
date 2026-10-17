@@ -17,8 +17,6 @@ If you prefer an easier process, follow Method 2 on the
 This provides a developer with the information needed to create your configuration and add permanent support
 for reading your statements.
 
-
-
 Basic Template
 --------------
 The JSON file used to read the
