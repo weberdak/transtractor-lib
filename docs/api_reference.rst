@@ -22,7 +22,7 @@ StatementData
 
 Represents the parsed bank statement data, including account information and transactions.
 
-.. autoclass:: transtractor.structs.statement_data.StatementData
+.. autoclass:: transtractor.StatementData
    :members:
    :undoc-members:
    :show-inheritance:
@@ -35,7 +35,7 @@ Transaction
 
 Represents an individual transaction within a bank statement.
 
-.. autoclass:: transtractor.structs.transaction.Transaction
+.. autoclass:: transtractor.Transaction
    :members:
    :undoc-members:
    :show-inheritance:
