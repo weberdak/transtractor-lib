@@ -31,6 +31,11 @@ Supported Statements by Country
 Statements marked as `Unreleased` can be processed on the `website <https://www.transtractor.net/>`_ or 
 using the source code directly. These will be available in future PyPI releases.
 
+Statements marked with an asterisk (\*) indicate that they bundle transactions 
+from multiple account types into a single PDF. The Transtractor extracts them 
+individually and assigns each transaction to the correct account based on the 
+account numbers.
+
 Australia
 ***********
 
@@ -58,6 +63,14 @@ Australia
       - Foundation Credit Card, Low Start Credit Card
       - Unreleased
       - ``au__def__credit_card__1``
+    * - Defence Bank
+      - iSaver Intro\*
+      - Unreleased
+      - ``au__def__isaver_intro__1``
+    * - Defence Bank
+      - Max eSaver\*
+      - Unreleased
+      - ``au__def__max_esaver__1``
     * - ING Bank
       - Orange Everyday, Savings Maximiser
       - v0.12.0
@@ -70,7 +83,6 @@ Australia
       - Choice, Life
       - v0.12.0
       - ``au__wbc__debit__1``
-
 
 Thailand
 ***********
@@ -104,14 +116,10 @@ United States
       - v0.13.0
       - ``us__axp__platinum__1``
     * - Capital One
-      - 360 Checking
+      - 360 Checking\*
       - v0.15.0
-      - ``us__cof__360_checking__1``\*
+      - ``us__cof__360_checking__1``
     * - Capital One
       - 360 Performance Savings
       - v0.15.0
-      - ``us__cof__360_performance_savings__1``\*
-
-\* Capital One 360 statements bundle transactions from multiple account types into a 
-single PDF. The Transtractor extracts them individually and assigns each transaction 
-to the correct account based on the account numbers.
+      - ``us__cof__360_performance_savings__1``
