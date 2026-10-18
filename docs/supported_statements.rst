@@ -71,6 +71,10 @@ Australia
       - Max eSaver\*
       - Unreleased
       - ``au__def__max_esaver__1``
+    * - Defence Bank
+      - Personal Loan
+      - Unreleased
+      - ``au__def__personal_loan__1``
     * - ING Bank
       - Orange Everyday, Savings Maximiser
       - v0.12.0
