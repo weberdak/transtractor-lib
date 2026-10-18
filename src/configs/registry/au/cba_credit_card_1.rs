@@ -19,6 +19,7 @@ pub fn get_config() -> StatementConfig {
         account_number_patterns: vec![Regex::new(r"\b\d{4}\s\d{4}\s\d{4}\s\d{4}\b").unwrap()],
         account_number_alignment: "y1".to_string(),
         account_number_alignment_tol: 5,
+        account_number_terms_after: false,
 
         opening_balance_terms: vec!["Opening balance".to_string()],
         opening_balance_trigger_count: 1,

@@ -1,9 +1,36 @@
+use crate::parsers::base::{ParserPrimer, ValueParser};
 use crate::parsers::primed::PrimedValueParser;
 use crate::structs::benchmark::Timer;
 use crate::structs::{AccountData, StatementConfig, TextItem};
 
+/// State for statements where the account number precedes its identifying terms.
+struct TermsAfterState {
+    primer: ParserPrimer,
+    value_parser: ValueParser,
+    /// Latest matching account number, held until a term aligns with it
+    buffer: Option<TextItem>,
+    alignment: String,
+    alignment_tol: i32,
+}
+
+impl TermsAfterState {
+    fn is_aligned(&self, value: &TextItem, term: &TextItem) -> bool {
+        let tol = self.alignment_tol;
+        let aligned = match self.alignment.as_str() {
+            "x1" => (value.x1 - term.x1).abs() <= tol,
+            "x2" => (value.x2 - term.x2).abs() <= tol,
+            "y1" => (value.y1 - term.y1).abs() <= tol,
+            "y2" => (value.y2 - term.y2).abs() <= tol,
+            _ => true,
+        };
+        aligned && value.page == term.page
+    }
+}
+
 pub struct AccountNumberParser {
     pub(crate) parser: PrimedValueParser,
+    after: Option<TermsAfterState>,
+    found: Option<String>,
 }
 
 impl AccountNumberParser {
@@ -18,6 +45,13 @@ impl AccountNumberParser {
             .iter()
             .filter_map(|p| regex::Regex::new(p.as_str()).ok())
             .collect();
+        let after = config.account_number_terms_after.then(|| TermsAfterState {
+            primer: ParserPrimer::new(primer_terms.as_slice(), 1),
+            value_parser: ValueParser::new(value_patterns.as_slice()),
+            buffer: None,
+            alignment: config.account_number_alignment.clone(),
+            alignment_tol: config.account_number_alignment_tol,
+        });
         Self {
             parser: PrimedValueParser::new(
                 primer_terms.as_slice(),
@@ -26,13 +60,13 @@ impl AccountNumberParser {
                 config.account_number_alignment_tol,
                 config.account_number_trigger_count,
             ),
+            after,
+            found: None,
         }
     }
 
     pub fn parse_items(&mut self, items: &[TextItem], data: &mut AccountData) -> usize {
-        let consumed = self.parser.parse_items(items);
-        self.update_data(consumed, data);
-        consumed
+        self.parse_items_inner(items, data, None)
     }
 
     pub fn parse_items_timed(
@@ -41,8 +75,68 @@ impl AccountNumberParser {
         data: &mut AccountData,
         prime_timer: &mut Timer,
     ) -> usize {
-        let consumed = self.parser.parse_items_timed(items, prime_timer);
+        self.parse_items_inner(items, data, Some(prime_timer))
+    }
+
+    fn parse_items_inner(
+        &mut self,
+        items: &[TextItem],
+        data: &mut AccountData,
+        prime_timer: Option<&mut Timer>,
+    ) -> usize {
+        if self.after.is_some() {
+            return self.parse_terms_after(items, data, prime_timer);
+        }
+        let consumed = match prime_timer {
+            Some(timer) => self.parser.parse_items_timed(items, timer),
+            None => self.parser.parse_items(items),
+        };
         self.update_data(consumed, data);
+        consumed
+    }
+
+    /// Buffer each matching account number; accept it once an aligned term follows.
+    fn parse_terms_after(
+        &mut self,
+        items: &[TextItem],
+        data: &mut AccountData,
+        mut prime_timer: Option<&mut Timer>,
+    ) -> usize {
+        let Some(state) = self.after.as_mut() else {
+            return 0;
+        };
+        if items.is_empty() || self.found.is_some() {
+            return 0;
+        }
+        if let Some(timer) = prime_timer.as_deref_mut() {
+            timer.start();
+        }
+        let term_len = state.primer.matching_items(items);
+        let term = (term_len > 0)
+            .then(|| TextItem::from_items(&items[..term_len]))
+            .flatten();
+        if let Some(timer) = prime_timer {
+            timer.pause();
+        }
+
+        // Terms are not consumed so other parsers can still see them
+        if let Some(term) = term {
+            if let Some(value) = &state.buffer
+                && state.is_aligned(value, &term)
+            {
+                self.found = Some(value.text.clone());
+                if data.account_number().is_none() {
+                    data.set_account_number(value.text.clone());
+                }
+            }
+            return 0;
+        }
+
+        let consumed = state.value_parser.parse_items(items);
+        if consumed > 0 {
+            state.buffer = state.value_parser.text_item.take();
+            state.value_parser.reset();
+        }
         consumed
     }
 
@@ -56,7 +150,13 @@ impl AccountNumberParser {
     }
 
     pub fn get_max_lookahead(&self) -> usize {
-        self.parser.get_max_lookahead()
+        match &self.after {
+            Some(state) => state
+                .primer
+                .max_lookahead
+                .max(state.value_parser.max_lookahead),
+            None => self.parser.get_max_lookahead(),
+        }
     }
 }
 
@@ -351,5 +451,51 @@ mod tests {
 
         assert_eq!(consumed, 3);
         assert_eq!(data.account_number(), Some(&"1234 5678 9012".to_string()));
+    }
+
+    #[test]
+    fn test_terms_after_buffers_value_until_term() {
+        let config = StatementConfig {
+            account_number_terms: vec!["DEFBANK CARD".to_string()],
+            account_number_patterns: vec![regex::Regex::new(r"^\d{8}$").unwrap()],
+            account_number_alignment: "y1".to_string(),
+            account_number_alignment_tol: 5,
+            account_number_terms_after: true,
+            ..Default::default()
+        };
+        let mut data = AccountData::new();
+        let mut parser = AccountNumberParser::new(&config);
+        let items = vec![
+            make_text_item("11111111", 10, 100, 1),
+            make_text_item("12345678", 10, 200, 1),
+            make_text_item("DEFBANK", 100, 202, 1),
+            make_text_item("CARD", 150, 202, 1),
+        ];
+        assert_eq!(parser.parse_items(&items, &mut data), 1);
+        assert_eq!(parser.parse_items(&items[1..], &mut data), 1);
+        assert!(data.account_number().is_none());
+        assert_eq!(parser.parse_items(&items[2..], &mut data), 0);
+        assert_eq!(data.account_number().map(String::as_str), Some("12345678"));
+    }
+
+    #[test]
+    fn test_terms_after_misaligned_term_ignored() {
+        let config = StatementConfig {
+            account_number_terms: vec!["CARD".to_string()],
+            account_number_patterns: vec![regex::Regex::new(r"^\d{8}$").unwrap()],
+            account_number_alignment: "y1".to_string(),
+            account_number_alignment_tol: 5,
+            account_number_terms_after: true,
+            ..Default::default()
+        };
+        let mut data = AccountData::new();
+        let mut parser = AccountNumberParser::new(&config);
+        let items = vec![
+            make_text_item("12345678", 10, 100, 1),
+            make_text_item("CARD", 100, 300, 1),
+        ];
+        parser.parse_items(&items, &mut data);
+        parser.parse_items(&items[1..], &mut data);
+        assert!(data.account_number().is_none());
     }
 }

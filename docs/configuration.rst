@@ -36,6 +36,7 @@ example file included in the source code is:
         "account_number_patterns": ["\\b\\d{4}\\s\\d{4}\\s\\d{4}\\s\\d{4}\\b"],
         "account_number_alignment": "y1",
         "account_number_alignment_tol": 5,
+        "account_number_terms_after": false,
 
         "opening_balance_terms": ["Opening balance:"],
         "opening_balance_formats": ["format3"],
@@ -334,6 +335,17 @@ Integer value specifying the tolerance (in points) for alignment checking of the
 account number. For example, if *account_number_alignment* is "y1" and this value is 5,
 then the *y1* position of the account number must be within 5 points of the *y1* position
 of the *account_number_terms*.
+
+*account_number_terms_after*
+*****************************************
+Boolean (default *false*). Set to *true* when the account number appears before the
+terms that identify it, e.g. "12345678 - DEFBANK FOUNDATION CREDIT CARD" with
+"DEFBANK FOUNDATION CREDIT CARD" as the term. The parser then scans for
+*account_number_patterns* from the start of the statement, holding the most recent match
+in a buffer (overwritten by each new match). When one of the *account_number_terms* is
+found and satisfies the *account_number_alignment* constraints relative to the buffered
+value, the buffered value becomes the account number. Terms that are not aligned are
+ignored. *account_number_trigger_count* is not used in this mode.
 
 
 Opening Balance Parameters

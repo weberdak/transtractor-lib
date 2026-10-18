@@ -28,6 +28,8 @@ pub struct StatementConfig {
     pub account_number_alignment: String,
     /// Tolerance for alignment matching of account number
     pub account_number_alignment_tol: i32,
+    /// If true, the account number appears before its terms (e.g. "12345678 - TERM")
+    pub account_number_terms_after: bool,
 
     // OPENING BALANCE READ PARAMS
     /// Array of terms to identify the opening balance line (e.g., "Opening Balance", "Previous Balance")
@@ -175,6 +177,7 @@ impl Default for StatementConfig {
             account_number_patterns: vec![],
             account_number_alignment: "y1".to_string(),
             account_number_alignment_tol: 5,
+            account_number_terms_after: false,
 
             opening_balance_terms: vec![],
             opening_balance_trigger_count: 1,

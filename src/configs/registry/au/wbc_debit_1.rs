@@ -19,6 +19,7 @@ pub fn get_config() -> StatementConfig {
         account_number_patterns: vec![Regex::new(r"\d+").unwrap()],
         account_number_alignment: "x1".to_string(),
         account_number_alignment_tol: 5,
+        account_number_terms_after: false,
 
         opening_balance_terms: vec!["Opening Balance".to_string()],
         opening_balance_trigger_count: 1,

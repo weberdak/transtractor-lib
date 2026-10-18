@@ -38,6 +38,7 @@ struct StatementConfigPartial {
     account_number_patterns: Option<Vec<String>>,
     account_number_alignment: Option<String>,
     account_number_alignment_tol: Option<i32>,
+    account_number_terms_after: Option<bool>,
 
     opening_balance_terms: Option<Vec<String>>,
     opening_balance_trigger_count: Option<usize>,
@@ -154,6 +155,7 @@ pub fn from_json_str_with_deprecations(src: &str) -> Result<ConfigParseResult, S
     }
     overlay!(account_number_alignment);
     overlay!(account_number_alignment_tol);
+    overlay!(account_number_terms_after);
 
     overlay!(opening_balance_terms);
     overlay!(opening_balance_trigger_count);
