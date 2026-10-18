@@ -9,9 +9,15 @@ pub fn get_config() -> StatementConfig {
         bank_name: "Defence Bank".to_string(),
         account_type: "Credit Card".to_string(),
         account_terms: vec!["Credit Limit".to_string(), "Defence Bank".to_string()],
-        account_examples: vec!["Defence Bank Foundation Credit Card".to_string()],
+        account_examples: vec![
+            "Defence Bank Foundation Credit Card".to_string(),
+            "Low Start Credit Card".to_string(),
+        ],
 
-        account_number_terms: vec!["DEFBANK FOUNDATION CREDIT CARD".to_string()],
+        account_number_terms: vec![
+            "DEFBANK FOUNDATION CREDIT CARD".to_string(),
+            "LOW START CREDIT CARD".to_string(),
+        ],
         account_number_trigger_count: 1,
         account_number_patterns: vec![Regex::new(r"^\d{4,}$").unwrap()],
         account_number_alignment: "y1".to_string(),
@@ -41,7 +47,10 @@ pub fn get_config() -> StatementConfig {
         start_date_alignment: "y1".to_string(),
         start_date_alignment_tol: 5,
 
-        transaction_terms: vec!["DEFBANK FOUNDATION CREDIT CARD".to_string()],
+        transaction_terms: vec![
+            "DEFBANK FOUNDATION CREDIT CARD".to_string(),
+            "LOW START CREDIT CARD".to_string(),
+        ],
         transaction_trigger_count: 1,
         transaction_terms_stop: vec!["CURRENT BALANCE ......".to_string()],
         transaction_stop_trigger_count: 1,

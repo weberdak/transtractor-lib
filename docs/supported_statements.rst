@@ -55,7 +55,7 @@ Australia
       - v0.9.0
       - ``au__cba__loan__1``
     * - Defence Bank
-      - Foundation Credit Card
+      - Foundation Credit Card, Low Start Credit Card
       - Unreleased
       - ``au__def__credit_card__1``
     * - ING Bank
