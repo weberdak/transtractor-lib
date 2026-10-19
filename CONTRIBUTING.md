@@ -80,7 +80,7 @@ New statement support generally consists of a configuration, a redacted spec fix
 
 4. Run the spec tests with `cargo test`. They check fixture naming, placement, and exact parsing behaviour.
 
-5. Email the spec file separately to develop@transtractor.net once a pull request is opened. This allows maintainers to verify accuracy ensure the parsing of your statements are not corrupted in future releases. These files are not committed to the repository in case personal information has not been properly redacted.
+5. Email the spec file separately to weberdk@pm.me once a pull request is opened. This allows maintainers to verify accuracy ensure the parsing of your statements are not corrupted in future releases. These files are not committed to the repository in case personal information has not been properly redacted.
 
 ## Validate your changes
 

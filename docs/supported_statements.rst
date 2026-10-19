@@ -10,7 +10,7 @@ Statement is not Listed
 You can also create your own configuration file following the guidelines in the 
 `Creating Configuration Files <configuration.html>`_ section. 
 
-Otherwise, you can send a redacted `layout file` to developer@transtractor.net. Layout 
+Otherwise, you can send a redacted `layout file` to weberdk@pm.me. Layout 
 files can be generated using Python:
 
 
