@@ -9,24 +9,25 @@
 
 
 ## The Universal Bank Statement PDF Extractor
-The Transtractor is a rules-based PDF bank statement parser for extracting structured transaction data from statements issued by different banks and financial institutions. It combines a fast Rust parsing engine with an installable Python API, WebAssembly bindings, and a [web-based GUI](https://www.transtractor.net/).
+
+The Transtractor is a rules-based PDF bank statement parser for extracting transaction data from [supported statements](https://transtractor-lib.readthedocs.io/en/latest/supported_statements.html). It combines a fast Rust parsing engine with Python and WebAssembly bindings, and a [web-based GUI](https://www.transtractor.net/).
 
 ### Key features
 
 * Parse bank statement PDFs with deterministic, configuration-driven rules
-* Normalise extracted data into consistent dates, descriptions, amounts, balances, and account details
+* Normalise extracted data into consistent dates, descriptions, amounts and balances
 * Extract transactions from multiple accounts within a single statement
 * Infer missing transaction dates and running balances
 * Normalise transaction signs so debits are negative and credits are positive
 * Validate transaction totals against opening and closing balances
 * Process statements at a throughput of 10 to 20 statements per second on average
-* Run locally without sending financial documents to an external AI service
-* Use the same core parser in Python applications or browser-based WebAssembly integrations
 
 Each supported statement format is implemented as a lightweight configuration module. This design keeps the parser portable and extensible while making its output predictable and suitable for downstream processing, reporting, and financial analysis.
 
 ## Installation
+
 ### Install from PyPI
+
 The Transtractor is available on PyPI and can be installed with pip:
 
 ```shell
@@ -34,6 +35,7 @@ pip install transtractor
 ```
 
 ### Compile from Source
+
 1. **Install Rust**: Download and install Rust from [rustup.rs](https://rustup.rs/)
 
 2. **Install uv**: Follow instructions from [Astral](https://docs.astral.sh/uv/getting-started/installation/)
@@ -52,7 +54,8 @@ pip install transtractor
    ```
 
 ### Basic Usage
-Detailed [documentation](https://transtractor-lib.readthedocs.io/en/latest/) maintained on Read the Docs, but you can get started using the following steps.
+
+The detailed [documentation](https://transtractor-lib.readthedocs.io/en/latest/) is maintained on Read the Docs, but you can get started with these steps.
 
 1. **Import and initialise the parser**
    ```python
@@ -61,9 +64,26 @@ Detailed [documentation](https://transtractor-lib.readthedocs.io/en/latest/) mai
    parser = Parser()
    ```
 
-2. **Convert PDF to CSV**: All CSV files are written in a standard format
+2. **Parse a PDF**: Extract transaction data into a `StatementData` object
    ```python
-   parser.parse('statement.pdf').to_csv('statement.csv')
+   statement_data = parser.parse('statement.pdf')
+   ```
+
+   The Rust engine performs all extraction and validation. `ParseError` is raised if validation fails or the statement is not recognised.
+
+   `Transaction` objects listed in `statement_data.transactions` have the following attributes:
+   * **date**: Transaction date in UTC (*datetime.date*)
+   * **date_index**: Index of the transaction on that date (*int*)
+   * **description**: Transaction description (*str*)
+   * **amount**: Money out (debit) is negative, money in (credit) is positive (*float*)
+   * **balance**: Positive if you have money, negative if you owe it (*float*)
+   * **account_number**: Unique identifier for the account, may be incomplete (*str*)
+
+   The Rust engine infers missing dates and running balances.
+
+3. **Write to CSV**: All CSV files are written in a fixed format
+   ```python
+   statement_data.to_csv('statement.csv')
    ```
 
    Example output:
@@ -81,39 +101,101 @@ Detailed [documentation](https://transtractor-lib.readthedocs.io/en/latest/) mai
    ...
    ```
 
-3. **Convert PDF to DataFrame**: Load into a DataFrame for analysis
+   The `date_index` field is not useful in this context.
+
+
+3. **Convert PDF to DataFrame**: For analysis with pandas or Polars
    ```python
    import pandas as pd
 
-   data = parser.parse('statement.pdf').to_pandas_dict()
-   df = pd.DataFrame(data)
+   dict_data = statement_data.to_pandas_dict()
+   df = pd.DataFrame(dict_data)
    ```
 
-The `parse` method returns a `StatementData` object containing the transaction table. Transactions from all accounts in the statement are pooled, and each carries its `account_number`. Transaction dates, descriptions, amounts, and running balances are extracted or derived when they are not explicitly recorded in the statement. Transaction amounts are validated against the opening and closing balances; if validation fails, the method raises a `ParserError`.
+### Batch Processing
+
+The Python API does not provide a high-level batch-processing interface. However, `Transaction` objects support set operations, which can be used to combine transactions and remove duplicates. Two transactions compare as equal when their *date*, *date_index*, *amount*, and *account_number* attributes match; `__eq__` and `__hash__` implement this behaviour.
+
+The recipe below parses PDF files in a directory and its subdirectories, aggregates transactions into a set, and writes to a CSV file:
+
+```python
+import csv
+from pathlib import Path
+
+from transtractor import Parser
+
+# Paths to the PDF directory and output CSV file
+pdf_directory = Path("path/to/your/pdf/directory")
+output_csv = Path("output.csv")
+
+parser = Parser()
+transactions = set()
+
+# Find and extract PDFs in directory and subdirectories
+for pdf_path in sorted(pdf_directory.rglob("*.pdf")):
+   print(f"Parsing PDF: {pdf_path}")
+   statement_data = parser.parse(str(pdf_path))
+   transactions.update(statement_data.transactions)
+
+# Arrange newest to oldest
+ordered_transactions = sorted(
+   transactions,
+   key=lambda transaction: (
+      transaction.date,
+      transaction.date_index,
+      transaction.account_number,
+   ),
+   reverse=True,
+)
+
+# Write the ordered transactions to the output CSV file
+with output_csv.open("w", newline="", encoding="utf-8") as csv_file:
+   writer = csv.writer(csv_file)
+   writer.writerow(("date", "description", "amount", "balance", "account_number"))
+   for transaction in ordered_transactions:
+      writer.writerow(
+            (
+               transaction.date,
+               transaction.description,
+               transaction.amount,
+               transaction.balance,
+               transaction.account_number,
+            )
+      )
+```
 
 ## Supported Statements
-See the documentation for a current list of [supported statements](https://transtractor-lib.readthedocs.io/en/latest/supported_statements.html). You may also create your own parsing configuration files by following these [instructions](https://transtractor-lib.readthedocs.io/en/latest/configuration.html)
-and loading it by:
+
+See the documentation for a current list of [supported statements](https://transtractor-lib.readthedocs.io/en/latest/supported_statements.html). If your statement is not yet supported, you may be able to create your own parsing configuration files by following these [instructions](https://transtractor-lib.readthedocs.io/en/latest/configuration.html). Load them with:
 
 ```python
 from transtractor import Parser
 
 parser = Parser()
 parser.load('my_config.json')
-parser.parse('statement.pdf').to_csv('statement.csv')
+statement_data = parser.parse('statement.pdf')
+```
+
+The Transtractor is still in early development and may not support the parameters or formatting patterns needed to parse your statement. It may be quicker and easier to send a [redacted *layout file*](https://www.transtractor.net/add-support-for-your-statements). You can generate one in Python with:
+
+```python
+parser.layout("statement.pdf", "statement.layout.txt")
 ```
 
 ## Performance
+
 The Transtractor typically parses between 10 and 20 statements per second on average. Parsing time scales linearly with the number of transactions in each statement. Actual performance varies by statement type and the density of extractable information. Statements with a higher proportion of non-extractable content create more noise for the parser to filter through.
 
 ![Parsing performance vs. number of transactions](md/performance.svg)
 
 ## WASM Implementation
-WASM bindings are also provided for in-browser parsing of PDF bank statements. See [this guide](md/wasm.md) for an introductory guide on how to compile and use them. 
 
-You may also want to checkout [www.transtractor.net](https://www.transtractor.net) to see these bindings in action.
+WASM bindings are also provided for in-browser parsing of PDF bank statements. See [this guide](md/wasm.md) for an introduction to compiling and using them.
+
+You may also want to check out [www.transtractor.net](https://www.transtractor.net) to see these bindings in action.
 
 ## Developers
+
 The following pages provide further information about how this package is built and developed:
 
 * [Architecture Guide](md/architecture.md): Overview of key application components and design principles.
