@@ -18,7 +18,7 @@ files can be generated using Python:
 
     from transtractor import Parser
     parser = Parser()
-    layout = parser.layout("path/to/your/statement.pdf", "path/to/write/your/layout.txt")
+    parser.layout("path/to/your/statement.pdf", "path/to/write/your/layout.txt")
 
 Or using the `add support for your statements page <https://www.transtractor.net/add-support-for-your-statements>`_
 on the website. See this webpage for instructions explaining how these files are redacted.
