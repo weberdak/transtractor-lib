@@ -1,7 +1,7 @@
 The Transtractor
 ================
 
-**The Universal Bank Statement PDF Extractor**
+**A Very Good Extractor of Bank Statement PDFs**
 
 The Transtractor (Transaction Extractor) is a high-performance, rules-based library for
 extracting structured transaction data from PDF bank statements issued by different banks
