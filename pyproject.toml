@@ -4,7 +4,7 @@ build-backend = "maturin"
 
 [project]
 name = "transtractor"
-description = "Universal PDF bank statement parsing library"
+description = "Rust-based Python library for parsing or converting bank statement PDF files to CSV."
 readme = "README.md"
 requires-python = ">=3.10"
 license = { file = "LICENSE" }
