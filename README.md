@@ -8,7 +8,7 @@
 ![License](https://img.shields.io/github/license/transtractor/transtractor-lib)
 
 
-## The Universal Bank Statement PDF Extractor
+## A Very Good Extractor of Bank Statement PDFs
 
 The Transtractor is a rules-based PDF bank statement parser for extracting transaction data from [supported statements](https://transtractor-lib.readthedocs.io/en/latest/supported_statements.html). It combines a fast Rust parsing engine with Python and WebAssembly bindings, and a [web-based GUI](https://www.transtractor.net/).
 
@@ -26,7 +26,7 @@ Each supported statement format is implemented as a lightweight configuration mo
 
 ## Installation
 
-### Install from PyPI
+### The Easy Way: Install from PyPI
 
 The Transtractor is available on PyPI and can be installed with pip:
 
@@ -34,7 +34,9 @@ The Transtractor is available on PyPI and can be installed with pip:
 pip install transtractor
 ```
 
-### Compile from Source
+### The Hard Way: Compile from Source
+
+Should only be required for development or parsing statements not yet supported in the current PyPI release.
 
 1. **Install Rust**: Download and install Rust from [rustup.rs](https://rustup.rs/)
 
@@ -176,11 +178,15 @@ parser.load('my_config.json')
 statement_data = parser.parse('statement.pdf')
 ```
 
-The Transtractor is still in early development and may not support the parameters or formatting patterns needed to parse your statement. It may be quicker and easier to send a [redacted *layout file*](https://www.transtractor.net/add-support-for-your-statements). You can generate one in Python with:
+The Transtractor is still in early development and may not support the parameters or formatting patterns needed to parse your statement. It may be quicker and easier to email a redacted *layout* representation of a statement to weberdk@pm.me.
+
+Layout files can be generate Python by:
 
 ```python
 parser.layout("statement.pdf", "statement.layout.txt")
 ```
+
+And redacted following the instructions on the [website](https://www.transtractor.net/add-support-for-your-statements).
 
 ## Performance
 
