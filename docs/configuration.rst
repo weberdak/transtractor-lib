@@ -180,6 +180,8 @@ formats are supported:
       - "-$1,234.56⧫" → -1234.56, "$1,234.56⧫" → 1234.56, "$1,234.56-⧫" → -1234.56
     * - ``format8``
       - "-$1,234 56" → -1234.56, "$1,234 56" → 1234.56, "$1,234 56-" → -1234.56
+    * - ``format9``
+      - "1,234 56" → 1234.56, "-1,234 56" → -1234.56, "1,234 56-" → -1234.56
 
 Formats are sensitive to spacing and comma separation, but generally not case sensitive.
 
