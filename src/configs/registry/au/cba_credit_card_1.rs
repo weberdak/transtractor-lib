@@ -23,7 +23,11 @@ pub fn get_config() -> StatementConfig {
 
         opening_balance_terms: vec!["Opening balance".to_string()],
         opening_balance_trigger_count: 1,
-        opening_balance_formats: vec!["format2".to_string()],
+        opening_balance_formats: vec![
+            "format2".to_string(),
+            "format8".to_string(),
+            "format10".to_string(),
+        ],
         opening_balance_alignment: "y1".to_string(),
         opening_balance_alignment_tol: 5,
         opening_balance_invert: true,
@@ -31,7 +35,11 @@ pub fn get_config() -> StatementConfig {
 
         closing_balance_terms: vec!["Closing balance".to_string()],
         closing_balance_trigger_count: 1,
-        closing_balance_formats: vec!["format2".to_string()],
+        closing_balance_formats: vec![
+            "format2".to_string(),
+            "format8".to_string(),
+            "format10".to_string(),
+        ],
         closing_balance_alignment: "y1".to_string(),
         closing_balance_alignment_tol: 5,
         closing_balance_invert: true,
@@ -73,7 +81,7 @@ pub fn get_config() -> StatementConfig {
             Regex::new(r"NetBank Visit.*Transaction Details").unwrap(),
         ],
 
-        transaction_amount_formats: vec!["format1".to_string()],
+        transaction_amount_formats: vec!["format1".to_string(), "format9".to_string()],
         transaction_amount_headers: vec!["Amount (A$)".to_string()],
         transaction_amount_alignment: "x2".to_string(),
         transaction_amount_x1_range: [0, 10000],
