@@ -25,7 +25,11 @@ pub fn get_config() -> StatementConfig {
 
         opening_balance_terms: vec!["OPENING BALANCE".to_string()],
         opening_balance_trigger_count: 1,
-        opening_balance_formats: vec!["format3".to_string(), "format5".to_string()],
+        opening_balance_formats: vec![
+            "format3".to_string(),
+            "format4".to_string(),
+            "format5".to_string(),
+        ],
         opening_balance_alignment: "y1".to_string(),
         opening_balance_alignment_tol: 5,
         opening_balance_invert: false,
@@ -33,7 +37,11 @@ pub fn get_config() -> StatementConfig {
 
         closing_balance_terms: vec!["Closing balance".to_string(), "Closing Balance".to_string()],
         closing_balance_trigger_count: 1,
-        closing_balance_formats: vec!["format3".to_string(), "format5".to_string()],
+        closing_balance_formats: vec![
+            "format3".to_string(),
+            "format4".to_string(),
+            "format5".to_string(),
+        ],
         closing_balance_alignment: "y1".to_string(),
         closing_balance_alignment_tol: 5,
         closing_balance_invert: false,
@@ -89,7 +97,11 @@ pub fn get_config() -> StatementConfig {
         transaction_amount_invert_x2_range: [0, 10000],
         transaction_amount_invert: false,
 
-        transaction_balance_formats: vec!["format2".to_string(), "format3".to_string()],
+        transaction_balance_formats: vec![
+            "format2".to_string(),
+            "format3".to_string(),
+            "format4".to_string(),
+        ],
         transaction_balance_headers: vec!["Balance".to_string()],
         transaction_balance_alignment: "x2".to_string(),
         transaction_balance_x1_range: [0, 10000],
