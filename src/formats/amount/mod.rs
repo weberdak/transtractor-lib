@@ -1,5 +1,6 @@
 pub mod format1;
 pub mod format10;
+pub mod format11;
 pub mod format2;
 pub mod format3;
 pub mod format4;
@@ -19,6 +20,7 @@ use format7::Format7;
 use format8::Format8;
 use format9::Format9;
 use format10::Format10;
+use format11::Format11;
 
 /// Trait for amount formats.
 pub trait AmountFormat {
@@ -33,7 +35,7 @@ pub trait AmountFormat {
 pub fn get_valid_formats() -> Vec<&'static str> {
     vec![
         "format1", "format2", "format3", "format4", "format5", "format6", "format7", "format8",
-        "format9", "format10",
+        "format9", "format10", "format11",
     ]
 }
 
@@ -61,6 +63,7 @@ impl MultiAmountFormatParser {
                     "format8" => Format8.num_items(),
                     "format9" => Format9.num_items(),
                     "format10" => Format10.num_items(),
+                    "format11" => Format11.num_items(),
                     _ => 0,
                 };
                 (name, num_items)
@@ -84,6 +87,7 @@ impl MultiAmountFormatParser {
                 "format8" => parsers.push(Box::new(Format8)),
                 "format9" => parsers.push(Box::new(Format9)),
                 "format10" => parsers.push(Box::new(Format10)),
+                "format11" => parsers.push(Box::new(Format11)),
                 _ => {}
             }
         }

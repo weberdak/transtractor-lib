@@ -184,6 +184,8 @@ formats are supported:
       - "1,234 56" → 1234.56, "-1,234 56" → -1234.56, "1,234 56-" → -1234.56
     * - ``format10``
       - "-$1,23456" → -1234.56, "$1,23456" → 1234.56, "$1,23456-" → -1234.56 (decimal point missing; last two digits are the cents)
+    * - ``format11``
+      - "$1,234.56CR" → 1234.56, "-$1,234.56CR" → -1234.56, "$1,234.56DR" → -1234.56
 
 Formats are sensitive to spacing and comma separation, but generally not case sensitive.
 
