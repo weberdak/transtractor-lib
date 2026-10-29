@@ -1,6 +1,6 @@
 {
   "name": "@transtractor/wasm",
-  "version": "0.15.0",
+  "version": "0.16.0",
   "description": "WASM + TypeScript bindings for transtractor",
   "license": "MIT",
   "type": "module",
