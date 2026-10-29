@@ -61,19 +61,19 @@ Australia
       - ``au__cba__loan__1``
     * - Defence Bank
       - Foundation Credit Card, Low Start Credit Card
-      - Unreleased
+      - v0.16.0
       - ``au__def__credit_card__1``
     * - Defence Bank
       - iSaver Intro\*
-      - Unreleased
+      - v0.16.0
       - ``au__def__isaver_intro__1``
     * - Defence Bank
       - Max eSaver\*
-      - Unreleased
+      - v0.16.0
       - ``au__def__max_esaver__1``
     * - Defence Bank
       - Personal Loan
-      - Unreleased
+      - v0.16.0
       - ``au__def__personal_loan__1``
     * - ING Bank
       - Orange Everyday, Savings Maximiser
